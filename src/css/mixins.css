@@ -1,0 +1,81 @@
+/* apperance vendor prefix */
+@define-mixin apperancevp $value:none {
+  -webkit-appearance: $value;
+	-moz-appearance: $value;
+	appearance: $value;
+}
+
+/* userselect vendor prefix */
+@define-mixin userselect-vp $value:none {
+  -webkit-touch-callout: $value;
+  -webkit-user-select: $value;
+  -khtml-user-select: $value;
+  -moz-user-select: $value;
+  -ms-user-select: $value;
+  user-select: $value;
+}
+
+@define-mixin border-radius $radius: 3px {
+    -moz-border-radius: $radius;
+    -webkit-border-radius: $radius;
+    -khtml-border-radius: $radius;
+	   border-radius: $radius;
+}
+
+@define-mixin linear-gradient $angle, $gradient1, $gradient2 {
+  background-color: $gradient2; /* Fallback Color */
+  background-image: -webkit-gradient(linear, $angle, from($gradient1), to($gradient2)); /* Saf4+, Chrome */
+  background-image: -webkit-linear-gradient($angle, $gradient1, $gradient2); /* Chrome 10+, Saf5.1+, iOS 5+ */
+  background-image:    -moz-linear-gradient($angle, $gradient1, $gradient2); /* FF3.6 */
+  background-image:     -ms-linear-gradient($angle, $gradient1, $gradient2); /* IE10 */
+  background-image:      -o-linear-gradient($angle, $gradient1, $gradient2); /* Opera 11.10+ */
+  background-image:         linear-gradient($angle, $gradient1, $gradient2);
+  filter: progid:DXImageTransform.Microsoft.gradient(GradientType=$angle,StartColorStr='#{$gradient1}', EndColorStr='#{$gradient2}');
+}
+
+@define-mixin box-shadow-vp {
+  -webkit-box-shadow: 3px 3px 5px 0px rgba($GRAY-BASE, 0.50);
+  -moz-box-shadow: 3px 3px 5px 0px rgba($GRAY-BASE, 0.50);
+  box-shadow: 3px 3px 5px 0px rgba($GRAY-BASE, 0.50);  
+}
+
+@define-mixin flex-vp {
+  display: -webkit-flex;
+  display: flex;
+}
+
+/**
+ * 三角形のアイコンを生成する
+ */
+@define-mixin create-triangle $large: 10px, $color: #000, $direction: rignt {
+  width: 0; 
+  height: 0;
+  @if $direction == "right" {
+    border-top: $large solid transparent;
+    border-bottom: $large solid transparent;
+    border-left: $large solid $color;
+  } @else if $direction == "left" {
+    border-top: $large solid transparent;
+    border-bottom: $large solid transparent; 
+    border-right:$large solid $color; 
+  }
+}
+
+/**
+ * 水平方向について中央寄せ
+ */
+@define-mixin horizon-center {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/**
+ * Clear Fix
+ */
+@define-mixin clearfix {
+  &:after {
+      content: "";
+      display: block;
+      clear: both;
+  } 
+}

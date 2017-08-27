@@ -1,0 +1,102 @@
+.modal-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0,0,0, 0.4);
+  z-index: 999;
+}
+
+/* モーダルウィンドウメインコンテンツ */
+.modal-body {
+  animation: fadeIn .35s linear;
+  margin: 10px auto;
+  padding: 20px;
+  width: 480px;
+  background-color: #EEEEEE;
+  min-height: 100px;
+
+  & > * {
+    margin: 0 auto;
+  }
+
+  .confirm-section {
+    width: 100%;
+    margin: 10px auto;
+  }
+
+  .confirm {
+    float: right;
+    margin: 0 20px;
+  }
+}
+
+.popup {
+  position: fixed;
+  top: 1vh;
+  left: 10vw;
+  width: 80vw;
+}
+
+/* アラートポップアップ関連*/
+/* .alert-enter {
+  opacity: 0.01;
+}
+.alert-enter-active {
+  opacity: 1;
+  transition: opacity 500ms ease-in;
+}
+
+.alert-leave {
+  opacity: 1.0;
+}
+.alert-leave-active {
+  opacity: 0.01;
+  transition: opacity 300ms ease-in;
+}
+.alert-leave-active:after {
+    width:0%;
+    height:100%;
+    border-radius:5px;
+    background-color:#FFF;
+    content:"";
+    position:absolute;
+    top:0;
+    left:0;
+    transition:all 0.3s;
+    z-index:-1;
+}
+
+.alert-title {
+  font-size: 17px;
+  font-weight: bolder;
+  color: #ffffff;
+  opacity: 1;
+}
+
+.alert-message {
+  @extend .alert-title;
+  font-size: 15px;
+}
+
+.alert-base {
+  padding: 10px 35px;
+  margin: 30px auto;
+  border-radius: 3px;
+} */
+
+/* $themes: (
+  default: $COLOR_DEFAULT,
+  primary: $COLOR_PRIMARY,
+  warning: $COLOR_WARNING,
+  danger: $COLOR_DANGER
+);
+
+@each $name, $value in $themes {
+  .alert-#{$name} {
+    @extend .alert-base;
+    background-color: darken($value, 15%);
+    border-color: $value;
+  }
+} */

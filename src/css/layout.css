@@ -1,0 +1,6 @@
+:root {
+  --main-font: "Helvetica Neue", Helvetica, "ヒラギノ角ゴ ProN W3", "Hiragino Kaku Gothic ProN", "メイリオ", Meiryo, sans-serif;
+  --proppotional-font: Consolas, 'Courier New', Courier, Monaco, monospace;
+  
+  font-family: var(--main-font);
+}

@@ -1,0 +1,25 @@
+{
+  "manifest_version": 2,
+  "name": "TMS Extension",
+  "version": "0.0.1",
+  "background": {
+    "scripts": ["chrome/background.js"]
+  },
+  "content_scripts": [{
+    "matches": [
+      "*://www.telema.jp/*"
+    ],
+    "exclude_matches": [
+      "*://www.telema.jp/tmsx/*"
+    ],
+    "js": ["dist/bundle.js", "chrome/autoreload.js"]
+  }],
+  "icons": {
+    "16": "chrome/assets/tms.png",
+    "48": "chrome/assets/tms.png",
+    "128": "chrome/assets/tms.png"
+  },
+  "web_accessible_resources": [
+    "chrome/assets/images/*.svg"
+  ]
+}

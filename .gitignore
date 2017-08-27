@@ -1,0 +1,7 @@
+.vscode/
+.templates/
+dist/
+server.js
+doc/
+coverage/
+node_modules/

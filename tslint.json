@@ -1,0 +1,48 @@
+{
+  "extends": ["tslint:latest", "tslint-react"],
+  "typeRoots": [
+    "node_modules/@types"
+  ],
+  "moduleResolution": "node",
+  "rules": {
+    "max-line-length": [true, 120],
+    // 文字列はダブルクォーテーションで囲む
+    "quotemark": [
+      true,
+      "double",
+      "jsx-double"
+    ],
+    "semicolon": [true, "never"],
+    // インデント2スペース
+    "indent": [true, "spaces", 2],
+    // 変数名
+    "variable-name": [
+      "allow-leading-underscore"
+    ],
+    // 未使用変数
+    "no-unused-variable": false,
+    // consoleオブジェクトの使用
+    "no-console": [false, "log", "error"],
+    // 引数が1つの場合は括弧省略可
+    "arrow-parens": [true, "ban-single-arg-parens"],
+    // ビット演算子: "<<", ">>"のみ使用可
+    "no-bitwise": true,
+    // ファイル末尾の改行
+    "eofline": true,
+    // if, forでは中括弧を必ず使用する
+    "curly": true,
+    "ordered-imports": [
+      false,
+      "any"
+    ],
+    // オブジェクトのキー名ソート： 
+    "object-literal-sort-keys": [false],
+    // react routerの<Route />ではlamdaが複数行での表記されることが多い
+    "jsx-no-lambda": false,
+    "jsx-no-multiline-js": false,
+    "jsx-boolean-value": false,
+    "interface-over-type-literal": false,
+    "interface-name": [false]
+
+  }
+}

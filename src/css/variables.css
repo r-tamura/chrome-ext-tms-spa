@@ -1,0 +1,24 @@
+:root {
+  /* Media queries */
+  @custom-media --xs (max-width: 480px);
+  @custom-media --sm (max-width: 768px);
+  @custom-media --md (max-width: 992px);
+  @custom-media --lg (max-width: 1200px)
+
+  --primary-color-light:   #4fc3f7;
+  --primary-color:         #0288d1;
+  --primary-color-dark:    #005b9f;
+  --white:                  rgb(253, 253, 253);
+  --primary-color-reverse: #FCFCFC;
+
+  --font-size-xl: 21px;
+  --font-size-lg: 17px;
+  --font-size-md: 14px;
+  --font-size-sm: 11px;
+  --font-bold:    700;
+
+  /* Table Variables */
+  --color-table-hovered:           rgba(0, 0, 0, 0.12);
+  --table-cell-padding:            .75rem;
+  --table-cell-padding-sm:         .3rem;
+}

@@ -1,0 +1,43 @@
+.tms-table {
+  width: 100%;
+  border-spacing: 0;
+
+  & th {
+    text-align: left;
+    border-bottom: 2px solid rgba(0, 0, 0, 0.12);
+  }
+
+  & th, & td {
+    display: table-cell;
+    padding: var(--table-cell-padding);
+    vertical-align: top;
+    line-height: 1.4;
+    cursor: default;
+  }
+
+  & tbody > tr:hover {
+    background-color: var(--color-table-hovered);
+    transition: background-color .2s ease-in-out;
+  }
+
+  .table-borderd {
+    & td {
+      border-bottom: 1px solid rgba(0, 0, 0, 0.12);  
+    }
+  
+    border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+  }
+
+  .table-striped {
+
+  }
+  
+  
+  
+  .table--fixed {
+    table-layout: fixed;
+  }
+  
+}
+
+

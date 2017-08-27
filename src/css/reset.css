@@ -1,0 +1,56 @@
+:root {
+  /* Custom Properties */
+  --color-hello: #b04632;
+
+  --child-hello-theme: {
+    color: #7b150a;
+    text-shadow: 3px 3px 5px #888888;
+  }
+
+  box-sizing: border-box;
+}
+
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+}
+
+img {
+  width: 100%;
+}
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+li a {
+  text-decoration: none;
+}
+
+.app-root {
+  display: grid;
+  grid-template-rows: 50px minmax(calc(100vh - 100px), auto) 50px;
+  grid-template-columns: 200px 1fr;
+}
+
+.page-header {
+  grid-column: 1 / 3;
+}
+
+.side-nav {
+  grid-column: 1;
+}
+
+.login-main {
+  grid-column: 1 / 3;
+}
+
+.main {
+  grid-column: 2 / 2;
+}
