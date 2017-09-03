@@ -4,12 +4,18 @@ import dailies, * as fromDailies from "./dailies"
 import monthlies, * as fromMonthlies from "./monthlies"
 import { createMonthlyId, hasUpdated } from "./utils"
 import { ActionTypes } from "./actiontypes"
-import { fetchMonthlyAttendance, saveMonthlyAttendances } from "~/api/attendance"
+import {
+  fetchMonthlyAttendance,
+  saveMonthlyAttendances,
+  getSettings,
+  patchSettings,
+} from "~/api/attendance"
 import { composeAsync } from "~/helpers/common"
 import {
   AttendanceMonthly,
   AttendanceMonthlyAPI,
   AttendanceDaily,
+  AttendanceSettings,
 } from "~/types"
 /**
  * Actions
@@ -52,16 +58,32 @@ interface AttendanceSaveFailureAction extends Action {
   isFetching: boolean
 }
 
-interface IAttendanceSetMonth extends Action {
+interface SetMonthAction extends Action {
   type: ActionTypes.SET_MONTH
-  year: number,
-  month: number,
+  year: number
+  month: number
 }
 
 interface DailyUpdateAction extends Action {
   type: ActionTypes.DAILIES_UPDATE
   dailyId: string
   dailyItem: Partial<AttendanceDaily>
+}
+
+interface FetchSettingsSuccessAction extends Action {
+  type: ActionTypes.FETCH_SETTINGS_SUCCESS
+  settings: AttendanceSettings
+}
+
+interface PatchSettingsSuccessAction extends Action {
+  type: ActionTypes.PATCH_SETTINGS_SUCCESS
+  patch: Partial<AttendanceSettings>
+}
+
+interface MonthlySetDefaultAction extends Action {
+  type: ActionTypes.SET_MONTHLY_DEFAULTS
+  defaultDaily: Partial<AttendanceDaily>
+  ids: string[]
 }
 
 /**
@@ -168,6 +190,13 @@ export const saveAttendancesIfNeeded = () =>
     }
   }
 
+export const changeMonth = (year: number, month: number) =>
+  (dispatch: Dispatch<{}>, getState: () => RootState) => {
+    const monthlyId = createMonthlyId(year, month)
+    dispatch(setYearAndMonth(year, month))
+    fetchAttendancesIfNeeded()(dispatch, getState)
+  }
+
 export const fetchAttendanceMonthliesRequest = (monthlyId: string) => ({
   type: ActionTypes.FETCH_REQUEST,
   monthlyId,
@@ -209,7 +238,7 @@ export const saveAttendanceMonthlyFailure = (monthlyId: string) => ({
   isFetching: false,
 })
 
-export const setYearAndMonth = (year: number, month: number): IAttendanceSetMonth => ({
+export const setYearAndMonth = (year: number, month: number): SetMonthAction => ({
   type: ActionTypes.SET_MONTH,
   year,
   month,
@@ -221,9 +250,50 @@ export const updateDaily = (dailyId: string, dailyItem: Partial<AttendanceDaily>
   dailyItem,
 })
 
+export const fetchSettings = () =>
+  (dispatch: Dispatch<{}>, getState: () => RootState) => {
+    const { attendances } = getState()
+    getSettings()
+      .then(settings => fetchSettingsSuccess(settings, attendances.dailies.allIds))
+      .then(action => dispatch(action))
+  }
+
+export const fetchSettingsSuccess = (settings: AttendanceSettings, Ids: string[]):
+  FetchSettingsSuccessAction => ({
+  type: ActionTypes.FETCH_SETTINGS_SUCCESS,
+  settings,
+})
+
+export const updateSettings = (patch: Partial<AttendanceSettings>) =>
+  (dispatch: Dispatch<{}>, getState: () => RootState) => {
+    composeAsync(
+      () => fetchSettings()(dispatch, getState),
+      dispatch,
+      updateSettingsSuccess,
+      patchSettings,
+    )(patch)
+  }
+
+export const updateSettingsSuccess = (patch: Partial<AttendanceDaily>) => ({
+  type: ActionTypes.PATCH_SETTINGS_SUCCESS,
+})
+
+export const setMonthlyWithDefaults = (ids: string[]) =>
+  (dispatch: Dispatch<{}>, getState: () => RootState) => {
+    const { settings } = getState().attendances
+    dispatch({
+      type: ActionTypes.SET_MONTHLY_DEFAULTS,
+      defaultDaily: settings,
+      ids,
+    })
+  }
+
 export type AttendanceAction =
-  IAttendanceSetMonth
+    SetMonthAction
   | IAttendanceMonthliesFetchRequest
   | IAttendanceMonthliesFetchSuccess
   | IAttendanceMonthliesFetchFailure
   | DailyUpdateAction
+  | FetchSettingsSuccessAction
+  | MonthlySetDefaultAction
+  | PatchSettingsSuccessAction

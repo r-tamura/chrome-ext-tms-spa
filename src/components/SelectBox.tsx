@@ -18,15 +18,21 @@ function renderOptions(options: SelectBoxOptions, hasNotSelected: boolean = true
 
 /**
  *  共通セレクトボックス
+ * @param {string} name name属性
+ * @param {string} label 表示ラベル
+ * @param {string | number} value value属性(初期選択値)
+ * @param {SelectBoxOptions} options セレクトボックス項目リスト
+ * @param {(select: HTMLSelectElement) => void} onChange セレクトボックス変更時のイベントハンドラー
  */
 const SelectBox: React.SFC<SelectBox> = ({
+  options,
   name,
   label,
   value,
-  options,
   onChange,
+  additionalClass,
 }) => (
-      <div className="select-wrapper v-margin">
+      <div className={`tms-select ${additionalClass}`}>
         <select
           name={name}
           value={value || prop(options.valueKey, options.items[0])}

@@ -1,6 +1,6 @@
 import { Action, Dispatch } from "redux"
 import { push } from "react-router-redux"
-import { login } from "~/helpers/api-login"
+import { login } from "~/api/login"
 import { RootState } from "~/modules"
 
 /**

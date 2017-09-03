@@ -2,7 +2,7 @@ import { Action, Dispatch, combineReducers } from "redux"
 import { cond } from "ramda"
 import { RootState } from "~/modules"
 import { getTransExpenseTemplate } from "~/modules/transexpensetemplates"
-import { fetchAll, update, create, delete_ } from "~/helpers/api-transexpense"
+import { fetchAll, update, create, delete_ } from "~/api/transexpense"
 import { composeAsync } from "~/helpers/common"
 import { TransExpense, ResultStatus, Status } from "~/types"
 

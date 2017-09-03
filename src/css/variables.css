@@ -1,6 +1,6 @@
 :root {
   /* Media queries */
-  @custom-media --xs (max-width: 480px);
+  @custom-media --xs (max-width: 544px);
   @custom-media --sm (max-width: 768px);
   @custom-media --md (max-width: 992px);
   @custom-media --lg (max-width: 1200px)
@@ -17,8 +17,56 @@
   --font-size-sm: 11px;
   --font-bold:    700;
 
-  /* Table Variables */
+  /* form */
+
+  --input-height:                  30px;
+
+  --form-group-margin-bottom:      20px;
+
+  /* Table */
   --color-table-hovered:           rgba(0, 0, 0, 0.12);
-  --table-cell-padding:            .75rem;
+  --table-cell-padding:            8px;
   --table-cell-padding-sm:         .3rem;
+  
+  --btn-height:                      36px;
+  --btn-height-sm:                   var(--btn-height * 0.85);
+  --btn-height-lg:                   var(--btn-height * 1.5);
+  
+  --btn-border-radius:               var(--border-radius-default);
+  
+  --btn-padding-horizontal:          26px;
+  --btn-padding-horizontal-sm:       16px;
+  --btn-padding-horizontal-lg:       var(--btn-padding-horizontal);
+  
+  --btn-font-size:                   14px;
+  --btn-font-size-sm:                13px;
+  --btn-font-size-lg:                var(--btn-font-size);
+  
+  --btn-fab-diameter:                55px;
+  --btn-fab-diameter-sm:             44px;
+  --btn-fab-diameter-lg:             75px;
+  
+  --btn-margin-vertical:             6px;
+  --btn-spacing-horizontal:          8px;
+  
+  /* Forms */
+  --input-placeholder-color:     rgba(0, 0, 0, 0.12);
+  --input-bg-color:              transparent;
+  --input-bg-color-disabled:     transparent;
+  --input-font-color:            var(--base-font-color);
+  --input-font-size:             16px;
+  --input-height:                32px;
+  
+  --input-border-color:          var(--input-placeholder-color);
+  --input-border-color-focus:    var(--primary-color);
+  
+  --textarea-height:             64px;
+  
+  --label-font-size:             12px;
+  --label-margin-bottom:         3px;
+  
+  --form-legend-font-size:       var(--base-font-size * 1.5);
+  --form-legend-margin-bottom:   var(--form-legend-font-size / 2);
+  --form-legend-font-color:      var(--base-font-color);
+  --form-group-margin-bottom:    20px;
 }

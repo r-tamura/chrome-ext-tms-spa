@@ -2,11 +2,12 @@ import { find, propEq, map, cond, all, compose, T } from "ramda"
 import { convAttendancePreview, convAttendanceUpdate, convAttendanceCalendar } from "~/helpers/htmlConvertor"
 import { post } from "~/helpers/http"
 import { composeAsync, remap, doAction } from "~/helpers/common"
-import { urls } from "~/helpers/_const"
+import { urls, LS_ATTND_SETTINGS } from "~/helpers/_const"
 import {
   AttendanceMonthlyAPI,
   AttendanceDaily,
   AttendanceOnServer,
+  AttendanceSettings,
   ResultStatus,
   Status,
   Master,
@@ -89,3 +90,25 @@ export const getMonthlyDates = async (year: number, month: number): Promise<bool
     convAttendanceCalendar,
     post,
   )(urls.ATTENDANCE_EDIT, {year, month})
+
+/**
+ *  ユーザの勤怠登録設定を読み込みます
+ *   - 初期業務開始時間
+ *   - 初期業務終了時間
+ *   - 初期プロジェクト
+ */
+export const getSettings = async (): Promise<Partial<AttendanceDaily>> =>
+  Promise.resolve(localStorage.getItem(LS_ATTND_SETTINGS))
+    .then(jsonStr => jsonStr ? JSON.parse(jsonStr) : {})
+
+/**
+ *  ユーザの勤怠登録設定を更新します
+ */
+export const patchSettings = async (patch: Partial<AttendanceSettings>): Promise<ResultStatus> =>
+  Promise.resolve(getSettings())
+    .then(currentSettings => ({ ...currentSettings, ...patch }))
+    .then(nextSettings => localStorage.setItem(LS_ATTND_SETTINGS, JSON.stringify(nextSettings)))
+    .then(_ => ({
+      status: Status.OK,
+      message: "勤怠設定の保存が完了しました",
+    }))

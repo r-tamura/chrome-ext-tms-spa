@@ -2,17 +2,17 @@ import * as React from "react"
 import { pluck, prop } from "ramda"
 import SelectBox from "~/components/SelectBox"
 import TextBox from "~/components/TextBox"
-import { FormItem, TextBox as TextBoxProps, SelectBox as SelectBoxProps, FormItemType } from "~/types"
+import { FormModalItem, TextBox as TextBoxProps, SelectBox as SelectBoxProps, FormItemType } from "~/types"
 
 interface IProps extends React.Props<{}> {
-  formItems: FormItem[]
+  formItems: FormModalItem[]
   onClose: () => void
   onOKClick: (state: object) => void
   onCancelClick?: (state: object) => void
 }
 
 interface IState {
-  byId: { [s: string]: FormItem & { type: string } }
+  byId: { [s: string]: FormModalItem }
   allIds: string[]
 }
 
@@ -30,11 +30,11 @@ export default class ModalBody extends React.Component<IProps, IState> {
 
   public render() {
     const { onClose, onOKClick, onCancelClick } = this.props
-    const formItems = this.getFormItems(this.state)
+    const formItems = this.getFormModalItems(this.state)
     return (
       <div className="modal-body">
         <div className="panel">
-          {formItems.map(e => this.renderFormItem(e.type, e))}
+          {formItems.map(e => this.renderFormModalItem(e.type, e))}
           <div className="confirm-section clearfix">
             <div className="button-group">
               <button
@@ -73,7 +73,7 @@ export default class ModalBody extends React.Component<IProps, IState> {
     this.setState(nextState)
   }
 
-  private renderFormItem(type: string = "TEXT", props: FormItem): JSX.Element {
+  private renderFormModalItem(type: string = "TEXT", props: FormModalItem): JSX.Element {
     switch (type) {
     case FormItemType.SELECT:
       return  (
@@ -94,7 +94,7 @@ export default class ModalBody extends React.Component<IProps, IState> {
     }
   }
 
-  private getValue(formItem: FormItem): number | string {
+  private getValue(formItem: FormModalItem): number | string {
     switch (formItem.type) {
     case FormItemType.SELECT:
       return formItem.value || prop(formItem.options.valueKey, formItem.options.items[0])
@@ -103,7 +103,7 @@ export default class ModalBody extends React.Component<IProps, IState> {
     }
   }
 
-  private getFormItems = (state: IState) => state.allIds.map(id => state.byId[id])
+  private getFormModalItems = (state: IState) => state.allIds.map(id => state.byId[id])
   private getState = (state: IState) => state.allIds.reduce((acc, v) => ({ ...acc, [v]: state.byId[v].value }), {})
 
   // /* よく使う交通費登録データをお気に入りとして追加 */

@@ -1,6 +1,6 @@
 import { Action, Dispatch } from "redux"
 import { find, propEq } from "ramda"
-import { fetchMasterInfo } from "~/helpers/api-common"
+import { fetchMasterInfo } from "~/api/common"
 import { RootState } from "~/modules"
 import { composeAsync } from "~/helpers/common"
 import { Project, Usage, Objective, Master } from "~/types"

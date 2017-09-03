@@ -32,6 +32,12 @@ function daily(state: AttendanceDaily, action: AttendanceAction): AttendanceDail
   switch (action.type) {
   case ActionTypes.DAILIES_UPDATE:
     return { ...state, ...action.dailyItem, hasUpdated: true }
+  case ActionTypes.SET_MONTHLY_DEFAULTS: {
+    // 休日 or 承認済みの場合は更新しない
+    return !state.isWeekday || state.hasConfirmed
+      ? state
+      : { ...state, ...action.defaultDaily, hasUpdated: true }
+  }
   default:
     return state
   }
@@ -52,6 +58,13 @@ function byId(state: ById = {}, action: AttendanceAction): ById {
   case ActionTypes.DAILIES_UPDATE: {
     const { dailyId } = action
     return { ...state, [dailyId]: daily(state[dailyId], action)}
+  }
+  case ActionTypes.SET_MONTHLY_DEFAULTS: {
+    const nextStates = action.ids.reduce((acc: { [s: string]: AttendanceDaily }, v) => {
+      acc[v] = daily(state[v], action)
+      return acc
+    }, {})
+    return { ...state, ...nextStates }
   }
   default:
     return state

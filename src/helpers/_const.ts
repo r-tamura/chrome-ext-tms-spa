@@ -24,12 +24,12 @@ export const ALERT_DURATION_TIME_LONG = 3000
 const URL_TMS_ROOT = "http://telema.jp/tmsx/"
 export const urls = {
   URL_TMS_ROOT,
-  TMSX_MENU: "/tmsx/T0010_menu.php",
-  TRANS_ESPENSE: "/tmsx/T1020_transport.php",
-  TRANS_EXPENSE_REGISTER: "/tmsx/T1025_transport_db.php",
-  TMSX_ATTENDANCE_PREVIEW: "/tmsx/T2022_it_report_preview.php",
-  TC_DELETE: "/tmsx/T1023_transport_delete.php",
-  ATTENDANCE_EDIT: "/tmsx/T2025_it_report_db.php",
+  TMSX_MENU:                      "/tmsx/T0010_menu.php",
+  TRANS_ESPENSE:                  "/tmsx/T1020_transport.php",
+  TRANS_EXPENSE_REGISTER:         "/tmsx/T1025_transport_db.php",
+  TMSX_ATTENDANCE_PREVIEW:        "/tmsx/T2022_it_report_preview.php",
+  TC_DELETE:                      "/tmsx/T1023_transport_delete.php",
+  ATTENDANCE_EDIT:                "/tmsx/T2025_it_report_db.php",
 }
 
 // 貨幣フォーマッター
@@ -43,11 +43,12 @@ export const LINKS = [
 ]
 
 // ローカルストレージキー
-export const LS_TRANS_EXPENSE_TEMPLATE = "ls/transpexpensetemplate"
+export const LS_TRANS_EXPENSE_TEMPLATE       = "ls/transpexpensetemplate"
+export const LS_ATTND_SETTINGS               = "ls/attendancesettings"
 
 // 初期勤怠年月
 export const ATD_YEAR = 2017
-export const ATD_MONTH = 7
+export const ATD_MONTH = 8
 
 export enum MsgAttendance {
   HAS_SUBMITED = "承認",

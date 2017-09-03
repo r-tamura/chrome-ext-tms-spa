@@ -41,8 +41,7 @@ interface IProps extends OwnProps {
 
 class TransExpenseComponent extends React.Component<IProps, {}> {
 
-  constructor(props: IProps) {
-    super(props)
+  public componentWillMount() {
     this.props.fetchExpensesAll()
     this.props.fetchExpenseTemplatesAll()
   }

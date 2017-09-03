@@ -1,12 +1,12 @@
 import { compose, filter, map, propEq, not } from "ramda"
-import { get, post } from "./http"
+import { get, post } from "~/helpers/http"
 import {
   convTransExpenseList,
   convTransExpenseUpdate,
   convTransExpenseCreate,
   convTransExpenseDelete,
-} from "./htmlConvertor"
-import { LS_TRANS_EXPENSE_TEMPLATE, urls } from "./_const"
+} from "~/helpers/htmlConvertor"
+import { LS_TRANS_EXPENSE_TEMPLATE, urls } from "~/helpers/_const"
 import { composeAsync, remap, uuidv4 } from "~/helpers/common"
 import { TransExpense, TransExpenseTemplate, Master, ResultStatus, Status } from "~/types"
 
@@ -70,7 +70,7 @@ export async function updateTemplate(template: TransExpenseTemplate): Promise<Re
 }
 
 export async function fetchTemplatesAll(): Promise<TransExpenseTemplate[]> {
-  return new Promise((resolve, reject) => resolve(localStorage.getItem(LS_TRANS_EXPENSE_TEMPLATE)))
+  return Promise.resolve(localStorage.getItem(LS_TRANS_EXPENSE_TEMPLATE))
     .then((strjson: string) => strjson === null ? [] : JSON.parse(strjson))
 }
 

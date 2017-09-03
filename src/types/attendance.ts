@@ -51,3 +51,5 @@ export interface AttendanceOnServer {
   month: string,
   day: string,
 }
+
+export type AttendanceSettings = Partial<AttendanceDaily>

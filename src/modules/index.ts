@@ -11,12 +11,19 @@ import { TransExpenseView, TransExpenseTemplateView, AttendanceMonthlyView } fro
 /**
  * Selectors
  */
-export const getMaster = (state: RootState) => fromMaster.getMaster(state.master)
 
-export const getUserName = (state: RootState) => fromUser.getUserName(state.user)
-export const getIsAuthenticated = (state: RootState) => fromUser.getIsAuthenticated(state.user)
+type S = RootState
+export const getMaster = (state: S) => fromMaster.getMaster(state.master)
+export const getProjects = (state: S) => fromMaster.getProjects(state.master)
+export const getObjectives = (state: S) => fromMaster.getObjectives(state.master)
+export const getUsages = (state: S) => fromMaster.getUsages(state.master)
 
-export const getTransExpenses = (state: RootState): TransExpenseView[] =>
+export const getAttendanceSettings = (state: S) => fromAttendances.getSettings(state.attendances.settings)
+
+export const getUserName = (state: S) => fromUser.getUserName(state.user)
+export const getIsAuthenticated = (state: S) => fromUser.getIsAuthenticated(state.user)
+
+export const getTransExpenses = (state: S): TransExpenseView[] =>
   fromTransExpense.getTransExpenses(state.transexpenses)
     .map(expense => ({
       ...R.pick(["expenseId", "strdate", "customer", "from", "to", "cost"], expense),
@@ -25,7 +32,7 @@ export const getTransExpenses = (state: RootState): TransExpenseView[] =>
       objective: fromMaster.getObjective(state.master, expense.objectiveId),
     }))
 
-export const getTransExpenseTemplates = (state: RootState): TransExpenseTemplateView[] =>
+export const getTransExpenseTemplates = (state: S): TransExpenseTemplateView[] =>
   fromTransExpenseTemplates.getTransExpenseTemplates(state.transexpensetemplates)
     .map(template => ({
       ...R.pick(["templateId", "templateName", "expenseId", "strdate", "customer", "from", "to", "cost"], template),
@@ -34,7 +41,7 @@ export const getTransExpenseTemplates = (state: RootState): TransExpenseTemplate
       objective: fromMaster.getObjective(state.master, template.objectiveId),
     }))
 
-export const getAttendancesSelectedMonth = (state: RootState): Partial<AttendanceMonthlyView> => {
+export const getAttendancesSelectedMonth = (state: S): Partial<AttendanceMonthlyView> => {
   const projects = fromMaster.getProjects(state.master)
   const manthly = fromAttendances.getAttendancesSelectedMonth(state.attendances)
 

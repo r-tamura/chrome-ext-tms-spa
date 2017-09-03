@@ -2,21 +2,21 @@ export enum FormItemType {
   SELECT = "type/select",
   TEXT = "type/text",
 }
-interface FormItemBase extends Partial<HTMLElement> {
-  name: string
-  label: string
+
+export interface FormItemBase extends Partial<HTMLElement> {
+  label?: string
+  name?: string
   value?: string | number
   disabled?: boolean
+  additionalClass?: string | string[]     // フォーム追加クラス
 }
 
 export interface TextBox extends FormItemBase {
-  type: FormItemType.TEXT
   onChange?: (input: HTMLInputElement) => void
 }
 
 export type SelectBoxOptions = { items: object[], valueKey: string, labelKey: string }
 export interface SelectBox extends FormItemBase {
-  type: FormItemType.SELECT
   options: SelectBoxOptions
   onChange?: (input: HTMLSelectElement) => void
 }
