@@ -43,6 +43,10 @@
     padding: 0 25px 0 0;
   }
 
+  &> label {
+    @apply --form-label;
+  }
+
   &.tms-select--table {
     padding-top: 0;
     border: 0;

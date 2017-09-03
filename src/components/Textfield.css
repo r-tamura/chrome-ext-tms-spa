@@ -1,7 +1,7 @@
 .tms-textfield {
   display: block;
-  padding-top: 15px;
-  margin-bottom: 20px;
+  padding-top: calc(1.25 * var(--font-size-md));
+  margin-bottom: var(--form-group-margin-bottom);
   position: relative;
 
   & input {
@@ -19,6 +19,10 @@
     font-family: inherit;
     line-height: inherit;
     background-image: none;
+  }
+
+  &> label {
+    @apply --form-label;
   }
 
   & input[type="time"] {

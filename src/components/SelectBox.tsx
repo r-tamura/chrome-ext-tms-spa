@@ -23,6 +23,7 @@ function renderOptions(options: SelectBoxOptions, hasNotSelected: boolean = true
  * @param {string | number} value value属性(初期選択値)
  * @param {SelectBoxOptions} options セレクトボックス項目リスト
  * @param {(select: HTMLSelectElement) => void} onChange セレクトボックス変更時のイベントハンドラー
+ * @param {string} additionalClass CSSスタイル
  */
 const SelectBox: React.SFC<SelectBox> = ({
   options,
@@ -32,13 +33,11 @@ const SelectBox: React.SFC<SelectBox> = ({
   onChange,
   additionalClass,
 }) => (
-      <div className={`tms-select ${additionalClass}`}>
+      <div className={`tms-select ${additionalClass || ""}`}>
         <select
           name={name}
           value={value || prop(options.valueKey, options.items[0])}
-          onChange={(e: React.ChangeEvent<HTMLSelectElement>) => {
-            onChange(e.currentTarget)
-          }}
+          onChange={(e: React.ChangeEvent<HTMLSelectElement>) => onChange(e.currentTarget)}
         >
           {renderOptions(options)}
         </select>

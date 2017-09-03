@@ -3,7 +3,7 @@
 @import "css/reset.css";
 @import "css/layout.css";
 @import "css/table.css";
-@import "css/textfield.css";
+@import "components/Textfield.css";
 @import "components/Header.css";
 @import "components/Modal.css";
 @import "components/SelectBox.css";

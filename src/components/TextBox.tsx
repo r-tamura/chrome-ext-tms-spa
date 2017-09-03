@@ -9,7 +9,7 @@ const InputText: React.SFC<TextBox> = ({
   onChange,
   disabled,
 }) => (
-  <div className="text-field">
+  <div className="tms-textfield">
     <input
       type="text"
       name={name}
