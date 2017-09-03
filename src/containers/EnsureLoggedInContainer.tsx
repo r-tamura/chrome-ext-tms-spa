@@ -20,11 +20,22 @@ class EnsureLoggedInContainer extends React.Component<IProps, {}> {
   }
 
   public render() {
+    // 非ログイン時にnullを返さないと、
+    // 子コンポーネントのレンダリングが実行されれてしまい、
+    // 子コンポーネント内の初期ロードAPIなどが実行されてしまう
+    if (this.shouldRedirectToLogin(this.props.isAuthenticated)) {
+      return null
+    }
+
     return <div>{this.props.children}</div>
   }
 
+  private shouldRedirectToLogin(isAuthenticated: boolean): boolean {
+    return !isAuthenticated
+  }
+
   private redirectToLoginIfNeeded(isAuthenticated: boolean) {
-    if (!isAuthenticated) {
+    if (this.shouldRedirectToLogin(isAuthenticated)) {
       this.props.navigateToLogin()
     }
   }
