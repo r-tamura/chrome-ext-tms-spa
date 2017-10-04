@@ -169,7 +169,9 @@ class TransExpenseHistory extends React.Component<IProps, IState> {
           },
         ]}
         onClose={this.closeModal}
-        onOKClick={selected ? s => updateExpense(s) : s => createExpense(s)}
+        onOKClick={selected ? s => {
+          updateExpense({ ...s, expenseId })
+        } : s => createExpense(s)}
       />
     )
   }
