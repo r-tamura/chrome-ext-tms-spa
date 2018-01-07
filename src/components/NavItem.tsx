@@ -8,7 +8,15 @@ interface NavProps extends React.Props<{}> {
   children?: React.ReactNode
 }
 
-/* リンクコンポーネントを生成 */
+/**
+ * ナビゲーションアイテムコンポーネント
+ * サイドナビゲーションの項目
+ *
+ * @param {string} to Routeのナビゲーション先
+ * @param {boolean} selected 選択中であるか(true: 選択中/false: 未選択)
+ * @param {boolean} disabled 無効なリンクであるか(true: 無効/false: 有効)
+ * @param {React.ReactNode} children 子コンポーネント
+ */
 const NavItem: React.SFC<NavProps> = ({
   to,
   disabled,

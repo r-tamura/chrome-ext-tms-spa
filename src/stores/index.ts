@@ -13,6 +13,11 @@ const logger = createLogger({
   collapsed: true,
 })
 
+/**
+ * Reduxストアインスタンスを生成します
+ *
+ * @param preloadedState 初期ストア (default: {})
+ */
 export const configureStore = (preloadedState: Partial<RootState> = recoverState()): Store<{}> =>
   createStore(
     rootReducer,

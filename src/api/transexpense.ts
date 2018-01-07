@@ -8,11 +8,14 @@ import {
 } from "~/helpers/htmlConvertor"
 import { LS_TRANS_EXPENSE_TEMPLATE, urls } from "~/helpers/_const"
 import { composeAsync, remap, uuidv4 } from "~/helpers/common"
-import { TransExpense, TransExpenseTemplate, Master, ResultStatus, Status } from "~/types"
-
-/**
- * 交通費登録関連のAPI
- */
+import {
+  TransExpense,
+  TransExpenseTemplate,
+  TransExpenseView,
+  Master,
+  ResultStatus,
+  Status,
+} from "~/types"
 
 /**
  * テンプレートに指定されたIDのアイテムを追加します
@@ -89,53 +92,60 @@ const clientToServerKeyMap = {
 const clientToServer = (client: TransExpense) => remap(clientToServerKeyMap, client)
 
 /**
- * 新しい交通費データを作成します
+ * サーバに交通費データを作成します
+ * 
+ * @param expenseOnClient 新規作成する交通費データ(クライアント形式)
+ * @return 交通費作成の結果
  */
-export function create(expenseOnClient: TransExpense): Promise<ResultStatus> {
+export async function create(expenseOnClient: TransExpense): Promise<ResultStatus> {
   const expenseOnServer = clientToServer(expenseOnClient)
   const action = { func: "insert" }
-  return composeAsync(
-    convTransExpenseCreate,
-    post,
-  )(urls.TRANS_EXPENSE_REGISTER, { ...expenseOnServer, ...action})
+  const htmlRes = await post(urls.TRANS_EXPENSE_REGISTER, { ...expenseOnServer, ...action})
+  const res = convTransExpenseCreate(htmlRes)
+  return res
 }
 
 /**
- *  交通費を更新します
+ * サーバ交通費を更新します
+ *
+ * @param expenseOnClient 更新する交通費データ(クライアント形式)
+ * @return 交通費更新の結果
  */
 export async function update(expenseOnClient: TransExpense): Promise<ResultStatus> {
   const expenseOnServer = clientToServer(expenseOnClient)
   const action = { func: "update" }
-  return composeAsync(
-    convTransExpenseUpdate,
-    post,
-  )(urls.TRANS_EXPENSE_REGISTER, { ...expenseOnServer, ...action})
+  const htmlRes = await post(urls.TRANS_EXPENSE_REGISTER, { ...expenseOnServer, ...action})
+  const res = convTransExpenseUpdate(htmlRes)
+  return res
 }
 
 /**
- *  交通費を削除します
- * "delete"だと予約語扱いとなるのので
+ *  サーバ交通費を削除します
+ * "delete"だと予約語扱いとなるのので関数名の最後にに"_"を追加
+ *
+ * @param expenseId 交通費ID
+ * @return 交通費削除の結果
  */
-export function delete_(expenseId: number): Promise<ResultStatus> {
+export async function delete_(expenseId: number): Promise<ResultStatus> {
   const expenseIdKey = clientToServerKeyMap.expenseId
   const action = { func: "delete" }
-  return composeAsync(
-    convTransExpenseDelete,
-    post,
-  )(urls.TRANS_EXPENSE_REGISTER, { [expenseIdKey]: expenseId, ...action })
+  const htmlRes = await post(urls.TRANS_EXPENSE_REGISTER, { [expenseIdKey]: expenseId, ...action })
+  const res = convTransExpenseDelete(htmlRes)
+  return res
 }
 
 /**
- * 登録済みの交通費リストを取得します
+ * サーバに登録されている交通費リストを全て取得します
+ *
+ * @param master プロジェクト名などのマスタデータ(JSONへの変換に使用)
+ * @return View用交通費リスト
  */
-export async function fetchAll(master: Master) {
-  try {
-    return composeAsync(
-      convTransExpenseList(master),
-      get,
-    )("/tmsx/T1020_transport.php")
-  } catch (err) {
-    console.error(err.stack)
-    throw err
-  }
+export async function fetchAll(master: Master): Promise<TransExpenseView[]> {
+  const htmlRes = await get("/tmsx/T1020_transport.php")
+    .catch(err => {
+      console.error(err)
+      throw err
+    })
+  const res = convTransExpenseList(master, htmlRes)
+  return res
 }

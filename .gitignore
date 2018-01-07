@@ -2,6 +2,7 @@
 .templates/
 dist/
 server.js
+docs/
 doc/
 coverage/
 node_modules/

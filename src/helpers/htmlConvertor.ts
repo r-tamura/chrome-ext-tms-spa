@@ -2,18 +2,13 @@ import { find, propEq, curry, compose } from "ramda"
 import { urls } from "./_const"
 import * as Common from "./common"
 import {
-  ResultStatus, Status,
+  User, ResultStatus, Status,
   Project, Usage, Objective, Master,
   TransExpenseView,
   AttendanceMonthlyAPI,
 } from "~/types"
 
 import { createMonthlyId, createDailyId } from "~/modules/attendances"
-
-export interface LoginResponse {
-  isAuthenticated: boolean
-  name?: string
-}
 
 const parseHTML = (html: string): HTMLDocument =>
  (new DOMParser()).parseFromString(html, "text/html")
@@ -49,22 +44,13 @@ export function convMaster(html: string): Master {
 /**
  * メインメニュー画面HTMLをオブジェクトデータに変換します
  */
-export function convMenu(html: string): LoginResponse {
+export function convMenu(html: string): User {
   const $html = parseHTML(html)
   // ユーザ名
   const name = getUserName($html.getElementsByTagName("p").item(1).childNodes[0] as Text)
   if (!name.length) {
     return { isAuthenticated: false }
   }
-
-  // リンクリスト
-  // const ptag3 = ptags.item(2)
-  // const $aTags = ptag3.getElementsByTagName("a")
-  // const links = new Map<string, string>()
-  // for ( const [key, a] of Common.zip(["BB", "TP", "WE", "MR", "PM", "RM", "PR", "ER"], $aTags)) {
-  //   // DOMParser()でパースしたHTMLはLocation情報を持たないのでhrefは使えない
-  //   links.set(key, `${urls.URL_TMS_ROOT}${a.getAttribute("href")}`)
-  // }
 
   return { isAuthenticated: true, name }
 }

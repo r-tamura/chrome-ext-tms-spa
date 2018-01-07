@@ -14,27 +14,11 @@ interface IProps extends React.Props<{}>, RouteComponentProps<{}> {
 }
 
 /**
- * ログインセクション
+ * ログインフォームコンポーネント
  */
 class Login extends React.Component<IProps, {}> {
   private inputPassword: HTMLInputElement
   private inputUserName: HTMLInputElement
-
-  // private loginSubscribtion: { remove: Function }
-
-  // private inputUserName: HTMLInputElement // ユーザ名テキストボックス
-  // private inputPassword: HTMLInputElement // ユーザパスワードテキストボックス
-
-  /* ログインアクション実行 */
-  // componentDidMount() {
-  //   // 共通クリックイベントの登録
-  //   UI.addActivateEventListener(document.getElementById("login-section"))
-  // }
-
-  // componentWillUnmount() {
-  //   // 共通クリックイベントの登録
-  //   UI.removeActivateEventListener(document.getElementById("login-section"))
-  // }
 
   public render() {
     const { isFetching } = this.props

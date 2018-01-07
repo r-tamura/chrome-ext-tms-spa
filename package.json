@@ -6,6 +6,7 @@
   "scripts": {
     "start": "run-p watch:*",
     "build:ts": "webpack",
+    "doc": "typedoc --out ./docs ./src/ --theme minimal",
     "lint": "tslint \"src/**/*.{ts, tsx}\"",
     "lint:fix": "yarn run lint --fix",
     "lint:css": "stylelint styles/**/*.css",
@@ -64,6 +65,7 @@
     "ts-jest": "^20.0.7",
     "tslint": "^5.5.0",
     "tslint-react": "^3.0.0",
+    "typedoc": "^0.9.0",
     "typescript": "^2.4.1",
     "webpack": "^3.1.0"
   },

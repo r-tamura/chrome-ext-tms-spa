@@ -13,6 +13,14 @@ import {
   Master,
 } from "~/types"
 
+/**
+ * 月間勤怠データをサーバから取得します
+ *
+ * @param year 取得対象の年
+ * @param month 取得対象の月
+ * @param master プロジェクト名などのマスタデータ
+ * @return Promise<AttendanceMonthlyAPI>
+ */
 export const fetchMonthlyAttendance =
   (year: number, month: number, master: Master): Promise<AttendanceMonthlyAPI> =>
   composeAsync(
@@ -35,6 +43,15 @@ const isSuccess = cond([
 ])
 const allHaveOK = find(propEq("status", Status.FAILURE))
 
+/**
+ * サーバへ月間勤怠データを保存します
+ * 指定された年月の複数日データを同時に更新することが可能
+ *
+ * @param year 更新対象の年
+ * @param month 更新対象の月
+ * @param attendances 更新データ(日ごと)
+ * @return Promise<ResultStatus> 更新結果
+ */
 export const saveMonthlyAttendances =
   async (year: number, month: number, attendances: Array<Partial<AttendanceDaily>>): Promise<ResultStatus> => {
 
@@ -42,6 +59,7 @@ export const saveMonthlyAttendances =
       return Promise.resolve({status: Status.OK, message: "There was no update."})
     }
 
+    // データ形式をクライアント形式からサーバ形式へ変換
     const attendancesOnServer =
       attendances
         .map(clientToServer)
@@ -49,12 +67,11 @@ export const saveMonthlyAttendances =
           // サーバAPI用に送信パラメータを整形
           a.day = a.day.toString().padStart(2, "0") // 3 => "03"
           a.from = a.from.replace(":", "") // "09:00" => "0900"
-          a.to = a.to.replace(":", "")
+          a.to = a.to.replace(":", "") // 上記fromと同じ
           return a
         })
 
     // TODO: きれいな処理を書く
-
     const action = {
       func: "accept",
       yk: "0000",
@@ -63,7 +80,8 @@ export const saveMonthlyAttendances =
       inp4: "",
       inp5: "",
       etc: "",
-   }
+    }
+
     return composeAsync(
       isSuccess,
       allHaveOK,
@@ -85,11 +103,11 @@ export const saveMonthlyAttendances =
 /**
  *  月間勤怠データの日付情報一覧を取得します
  */
-export const getMonthlyDates = async (year: number, month: number): Promise<boolean> =>
-  composeAsync(
-    convAttendanceCalendar,
-    post,
-  )(urls.ATTENDANCE_EDIT, {year, month})
+export const getMonthlyDates = async (year: number, month: number): Promise<boolean> => {
+  const htmlRes = await post(urls.ATTENDANCE_EDIT, {year, month})
+  const res = convAttendanceCalendar(htmlRes)
+  return res
+}
 
 /**
  *  ユーザの勤怠登録設定を読み込みます
@@ -103,6 +121,10 @@ export const getSettings = async (): Promise<Partial<AttendanceDaily>> =>
 
 /**
  *  ユーザの勤怠登録設定を更新します
+ * 指定された造成のみ更新します
+ *
+ * @param patch 更新パ属性のみの出勤データ
+ * @return 更新結果
  */
 export const patchSettings = async (patch: Partial<AttendanceSettings>): Promise<ResultStatus> =>
   Promise.resolve(getSettings())
