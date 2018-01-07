@@ -122,8 +122,8 @@ export const deleteExpenseTemplate = (templateId: string) => {
   }
 }
 
-export const updateExpenseTemplate = (template: TransExpenseTemplate) => {
-  return (dispatch: Dispatch<{}>, getState: () => RootState) => {
+export const updateExpenseTemplate =
+  (template: TransExpenseTemplate) => (dispatch: Dispatch<{}>, getState: () => RootState) => {
     dispatch(updateTransExpensesRequest())
     try {
       composeAsync(
@@ -134,7 +134,6 @@ export const updateExpenseTemplate = (template: TransExpenseTemplate) => {
       dispatch(updateTransExpensesFailure({error: err}))
     }
   }
-}
 
 export const updateTransExpensesRequest = () => ({
   type: ActionTypes.TRANS_EXPENSES_TEMPLATE_UPDATE_REQUEST,

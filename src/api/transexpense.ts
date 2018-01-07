@@ -16,6 +16,7 @@ import {
   ResultStatus,
   Status,
 } from "~/types"
+import Storage from "~/helpers/storage"
 
 /**
  * テンプレートに指定されたIDのアイテムを追加します
@@ -38,16 +39,15 @@ export async function createTemplate(template: TransExpense): Promise<ResultStat
  */
 export async function deleteTemplate(templateId: number): Promise<ResultStatus> {
   const templates = await fetchTemplatesAll()
-  const strJson = compose(
-    JSON.stringify,
+  const newTemplates = compose(
     filter(compose(
       not,
-      propEq("templateId", templateId),
-    )),
+      propEq("templateId", templateId)
+    ))
   )(templates)
 
   // ストーレジ更新
-  localStorage.setItem(LS_TRANS_EXPENSE_TEMPLATE, strJson)
+  await Storage.saveInStorage(LS_TRANS_EXPENSE_TEMPLATE, newTemplates)
   return {
     status: Status.OK,
     message: "テンプレートの削除が完了しました",
@@ -56,25 +56,30 @@ export async function deleteTemplate(templateId: number): Promise<ResultStatus> 
 
 /**
  * 指定されたテンプレートのデータを更新します
+ *
+ * @param {TransExpenseTemplate} newTemplates
  */
-export async function updateTemplate(template: TransExpenseTemplate): Promise<ResultStatus> {
+export async function updateTemplate(newTemplate: TransExpenseTemplate): Promise<ResultStatus> {
   const templates = await fetchTemplatesAll()
-  const strJson = compose(
-    JSON.stringify,
-    map(t => propEq("templateId", template.templateId) ? template : t),
-  )(templates)
+  const newTemplates = map(dbTemplate => {
+      if (propEq("templateId", newTemplate.templateId, dbTemplate)) {
+        return newTemplate
+      }
+      return dbTemplate
+    })(templates)
 
   // ストーレジ更新
-  localStorage.setItem(LS_TRANS_EXPENSE_TEMPLATE, strJson)
+  await Storage.saveInStorage(LS_TRANS_EXPENSE_TEMPLATE, newTemplates)
   return {
     status: Status.OK,
-    message: "テンプレートの削除が完了しました",
+    message: "テンプレートの更新が完了しました",
   }
 }
 
-export async function fetchTemplatesAll(): Promise<TransExpenseTemplate[]> {
-  return Promise.resolve(localStorage.getItem(LS_TRANS_EXPENSE_TEMPLATE))
-    .then((strjson: string) => strjson === null ? [] : JSON.parse(strjson))
+export function fetchTemplatesAll(): Promise<TransExpenseTemplate[]> {
+  // return Promise.resolve(localStorage.getItem(LS_TRANS_EXPENSE_TEMPLATE))
+  //   .then((strjson: string) => strjson === null ? [] : JSON.parse(strjson))
+  return Storage.getFromStorage<TransExpenseTemplate[]>(LS_TRANS_EXPENSE_TEMPLATE)
 }
 
 const clientToServerKeyMap = {
@@ -93,7 +98,7 @@ const clientToServer = (client: TransExpense) => remap(clientToServerKeyMap, cli
 
 /**
  * サーバに交通費データを作成します
- * 
+ *
  * @param expenseOnClient 新規作成する交通費データ(クライアント形式)
  * @return 交通費作成の結果
  */
