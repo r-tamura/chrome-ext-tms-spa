@@ -167,6 +167,22 @@ export function convAttendanceCalendar(html: string): boolean {
 }
 
 const removeSemicolon = (str: string) => str.trim().replace(";", "")
+const getProject = (projects: Project[], name: string) => find(propEq("name", name), projects)
+const toDailyAttendance = (projects: Project[], year: number, month: number) => ($f: NodeListOf<Element>) => ({
+  day: parseInt($f[0].querySelector("b").textContent, 10),
+  dailyId: createDailyId(year, month, $f[0].querySelector("b").textContent),
+  isWeekday: !/do|ni|_r/.test($f[1].querySelector("img").getAttribute("src")),
+  start: removeSemicolon($f[2].textContent),
+  end: removeSemicolon($f[3].textContent),
+  overwork: removeSemicolon($f[5].textContent),
+  overnightwork: removeSemicolon($f[6].textContent),
+  projectId: removeSemicolon($f[10].textContent.trim()).length > 0
+    ? getProject(projects, $f[10].textContent)
+      ? getProject(projects, $f[10].textContent).projectId
+      : projects[0].projectId
+    : null,
+  hasConfirmed: $f[12].getElementsByTagName("img").length > 0,
+})
 
 /**
  * 勤怠プレビュー画面のHTMLをJSONへ変換します
@@ -191,19 +207,7 @@ export const convAttendancePreview =
       [...$body.querySelectorAll("tr")]
         .filter((_, i, a) => i > 2 && i < a.length - 1)
         .map($tr => $tr.querySelectorAll("td font"))
-        .map($f => ({
-          day: parseInt($f[0].querySelector("b").textContent, 10),
-          dailyId: createDailyId(year, month, $f[0].querySelector("b").textContent),
-          isWeekday: !/do|ni|_r/.test($f[1].querySelector("img").getAttribute("src")),
-          start: removeSemicolon($f[2].textContent),
-          end: removeSemicolon($f[3].textContent),
-          overwork: removeSemicolon($f[5].textContent),
-          overnightwork: removeSemicolon($f[6].textContent),
-          projectId: removeSemicolon($f[10].textContent.trim()).length > 0
-            ? find(propEq("name", $f[10].textContent), projects).projectId
-            : null,
-          hasConfirmed: $f[12].getElementsByTagName("img").length > 0,
-        }))
+        .map(toDailyAttendance(projects, year, month))
 
     return { days, year, month, reportId, monthlyId: createMonthlyId(year, month) }
   })
