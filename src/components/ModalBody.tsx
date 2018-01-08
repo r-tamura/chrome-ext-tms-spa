@@ -22,7 +22,7 @@ export default class ModalBody extends React.Component<IProps, IState> {
     this.state = {
       byId: props.formItems.reduce((acc, item) =>
         ({ ...acc, [item.name]: { ...item, value: this.getValue(item) }}),
-        {},
+        {}
       ),
       allIds: pluck("name", props.formItems),
     }

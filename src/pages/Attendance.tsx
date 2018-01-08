@@ -23,13 +23,13 @@ interface IProps extends OwnProps {
   attendanceMonthly: AttendanceMonthlyView
   attendanceSettings: AttendanceSettings
   projects: Project[]
-  fetchAttendancesIfNeeded: () => void
-  fetchSettings: () => void
-  saveAttendancesIfNeeded: () => void
-  updateDaily: (dailyId: string, patch: any) => void
-  setMonthlyWithDefaults: (dailyIds: string[]) => void
-  updateSettings: (patch: Partial<AttendanceSettings>) => void
-  changeMonth: (year: number, month: number) => void
+  fetchAttendancesIfNeeded: () => any
+  fetchSettings: () => any
+  saveAttendancesIfNeeded: () => any
+  updateDaily: (dailyId: string, patch: any) => any
+  setMonthlyWithDefaults: (dailyIds: string[]) => any
+  updateSettings: (patch: Partial<AttendanceSettings>) => any
+  changeMonth: (year: number, month: number) => any
 }
 
 class Attendance extends React.Component<IProps, {}> {

@@ -1,16 +1,17 @@
 import * as React from "react"
 import * as ReactDOM from "react-dom"
 import { connect } from "react-redux"
-import { RouteComponentProps, withRouter } from "react-router-dom"
+import { RouteComponentProps } from "react-router-dom"
 import { RootState, getIsAuthenticated } from "~/modules"
 import { navigateToLogin } from "~/modules/user"
+import { RouterAction } from "react-router-redux"
 
 interface OwnProps extends React.Props<{}> {}
 
 interface IProps extends OwnProps {
   isAuthenticated: boolean
   currentURL?: string
-  navigateToLogin: () => void
+  navigateToLogin: () => RouterAction,
 }
 
 class EnsureLoggedInContainer extends React.Component<IProps, {}> {

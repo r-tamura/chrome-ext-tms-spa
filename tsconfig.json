@@ -1,7 +1,12 @@
 {
   "compilerOptions": {
+    "baseUrl": "./",
+    "paths": {
+      "~/*": ["src/*"],
+      "~/test/*": ["test/*"]
+    },
     "outDir": "./dist/",
-    "allowSyntheticDefaultImports": true,
+    "allowSyntheticDefaultImports": true, // see below
     "preserveConstEnums": true,
     "sourceMap": true,
     "noImplicitAny": true,
@@ -11,5 +16,10 @@
     "target": "es2017",
     "jsx": "react",
     "allowJs": true
-  }
+  },
+  "include": [
+      "./src/**/*",
+      "./test/**/*"
+  ],
+  "strictFunctionTypes": false
 }

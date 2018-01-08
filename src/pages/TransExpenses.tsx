@@ -28,15 +28,15 @@ interface IProps extends OwnProps {
   projects: Project[]
   usages: Usage[]
   objectives: Objective[]
-  fetchExpensesAll: () => void
-  createExpense: () => void
-  createExpenseFromTemplate: () => void
-  deleteExpense: () => void
-  updateExpense: () => void
-  fetchExpenseTemplatesAll: () => void
-  createExpenseTemplate: () => void
-  deleteExpenseTemplate: () => void
-  updateExpenseTemplate: () => void
+  fetchExpensesAll: () => any
+  createExpense: () => any
+  createExpenseFromTemplate: () => any
+  deleteExpense: () => any
+  updateExpense: () => any
+  fetchExpenseTemplatesAll: () => any
+  createExpenseTemplate: () => any
+  deleteExpenseTemplate: () => any
+  updateExpenseTemplate: () => any
 }
 
 class TransExpenseComponent extends React.Component<IProps, {}> {
