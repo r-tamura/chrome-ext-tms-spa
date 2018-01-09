@@ -1,6 +1,7 @@
 import * as React from "react"
 import { Helmet } from "react-helmet"
-import { RouteComponentProps, withRouter } from "react-router-dom"
+import { RouteComponentProps } from "react-router-dom"
+import { Form, Text } from "react-form"
 import { RootState } from "~/modules"
 import { loginUser } from "~/modules/user"
 import { Dispatch } from "redux"
@@ -16,10 +17,7 @@ interface IProps extends React.Props<{}>, RouteComponentProps<{}> {
 /**
  * ログインフォームコンポーネント
  */
-class Login extends React.Component<IProps, {}> {
-  private inputPassword: HTMLInputElement
-  private inputUserName: HTMLInputElement
-
+class LoginPage extends React.Component<IProps, {}> {
   public render() {
     const { isFetching } = this.props
     if (isFetching) {
@@ -27,48 +25,51 @@ class Login extends React.Component<IProps, {}> {
     }
 
     return (
-      <div className="login-main">
+      <div className="main main--full tms-grid-12-col-parent">
         <Helmet>
           <title>Login | TMS</title>
         </Helmet>
-        <h1>Sign in to TMS</h1>
-        <p>Enter your <strong>user name</strong> and <strong>password</strong>.</p>
-        <form onSubmit={this.handleSubmit}>
-          <div className="span-10-of-12">
-              {/* User name text filed */}
-              <div className="text-field">
-                <input
-                  ref={input => this.inputUserName = input}
-                  type="text"
-                  placeholder="John Doe"
-                  maxLength={30}
-                  required={true}
-                />
-                <label>UserName</label>
+        <div className="tms-grid--offset3 tms-grid--col7 login-center">
+          <h1>Sign in to TMS</h1>
+          <p>Enter your <strong>user name</strong> and <strong>password</strong>.</p>
+          <Form onSubmit={this.handleSubmit}>
+            { formApi => (
+              <div className="tms-panel">
+                <form onSubmit={formApi.submitForm}>
+                  {/* User name text filed */}
+                  <div className="tms-textfield">
+                    <Text
+                      field={"username"}
+                      id={"username"}
+                      placeholder="John Doe"
+                      maxLength={30}
+                      required={true}
+                    />
+                    <label htmlFor={"username"}>UserName</label>
+                  </div>
+                  {/* Password text field */}
+                  <div className="tms-textfield">
+                    <Text
+                      type="password"
+                      field={"password"}
+                      id={"password"}
+                      placeholder="Your password"
+                      maxLength={30}
+                      required={true}
+                    />
+                    <label htmlFor={"password"}>Password</label>
+                  </div>
+                  <button className="tms-btn tms-btn--primary tms-btn--block">Log in</button>
+                </form>
               </div>
-              {/* Password text field */}
-              <div className="text-field">
-                <input
-                  ref={input => this.inputPassword = input}
-                  type="password"
-                  placeholder="Your password"
-                  maxLength={30}
-                  required={true}
-                />
-                <label>Password</label>
-              </div>
-              <button className="secondary-button btn-raised span-12-of-12">Log in</button>
-            </div>
-        </form>
+            )}
+          </Form>
+        </div>
       </div>
     )
   }
 
-  private handleSubmit = (e: React.SyntheticEvent<HTMLFormElement>) => {
-    const username = this.inputUserName.value
-    const password = this.inputPassword.value
-
-    e.preventDefault()
+  private handleSubmit = ({username = "", password = ""}) => {
     this.props.loginUser(username, password)
   }
 }
@@ -87,4 +88,4 @@ const mapDispatchToProps = {
 }
 
 // export default withNav<RouteComponentProps<{}>>(Login)
-export default connect(mapStateToProps, mapDispatchToProps)(Login)
+export default connect(mapStateToProps, mapDispatchToProps)(LoginPage)

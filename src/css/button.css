@@ -1,0 +1,92 @@
+.tms-btn {
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 18px;
+  text-transform: uppercase;
+  color: rgba(0,0,0,.87);
+  background-color: #FFF;
+  transition: all .2s ease-in-out;
+  display: inline-block;
+  height: 36px;
+  padding: 0 26px;
+  margin: 6px 0;
+  border: none;
+  border-radius: 2px;
+  cursor: pointer;
+  touch-action: manipulation;
+  background-image: none;
+  text-align: center;
+  line-height: 36px;
+  vertical-align: middle;
+  white-space: nowrap;
+  user-select: none;
+  font-size: 14px;
+  font-family: inherit;
+  letter-spacing: .03em;
+  position: relative;
+  overflow: hidden;
+}
+
+.tms-btn:active,.tms-btn:focus,.tms-btn:hover {
+  background-color: #fff
+}
+
+.tms-btn[disabled]:active,.tms-btn[disabled]:focus,.tms-btn[disabled]:hover {
+  background-color: #FFF
+}
+
+.tms-btn.tms-btn--flat {
+  color: rgba(0,0,0,.87);
+  background-color: transparent
+}
+
+.tms-btn.tms-btn--flat:active,.tms-btn.tms-btn--flat:focus,.tms-btn.tms-btn--flat:hover {
+  background-color: #f2f2f2
+}
+
+.tms-btn.tms-btn--flat[disabled]:active,.tms-btn.tms-btn--flat[disabled]:focus,.tms-btn.tms-btn--flat[disabled]:hover {
+  background-color: transparent
+}
+
+.tms-btn:active,.tms-btn:focus,.tms-btn:hover {
+  outline: 0;
+  text-decoration: none;
+}
+
+.tms-btn:focus,.tms-btn:hover {
+  -webkit-box-shadow: 0 0 2px rgba(0,0,0,.12),0 2px 2px rgba(0,0,0,.2);
+  box-shadow: 0 0 2px rgba(0,0,0,.12),0 2px 2px rgba(0,0,0,.2)
+}
+
+.tms-btn--primary {
+  color: #FFF;
+  background-color: var(--primary-color);
+}
+
+.tms-btn--primary:active,.tms-btn--primary:focus,.tms-btn--primary:hover {
+  background-color: var(--primary-color);
+  filter: brightness(1.1);
+}
+
+.tms-btn--primary[disabled]:active,.tms-btn--primary[disabled]:focus,.tms-btn--primary[disabled]:hover {
+  background-color: #2196F3;
+}
+
+.tms-btn--secondary {
+  color: #FFF;
+  background-color: var(--secondary-color);
+}
+
+.tms-btn--danger {
+  color: #FFF;
+  background-color: var(--danger-color);
+}
+
+.tms-btn--accent {
+  color: #FFF;
+  background-color: var(--danger-color);
+}
+
+.tms-btn--block {
+  width: 100%;
+}

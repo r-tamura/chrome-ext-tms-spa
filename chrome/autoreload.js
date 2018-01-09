@@ -3,6 +3,6 @@
  */
 document.addEventListener("keydown", (e) => {
   if (e.keyCode == 81 && e.ctrlKey) { // Ctrl + q
-    chrome.runtime.sendMessage({}, response => setTimeout(() => location.reload(true), 800))
+    chrome.runtime.sendMessage({}, response => setTimeout(() => location.reload(true), 2000))
   }
 })

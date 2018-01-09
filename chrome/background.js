@@ -1,13 +1,13 @@
 
-(function setupChromeBackground(c) {
+(function setupChromeBackground(chrome) {
 
   // Chromeの拡張機能をリロードする
-  c.runtime.onMessage.addListener(() => {
-    chrome.runtime.reload();
+  chrome.runtime.onMessage.addListener(() => {
+    chrome.runtime.reload()
   })
 
   // TCPコネクション前に処理を割り込ませる
-  c.webRequest.onBeforeRequest.addListener(details => {
+  chrome.webRequest.onBeforeRequest.addListener(details => {
     console.log(details)
   })
 }(chrome))

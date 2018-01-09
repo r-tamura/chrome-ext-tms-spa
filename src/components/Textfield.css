@@ -1,10 +1,10 @@
 .tms-textfield {
   display: block;
-  padding-top: calc(1.25 * var(--font-size-md));
+  padding-top: calc(1.25 * var(--font-size-lg));
   margin-bottom: var(--form-group-margin-bottom);
   position: relative;
 
-  & input {
+  & input, & textarea {
     display: block;
     background-color: transparent;
     color: rgba(0,0,0,.87);
@@ -15,10 +15,11 @@
     padding: 0;
     box-shadow: none;
     border-radius: 0;
-    font-size: 16px;
+    font-size: var(--font-size-lg);
     font-family: inherit;
     line-height: inherit;
     background-image: none;
+    text-indent: 0.5em;
   }
 
   &> label {
