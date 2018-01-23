@@ -1,0 +1,294 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<LoginPage /> should render 'fetching...' 1`] = `
+<p>
+  Fetching...
+</p>
+`;
+
+exports[`<LoginPage /> should render Login page 1`] = `
+<LoginPage
+  history={
+    Object {
+      "action": "POP",
+      "block": [Function],
+      "createHref": [Function],
+      "go": [Function],
+      "goBack": [Function],
+      "goForward": [Function],
+      "length": 2,
+      "listen": [Function],
+      "location": Object {
+        "hash": "",
+        "key": "",
+        "pathname": "",
+        "search": "",
+        "state": Object {},
+      },
+      "push": [Function],
+      "replace": [Function],
+    }
+  }
+  isAuthenticated={false}
+  isFetching={false}
+  location={
+    Object {
+      "hash": "",
+      "key": "",
+      "pathname": "",
+      "search": "",
+      "state": Object {},
+    }
+  }
+  loginUser={[MockFunction]}
+  match={
+    Object {
+      "isExact": true,
+      "params": null,
+      "path": "",
+      "url": "",
+    }
+  }
+  name="test"
+  navigateToDashBoard={[MockFunction]}
+  staticContext={Object {}}
+>
+  <div
+    className="main main--full tms-grid-12-col-parent"
+  >
+    <HelmetWrapper
+      defer={true}
+      encodeSpecialCharacters={true}
+    >
+      <SideEffect(NullComponent)
+        defer={true}
+        encodeSpecialCharacters={true}
+        title="Login | TMS"
+        titleAttributes={Object {}}
+      >
+        <NullComponent
+          defer={true}
+          encodeSpecialCharacters={true}
+          title="Login | TMS"
+          titleAttributes={Object {}}
+        />
+      </SideEffect(NullComponent)>
+    </HelmetWrapper>
+    <div
+      className="tms-grid--offset3 tms-grid--col7 login-center"
+    >
+      <h1>
+        Sign in to TMS
+      </h1>
+      <p>
+        Enter your 
+        <strong>
+          user name
+        </strong>
+         and 
+        <strong>
+          password
+        </strong>
+        .
+      </p>
+      <t
+        onSubmit={[Function]}
+      >
+        <Connect(t)
+          onSubmit={[Function]}
+          store={
+            Object {
+              "dispatch": [Function],
+              "getState": [Function],
+              "replaceReducer": [Function],
+              "subscribe": [Function],
+              Symbol(observable): [Function],
+            }
+          }
+        >
+          <t
+            dispatch={[Function]}
+            formState={
+              Object {
+                "asyncErrors": Object {},
+                "asyncSuccesses": Object {},
+                "asyncValidations": 0,
+                "asyncWarnings": Object {},
+                "errors": Object {},
+                "submits": 1,
+                "submitted": false,
+                "submitting": true,
+                "successes": Object {},
+                "touched": Object {
+                  "password": true,
+                  "username": true,
+                },
+                "validating": Object {},
+                "validationFailed": Object {},
+                "validationFailures": 0,
+                "values": Object {},
+                "warnings": Object {},
+              }
+            }
+            onSubmit={[Function]}
+            store={
+              Object {
+                "dispatch": [Function],
+                "getState": [Function],
+                "replaceReducer": [Function],
+                "subscribe": [Function],
+                Symbol(observable): [Function],
+              }
+            }
+            storeSubscription={
+              Subscription {
+                "listeners": Object {
+                  "clear": [Function],
+                  "get": [Function],
+                  "notify": [Function],
+                  "subscribe": [Function],
+                },
+                "onStateChange": [Function],
+                "parentSub": undefined,
+                "store": Object {
+                  "dispatch": [Function],
+                  "getState": [Function],
+                  "replaceReducer": [Function],
+                  "subscribe": [Function],
+                  Symbol(observable): [Function],
+                },
+                "unsubscribe": [Function],
+              }
+            }
+          >
+            <div
+              className="tms-panel"
+            >
+              <form
+                onSubmit={[Function]}
+              >
+                <div
+                  className="tms-textfield"
+                >
+                  <r
+                    field="username"
+                    id="username"
+                    maxLength={30}
+                    placeholder="John Doe"
+                    required={true}
+                  >
+                    <t
+                      fieldApi={
+                        Object {
+                          "doneValidatingField": [Function],
+                          "getError": [Function],
+                          "getFieldName": [Function],
+                          "getSuccess": [Function],
+                          "getTouched": [Function],
+                          "getValue": [Function],
+                          "getWarning": [Function],
+                          "registerAsyncValidation": [Function],
+                          "reset": [Function],
+                          "setError": [Function],
+                          "setSuccess": [Function],
+                          "setTouched": [Function],
+                          "setValue": [Function],
+                          "setWarning": [Function],
+                          "submits": 1,
+                          "submitted": false,
+                          "validatingField": [Function],
+                        }
+                      }
+                      id="username"
+                      maxLength={30}
+                      placeholder="John Doe"
+                      required={true}
+                    >
+                      <input
+                        id="username"
+                        maxLength={30}
+                        onBlur={[Function]}
+                        onChange={[Function]}
+                        placeholder="John Doe"
+                        required={true}
+                        value=""
+                      />
+                    </t>
+                  </r>
+                  <label
+                    htmlFor="username"
+                  >
+                    UserName
+                  </label>
+                </div>
+                <div
+                  className="tms-textfield"
+                >
+                  <r
+                    field="password"
+                    id="password"
+                    maxLength={30}
+                    placeholder="Your password"
+                    required={true}
+                    type="password"
+                  >
+                    <t
+                      fieldApi={
+                        Object {
+                          "doneValidatingField": [Function],
+                          "getError": [Function],
+                          "getFieldName": [Function],
+                          "getSuccess": [Function],
+                          "getTouched": [Function],
+                          "getValue": [Function],
+                          "getWarning": [Function],
+                          "registerAsyncValidation": [Function],
+                          "reset": [Function],
+                          "setError": [Function],
+                          "setSuccess": [Function],
+                          "setTouched": [Function],
+                          "setValue": [Function],
+                          "setWarning": [Function],
+                          "submits": 1,
+                          "submitted": false,
+                          "validatingField": [Function],
+                        }
+                      }
+                      id="password"
+                      maxLength={30}
+                      placeholder="Your password"
+                      required={true}
+                      type="password"
+                    >
+                      <input
+                        id="password"
+                        maxLength={30}
+                        onBlur={[Function]}
+                        onChange={[Function]}
+                        placeholder="Your password"
+                        required={true}
+                        type="password"
+                        value=""
+                      />
+                    </t>
+                  </r>
+                  <label
+                    htmlFor="password"
+                  >
+                    Password
+                  </label>
+                </div>
+                <button
+                  className="tms-btn tms-btn--primary tms-btn--block"
+                >
+                  SIGN IN
+                </button>
+              </form>
+            </div>
+          </t>
+        </Connect(t)>
+      </t>
+    </div>
+  </div>
+</LoginPage>
+`;

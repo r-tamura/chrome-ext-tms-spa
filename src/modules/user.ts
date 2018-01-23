@@ -31,7 +31,7 @@ interface ILoginError extends Action {
   isAuthenticated: boolean,
 }
 
-export const requestLogin = (): IRequestLoginAction => {
+const requestLogin = (): IRequestLoginAction => {
   return {
     type: ActionTypes.REQUEST,
     isFetching: true,
@@ -39,38 +39,39 @@ export const requestLogin = (): IRequestLoginAction => {
   }
 }
 
-export const navigateToLogin = () => push("/")
+const navigateTo = (path: string) => push(path)
+const navigateToLogin = () => navigateTo("/")
+const navigateToTransportation = () => navigateTo("/transportation")
+const navigateToDashBoard = () => navigateTo("/transportation")
 
-export const navigateToDashBoard = () => push("/transportation")
-
-export const loginUser = (idToken: string, credential: string) =>
+const loginUser = (idToken: string, credential: string) =>
   (dispatch: Dispatch<{}>, getState: () => RootState) => {
     dispatch(requestLogin())
     login(idToken, credential)
       .then(res => dispatch(receiveLogin(res.name)))
-      .then(() =>  dispatch(push("/transportation")))
+      .then(() =>  dispatch(navigateToDashBoard()))
       .catch(err => dispatch(loginError()))
   }
 
-export const receiveLogin = (name: string): IReceiveLoginAction => ({
+const receiveLogin = (name: string): IReceiveLoginAction => ({
   type: ActionTypes.SUCCESS,
   isFetching: false,
   isAuthenticated: true,
   name,
 })
 
-export const loginError = (): ILoginError => ({
+const loginError = (): ILoginError => ({
   type: ActionTypes.ERROR,
   isFetching: false,
   isAuthenticated: true,
 })
 
-export type UserAction = IRequestLoginAction | IReceiveLoginAction | ILoginError
+type UserAction = IRequestLoginAction | IReceiveLoginAction | ILoginError
 
 /**
  * State
  */
-export type UserState =  {
+type UserState =  {
   readonly isFetching: boolean,
   readonly isAuthenticated: boolean,
   readonly name?: string,
@@ -85,9 +86,9 @@ const initialState: UserState = {
 /**
  * Selectors
  */
-export const getUserName = (state: UserState): string => state.name || ""
-export const getIsAuthenticated = (state: UserState): boolean => state.isAuthenticated
-export const getIsFetching = (state: UserState): boolean => state.isFetching
+const getUserName = (state: UserState): string => state.name || ""
+const getIsAuthenticated = (state: UserState): boolean => state.isAuthenticated
+const getIsFetching = (state: UserState): boolean => state.isFetching
 
 /**
  * Reducer
@@ -112,6 +113,21 @@ function user(state: UserState = initialState, action: UserAction): UserState {
     default:
       return state
   }
+}
+
+export {
+  requestLogin,
+  navigateToLogin,
+  navigateToTransportation,
+  navigateToDashBoard,
+  loginUser,
+  receiveLogin,
+  loginError,
+  UserAction,
+  UserState,
+  getUserName,
+  getIsAuthenticated,
+  getIsFetching,
 }
 
 export default user
