@@ -32,7 +32,7 @@ interface IProps extends OwnProps {
   changeMonth: (year: number, month: number) => any
 }
 
-class Attendance extends React.Component<IProps, {}> {
+class AttendancePage extends React.Component<IProps, {}> {
 
   constructor(props: IProps) {
     super(props)
@@ -49,9 +49,9 @@ class Attendance extends React.Component<IProps, {}> {
         <title>Attendance | TMS</title>
       </Helmet>
       <h1>
-        <button onClick={this.onPrevMonthClick}>{"<"}</button>
+        <button id={"btn-prev-month"} onClick={this.onPrevMonthClick}>{"<"}</button>
         {year} / {month}
-        <button onClick={this.onNextMonthClick}>{">"}</button>
+        <button id={"btn-next-month"} onClick={this.onNextMonthClick}>{">"}</button>
       </h1>
       {this.renderMonthly(attendanceMonthly)}
 
@@ -96,9 +96,9 @@ class Attendance extends React.Component<IProps, {}> {
     return (
       <div>
         <div>
-          <button onClick={this.onSetDefaultClick}>set default</button>
-          <button onClick={this.onSaveClick}>Save</button>
-          <button onClick={this.props.fetchAttendancesIfNeeded}>Reload</button>
+          <button id={"btn-set-default"} onClick={this.onSetDefaultClick}>set default</button>
+          <button id={"btn-save"} onClick={this.onSaveClick}>Save</button>
+          <button id={"btn-fetch"} onClick={this.props.fetchAttendancesIfNeeded}>Reload</button>
         </div>
         <div>
         <SelectBox
@@ -178,16 +178,17 @@ class Attendance extends React.Component<IProps, {}> {
 
   private onNextMonthClick= (e: React.MouseEvent<HTMLButtonElement>): void => {
     const { year: curYear, month: curMonth } = this.props.attendanceMonthly
-    const nextMonth = curMonth === 12 ? 1 : curMonth + 1
+    const nextMonth = curMonth % 12 + 1
     const nextYear  = nextMonth === 1 ? curYear + 1 : curYear
     this.props.changeMonth(nextYear, nextMonth)
   }
 
   private onPrevMonthClick = (e: React.MouseEvent<HTMLButtonElement>): void => {
     const { year: curYear, month: curMonth } = this.props.attendanceMonthly
-    const nextMonth = curMonth === 1 ? 12 : curMonth - 1
-    const nextYear  = nextMonth === 1 ? curYear + 1 : curYear
-    this.props.changeMonth(nextYear, nextMonth)
+    console.log(curMonth)
+    const prevMonth = (curMonth + 10) % 12 + 1
+    const prevYear  = prevMonth === 12 ? curYear - 1 : curYear
+    this.props.changeMonth(prevYear, prevMonth)
   }
 
 }
@@ -200,6 +201,10 @@ const mapStateToProps = (state: RootState, onwProps: OwnProps) => {
   }
 }
 
+export {
+  AttendancePage,
+}
+
 export default connect(mapStateToProps, {
   fetchAttendancesIfNeeded,
   saveAttendancesIfNeeded,
@@ -208,4 +213,4 @@ export default connect(mapStateToProps, {
   setMonthlyWithDefaults,
   updateSettings,
   changeMonth,
-})(Attendance)
+})(AttendancePage)
