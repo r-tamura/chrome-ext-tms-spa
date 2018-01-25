@@ -25,6 +25,11 @@ describe("cookie/serialize", () => {
     .toBe("key=value; Expires=Thu, 01 Jan 1970 00:00:00 GMT")
   })
 
+  it("Max-Age", () => {
+    expect(serialize("key", "value", { maxAge: 86400 }))
+    .toBe("key=value; Max-Age=86400")
+  })
+
   it("HttpOnly", () => {
     expect(serialize("key", "value", { httpOnly: true }))
       .toBe("key=value; HttpOnly")
@@ -51,5 +56,10 @@ describe("cookie/serialize", () => {
   it("SameSite", () => {
     expect(serialize("key", "value", { sameSite: "lax" }))
     .toBe("key=value; SameSite=lax")
+  })
+
+  it("Multiple Attributes", () => {
+    expect(serialize("key", "value", { expires: new Date("1970-01-01"), httpOnly: true, secure: true }))
+    .toBe("key=value; Expires=Thu, 01 Jan 1970 00:00:00 GMT; HttpOnly; Secure")    
   })
 })

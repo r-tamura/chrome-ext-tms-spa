@@ -39,7 +39,7 @@ const serialize = (key: string, value: string, attributes: CookieAttribute = {})
     result.push(`Expires=${attributes.expires.toUTCString()}`)
   }
   if (attributes.maxAge) {
-    result.push(`MaxAge=${attributes.maxAge}`)
+    result.push(`Max-Age=${attributes.maxAge}`)
   }
   if (attributes.domain) {
     result.push(`Domain=${attributes.domain}`)
