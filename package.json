@@ -10,12 +10,12 @@
     "lint": "tslint \"src/**/*.{ts, tsx}\"",
     "lint:fix": "yarn run lint --fix",
     "lint:css": "stylelint styles/**/*.css",
-    "test": "jest --coverage",
-    "cover": "",
+    "test": "jest",
+    "cover": "jest --coverage",
     "watch:ts": "webpack -w"
   },
   "dependencies": {
-    "@types/enzyme": "^3.1.6",
+    "@types/enzyme": "^3.1.7",
     "@types/jest": "^22.0.1",
     "@types/prop-types": "^15.5.1",
     "@types/ramda": "0.24.6",
@@ -45,11 +45,14 @@
     "typescript": "^2.4.1"
   },
   "devDependencies": {
+    "@types/enzyme-adapter-react-16": "^1.0.1",
     "@types/redux-logger": "^3.0.0",
     "awesome-typescript-loader": "^3.2.1",
     "cross-env": "^5.0.1",
     "css-loader": "^0.28.4",
     "enzyme": "^3.3.0",
+    "enzyme-adapter-react-16": "^1.1.1",
+    "enzyme-to-json": "^3.3.0",
     "jest": "^22.0.4",
     "jest-localstorage-mock": "^2.1.0",
     "npm-run-all": "^4.0.2",
@@ -82,6 +85,7 @@
       "js"
     ],
     "setupFiles": [
+      "./utils/jest-setup.js",
       "jest-localstorage-mock"
     ],
     "transform": {

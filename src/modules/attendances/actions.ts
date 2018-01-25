@@ -139,7 +139,7 @@ const fetchAttendances = (year: number, month: number) =>
       composeAsync(
         dispatch,
         fetchAttendanceMonthliesSuccess,
-        fetchMonthlyAttendance,
+        fetchMonthlyAttendance
       )(year, month, master)
     } catch (err) {
       dispatch(fetchAttendanceMonthliesFailure(monthlyId))
@@ -171,7 +171,7 @@ const saveAttendances = (year: number, month: number, monthly: AttendanceMonthly
       composeAsync(
         dispatch,
         saveAttendanceMonthlySuccess,
-        saveMonthlyAttendances,
+        saveMonthlyAttendances
       )(year, month, monthly.days.filter(hasUpdated))
     } catch (err) {
       dispatch(saveAttendanceMonthlyFailure(monthlyId))
@@ -270,7 +270,7 @@ export const updateSettings = (patch: Partial<AttendanceSettings>) =>
       () => fetchSettings()(dispatch, getState),
       dispatch,
       updateSettingsSuccess,
-      patchSettings,
+      patchSettings
     )(patch)
   }
 

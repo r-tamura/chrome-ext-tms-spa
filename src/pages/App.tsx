@@ -7,7 +7,7 @@ import Header from "~/components/Header"
 import Nav from "~/components/Nav"
 import { RootState } from "~/modules"
 import EnsureLoggedInContainer from "~/containers/EnsureLoggedInContainer"
-import Login from "./Login"
+import LoginPage from "./LoginPage"
 import TransExpense from "./TransExpenses"
 import Attendance from "./Attendance"
 import NoMatch from "./NoMatch"
@@ -34,7 +34,7 @@ class App extends React.Component<IProps, {}> {
           }}
         />
         <Switch>
-          <Route exact={true} path="/" component={Login}/>
+          <Route exact={true} path="/" component={LoginPage}/>
           <EnsureLoggedInContainer>
             <Route path="/transportation" component={TransExpense}/>
             <Route path="/attendance" component={Attendance}/>

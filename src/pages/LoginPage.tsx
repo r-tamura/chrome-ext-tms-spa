@@ -3,21 +3,29 @@ import { Helmet } from "react-helmet"
 import { RouteComponentProps } from "react-router-dom"
 import { Form, Text } from "react-form"
 import { RootState } from "~/modules"
-import { loginUser } from "~/modules/user"
+import { loginUser, navigateToDashBoard } from "~/modules/user"
 import { Dispatch } from "redux"
 import { connect } from "react-redux"
 
 interface IProps extends React.Props<{}>, RouteComponentProps<{}> {
   readonly isFetching: boolean,
+  /* ログイン済みであるか */
   readonly isAuthenticated: boolean,
+  /* ユーザー名 */
   readonly name: string,
-  loginUser: (id: string, pw: string) => (dispatch: Dispatch<{}>) => any
+  loginUser: (id: string, pw: string) => any
+  navigateToDashBoard: () => any
 }
 
 /**
- * ログインフォームコンポーネント
+ * ログインページ
  */
 class LoginPage extends React.Component<IProps, {}> {
+
+  public componentWillMount() {
+    this.redirectToDashboardIfNeeded(this.props.isAuthenticated)
+  }
+
   public render() {
     const { isFetching } = this.props
     if (isFetching) {
@@ -59,7 +67,7 @@ class LoginPage extends React.Component<IProps, {}> {
                     />
                     <label htmlFor={"password"}>Password</label>
                   </div>
-                  <button className="tms-btn tms-btn--primary tms-btn--block">Log in</button>
+                  <button className="tms-btn tms-btn--primary tms-btn--block">SIGN IN</button>
                 </form>
               </div>
             )}
@@ -67,6 +75,16 @@ class LoginPage extends React.Component<IProps, {}> {
         </div>
       </div>
     )
+  }
+
+  private shouldRedirectToDashBoard(isAuthenticated: boolean): boolean {
+    return isAuthenticated
+  }
+
+  private redirectToDashboardIfNeeded(isAuthenticated: boolean) {
+    if (this.shouldRedirectToDashBoard(isAuthenticated)) {
+      this.props.navigateToDashBoard()
+    }
   }
 
   private handleSubmit = ({username = "", password = ""}) => {
@@ -85,6 +103,11 @@ const mapStateToProps = (state: RootState, props: IProps) => {
 
 const mapDispatchToProps = {
   loginUser,
+  navigateToDashBoard,
+}
+
+export {
+  LoginPage,
 }
 
 // export default withNav<RouteComponentProps<{}>>(Login)
