@@ -26,10 +26,16 @@ export type AttendanceState = {
 
 /**
  * Reducer
+ * @param state デフォルト: 現在現在年月
+ * @param action
  */
+const now = new Date()
 function yearAndMonth(
-  state: AttendanceSelectState = { selectedYear: 2017, selectedMonth: 8 },
-  action: AttendanceAction,
+  state: AttendanceSelectState = {
+    selectedYear: now.getFullYear(),
+    selectedMonth: now.getMonth() + 1,
+  },
+  action: AttendanceAction
 ): AttendanceSelectState {
   switch (action.type) {
     case ActionTypes.SET_MONTH: {
@@ -47,6 +53,9 @@ export * from "./settings"
 export * from "./actions"
 export * from "./selectors"
 export * from "./utils"
+export {
+  yearAndMonth,
+}
 export default combineReducers({
   yearAndMonth,
   dailies,
