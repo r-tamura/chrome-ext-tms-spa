@@ -45,11 +45,14 @@
     "typescript": "^2.4.1"
   },
   "devDependencies": {
+    "@types/ejs": "^2.5.0",
     "@types/enzyme-adapter-react-16": "^1.0.1",
     "@types/redux-logger": "^3.0.0",
+    "@types/redux-mock-store": "^0.0.13",
     "awesome-typescript-loader": "^3.2.1",
     "cross-env": "^5.0.1",
     "css-loader": "^0.28.4",
+    "ejs": "^2.5.7",
     "enzyme": "^3.3.0",
     "enzyme-adapter-react-16": "^1.1.1",
     "enzyme-to-json": "^3.3.0",
@@ -67,6 +70,7 @@
     "postcss-sorting": "^3.0.1",
     "react-test-renderer": "^16.2.0",
     "redux-logger": "^3.0.6",
+    "redux-mock-store": "^1.5.0",
     "style-loader": "^0.19.1",
     "ts-jest": "^22.0.1",
     "tslint": "^5.5.0",

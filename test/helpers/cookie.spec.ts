@@ -60,6 +60,6 @@ describe("cookie/serialize", () => {
 
   it("Multiple Attributes", () => {
     expect(serialize("key", "value", { expires: new Date("1970-01-01"), httpOnly: true, secure: true }))
-    .toBe("key=value; Expires=Thu, 01 Jan 1970 00:00:00 GMT; HttpOnly; Secure")    
+    .toBe("key=value; Expires=Thu, 01 Jan 1970 00:00:00 GMT; HttpOnly; Secure")
   })
 })

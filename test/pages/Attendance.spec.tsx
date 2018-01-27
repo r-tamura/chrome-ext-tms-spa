@@ -5,7 +5,7 @@ import { shallow, mount } from "enzyme"
 import Adapter from "enzyme-adapter-react-16"
 import toJson from "enzyme-to-json"
 import { AttendancePage } from "~/pages/Attendance"
-import { getMockRouterProps } from "../__mock__/ReactRouteProps"
+import { getMockRouterProps } from "../__mocks__/ReactRouteProps"
 
 const attendanceMonthly = {
   monthlyId: "201801",

@@ -1,39 +1,45 @@
 import { Action, Dispatch } from "redux"
 import { push } from "react-router-redux"
-import { login } from "~/api/login"
+import { login, logout } from "~/api/login"
 import { RootState } from "~/modules"
 
 /**
  * Actions
  */
 enum ActionTypes {
-  REQUEST = "user/request",
-  SUCCESS = "user/success",
-  ERROR = "user/error",
+  LOGIN_REQUEST    = "user/login_request",
+  LOGIN_SUCCESS    = "user/login_success",
+  LOGIN_ERROR      = "user/login_error",
+  LOGOUT_REQUEST   = "user/logout",
 }
 
 interface IRequestLoginAction extends Action {
-  type: ActionTypes.REQUEST
+  type: ActionTypes.LOGIN_REQUEST
   isFetching: boolean
-  isAuthenticated: boolean,
+  isAuthenticated: boolean
 }
 
 interface IReceiveLoginAction extends Action {
-  type: ActionTypes.SUCCESS
-  isFetching: boolean,
-  isAuthenticated: boolean,
-  name: string,
+  type: ActionTypes.LOGIN_SUCCESS
+  isFetching: boolean
+  isAuthenticated: boolean
+  name: string
 }
 
 interface ILoginError extends Action {
-  type: ActionTypes.ERROR
-  isFetching: boolean,
-  isAuthenticated: boolean,
+  type: ActionTypes.LOGIN_ERROR
+  isFetching: boolean
+  isAuthenticated: boolean
+}
+
+interface ILogout extends Action {
+  type: ActionTypes.LOGOUT_REQUEST
+  isAuthenticated: boolean
 }
 
 const requestLogin = (): IRequestLoginAction => {
   return {
-    type: ActionTypes.REQUEST,
+    type: ActionTypes.LOGIN_REQUEST,
     isFetching: true,
     isAuthenticated: false,
   }
@@ -47,26 +53,32 @@ const navigateToDashBoard = () => navigateTo("/transportation")
 const loginUser = (idToken: string, credential: string) =>
   (dispatch: Dispatch<{}>, getState: () => RootState) => {
     dispatch(requestLogin())
-    login(idToken, credential)
+    return login(idToken, credential)
+      .then(res => res.isAuthenticated ? Promise.resolve(res) : Promise.reject("Error"))
       .then(res => dispatch(receiveLogin(res.name)))
       .then(() =>  dispatch(navigateToDashBoard()))
       .catch(err => dispatch(loginError()))
   }
 
 const receiveLogin = (name: string): IReceiveLoginAction => ({
-  type: ActionTypes.SUCCESS,
+  type: ActionTypes.LOGIN_SUCCESS,
   isFetching: false,
   isAuthenticated: true,
   name,
 })
 
 const loginError = (): ILoginError => ({
-  type: ActionTypes.ERROR,
-  isFetching: false,
-  isAuthenticated: true,
+  type: ActionTypes.LOGIN_ERROR,
+  isFetching: true,
+  isAuthenticated: false,
 })
 
-type UserAction = IRequestLoginAction | IReceiveLoginAction | ILoginError
+const logoutUser = () => {
+  logout()
+  return navigateToLogin()
+}
+
+type UserAction = IRequestLoginAction | IReceiveLoginAction | ILoginError | ILogout
 
 /**
  * State
@@ -95,35 +107,40 @@ const getIsFetching = (state: UserState): boolean => state.isFetching
  */
 function user(state: UserState = initialState, action: UserAction): UserState {
   switch (action.type) {
-    case ActionTypes.REQUEST:
+    case ActionTypes.LOGIN_REQUEST:
       return {
         ...state,
         isFetching: action.isFetching,
         isAuthenticated: action.isAuthenticated,
       }
-    case ActionTypes.SUCCESS:
+    case ActionTypes.LOGIN_SUCCESS:
       return {
         ...state,
         isFetching: action.isFetching,
         isAuthenticated: action.isAuthenticated,
         name: action.name,
       }
-    case ActionTypes.ERROR:
+    case ActionTypes.LOGIN_ERROR:
       return { ...state, ...initialState }
+    case ActionTypes.LOGOUT_REQUEST:
+      return { ...initialState, isAuthenticated: action.isAuthenticated }
     default:
       return state
   }
 }
 
 export {
+  ActionTypes,
+  UserAction,
+  initialState,
   requestLogin,
   navigateToLogin,
   navigateToTransportation,
   navigateToDashBoard,
   loginUser,
+  logoutUser,
   receiveLogin,
   loginError,
-  UserAction,
   UserState,
   getUserName,
   getIsAuthenticated,
