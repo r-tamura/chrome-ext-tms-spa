@@ -52,8 +52,9 @@ describe("user actions", () => {
     expect.assertions(1)
     await store.dispatch(logoutUser())
     const actions = store.getActions()
+    const logoutAction: UserAction = { type: ActionTypes.LOGOUT_REQUEST, isAuthenticated: false, name: null }
     const expectedActions = [
-      navigateToLogin(),
+      logoutAction,
     ]
     expect(actions).toEqual(expectedActions)
   })
@@ -108,6 +109,7 @@ describe("user reducer", () => {
     const action: UserAction = {
       type: ActionTypes.LOGOUT_REQUEST,
       isAuthenticated: false,
+      name: null,
     }
     const expected = initialState
     expect(user(initialState, action)).toEqual(expected)

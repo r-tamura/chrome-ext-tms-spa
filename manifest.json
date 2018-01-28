@@ -12,7 +12,8 @@
     "exclude_matches": [
       "*://www.telema.jp/tmsx/*"
     ],
-    "js": ["dist/bundle.js", "chrome/autoreload.js"]
+    "js": ["dist/bundle.js", "chrome/autoreload.js"],
+    "css": ["dist/bundle.css"]
   }],
   "icons": {
     "16": "chrome/assets/tms.png",

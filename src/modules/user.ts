@@ -35,6 +35,7 @@ interface ILoginError extends Action {
 interface ILogout extends Action {
   type: ActionTypes.LOGOUT_REQUEST
   isAuthenticated: boolean
+  name: string
 }
 
 const requestLogin = (): IRequestLoginAction => {
@@ -73,9 +74,13 @@ const loginError = (): ILoginError => ({
   isAuthenticated: false,
 })
 
-const logoutUser = () => {
+const logoutUser = (): ILogout => {
   logout()
-  return navigateToLogin()
+  return {
+    type: ActionTypes.LOGOUT_REQUEST,
+    isAuthenticated: false,
+    name: null,
+  }
 }
 
 type UserAction = IRequestLoginAction | IReceiveLoginAction | ILoginError | ILogout

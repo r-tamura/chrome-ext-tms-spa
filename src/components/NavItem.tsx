@@ -5,7 +5,6 @@ interface NavProps extends React.Props<{}> {
   to: string,         // Routeのナビゲーション先
   selected?: boolean,  // 選択中であるか
   disabled?: boolean,  // 無効リンクであるか
-  children?: React.ReactNode
 }
 
 /**
