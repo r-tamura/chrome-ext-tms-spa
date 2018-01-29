@@ -1,118 +1,86 @@
 import * as React from "react"
+import { Dispatch } from "redux"
 import { connect } from "react-redux"
 import { RootState } from "~/modules"
+import { logoutUser, navigateToLogin } from "~/modules/user"
+import { Link } from "react-router-dom"
+import Menu, { MenuItem } from "~/components/Menu"
 
-interface IProps extends React.ClassAttributes<{}> {
-  username: string
-  // isLogin: boolean
+interface IHeaderUserProps {
+  onLogout: () => any
 }
 
-  // function getInitState(props) {
-  //   return {
-  //     isLogin: ContextStore.getIsLogin(),
-  //     username: ContextStore.getName(),
-  //   }
-  // }
-
-  /* メニューオープン3点リーダクリックイベント */
-const onMenuBtnClick = (e: React.MouseEvent<HTMLElement>) => {
-  const nav = document.getElementById("side-nav-bar")
-  nav.classList.toggle("on-active")
+interface IHeaderUserState {
+  anchorElement: Element
 }
 
-// function onSelectTabClick(e: React.SyntheticEvent) {
-//   // "+"でstring=>number変換
-//   const id = +(e.currentTarget as HTMLElement).getAttribute("data-active-id")
-//   CommonAPI.updateMainTab(id)
-// }
+class HeaderUser extends React.Component<IHeaderUserProps, IHeaderUserState> {
 
-// /* ユーザボタンクリックイベント */
-// function onUserClick = (e: React.SyntheticEvent) => {
-//   /* ユーザメニューを開く */
-//   (refs["usermenu"] as UserMenu).show()
-// }
+  constructor(props: IHeaderUserProps) {
+    super(props)
+    this.handleClick = this.handleClick.bind(this)
+    this.handleClose = this.handleClose.bind(this)
+    this.handleLogout = this.handleLogout.bind(this)
+    this.state = {
+      anchorElement: null,
+    }
+  }
 
-// updateLoginState() {
-//   let isLogin = ContextStore.getIsLogin()
-//   let username = ContextStore.getName()
-//   setState({isLogin, username})
-// }
-
-// ユーザJSXを生成します
-function renderUser(username: string) {
-  let loginButton
-  const isLogin = username && username.length > 0
-  if (isLogin) {
-    loginButton = (
-      <div className="header-user" onClick={() => ({})}>
-        <i className="person-icon"/>
-        <span>{username}</span>
-        {/* <UserMenu ref="usermenu"/> */}
+  public render() {
+    const { children } = this.props
+    const menuOpened = this.state.anchorElement != null
+    return (
+      <div className="header-user">
+        <span className={"clickable"} onClick={this.handleClick}>{children}</span>
+        <Menu title={"User Menu"} onClose={this.handleClose} open={menuOpened}>
+          <MenuItem button onClick={this.handleLogout}>Logout</MenuItem>
+        </Menu>
       </div>
     )
   }
-  return loginButton
-}
 
-// リンク一覧を生成します
-function renderNavLinks(): JSX.Element[] {
+  private handleClick(e: React.SyntheticEvent<Element>) {
+    this.setState({ anchorElement: e.currentTarget })
+  }
 
-  // ログイン前はリンクを表示しない
-  return [<div key={1} className="displayNone"/>]
+  private handleClose(e: React.SyntheticEvent<Element>) {
+    this.setState({ anchorElement: null })
+  }
 
-  // const links = [
-  //   { to: "transportation", image: taxiSvg, title: "交通費"},
-  //   { to: "attendance", image: bookSvg, title: "月間勤怠"},
-  // ]
-  // return (
-  //   links
-  //     .map((e, i) => {
-  //       const classActive = e.to === props.activeId ? "active" : ""
-  //       return (
-  //         <div key={e.to} className={`nav-link ${classActive}`}>
-  //         <Link to={e.to} title={e.title}>
-  //           {e.image}
-  //         </Link>
-  //         </div>
-  //       )
-  //     }
-  //   )
-  // )
+  private handleLogout(e: React.SyntheticEvent<Element>) {
+    this.handleClose(e)
+    this.props.onLogout()
+  }
 }
 
 /**
  * アプリケーションヘッダーコンポーネント
  */
-const Header: React.SFC<IProps> = ({
+
+interface IHeaderProps {
+  username: string
+  logoutUser: () => any
+}
+
+const Header: React.SFC<IHeaderProps> = ({
   username,
+  logoutUser: logout,
 }) => {
 
     // const { isLogin } = props
     const isLogin = true
-    const navLinks = renderNavLinks()
-    const user = renderUser(username)
-
     return (
       <header className="page-header">
-        {/* メニューボタン 小サイズデバイスで表示 */}
-        { isLogin &&
-          <div className="menu-btn" onClick={onMenuBtnClick}>
-            <img src="" />
-          </div>
-        }
         <a className="company-logo" href="http://www.telema.jp/">
           <img src="https://www.telema.co.jp/images/logo_sp.svg"/>
         </a>
-        {/* リンク */}
-        {navLinks}
-
         {/* ユーザ */}
-        {user}
+        <HeaderUser onLogout={logout}>{username}</HeaderUser>
       </header>
     )
   }
 
-type OwnProps = Partial<IProps>
+type OwnProps = Partial<IHeaderProps>
 
 const mapStateToProps = (state: RootState, ownProps: OwnProps) => {
   return {
@@ -120,4 +88,17 @@ const mapStateToProps = (state: RootState, ownProps: OwnProps) => {
   }
 }
 
-export default connect(mapStateToProps)(Header)
+const mapDispatchToProps = (dispatch: Dispatch<{}>, ownProps: OwnProps) => {
+  return {
+    logoutUser: () => {
+      dispatch(logoutUser())
+      dispatch(navigateToLogin())
+    },
+  }
+}
+
+export {
+  Header,
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Header)

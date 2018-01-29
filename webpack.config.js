@@ -1,4 +1,5 @@
 const path = require("path")
+const ExtractTextPlugin = require("extract-text-webpack-plugin")
 
 module.exports = {
   // Source mapping
@@ -21,11 +22,13 @@ module.exports = {
       },
       {
         test: /\.css$/,
-        use: [
-          "style-loader",
-          "css-loader",
-          "postcss-loader",
-        ]
+        use: ExtractTextPlugin.extract({
+          fallback: "style-loader",
+          use: [
+            "css-loader",
+            "postcss-loader",
+          ]
+        })
       },
     ]
   },
@@ -37,4 +40,8 @@ module.exports = {
     },
     extensions: [".tsx", ".ts", ".js"]
   },
+
+  plugins: [
+    new ExtractTextPlugin("bundle.css")
+  ]
 }

@@ -86,6 +86,7 @@ class AttendancePage extends React.Component<IProps, {}> {
     const { year, month, days, isFetching } = attendanceMonthly
 
     if (isFetching) {
+      // TODO: ロードインジケータを表示するように
       return <p>Now Loading...</p>
     }
 
@@ -185,7 +186,6 @@ class AttendancePage extends React.Component<IProps, {}> {
 
   private onPrevMonthClick = (e: React.MouseEvent<HTMLButtonElement>): void => {
     const { year: curYear, month: curMonth } = this.props.attendanceMonthly
-    console.log(curMonth)
     const prevMonth = (curMonth + 10) % 12 + 1
     const prevYear  = prevMonth === 12 ? curYear - 1 : curYear
     this.props.changeMonth(prevYear, prevMonth)

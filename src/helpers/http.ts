@@ -1,5 +1,6 @@
 import { prop } from "ramda"
 import { composeAsync } from "~/helpers/common"
+import toFormData from "~/helpers/to-formdata"
 
 function toURLEncoded(fd: FormData): string {
   let encoded = ""
@@ -39,20 +40,16 @@ async function ajax(url: string, method: string = "GET", params: any = null): Pr
   }
 }
 
-export async function get(url: string, params: object = {}): Promise<string> {
+async function get(url: string, params: object = {}): Promise<string> {
   return ajax(url, "GET", params)
 }
 
-export async function post(url: string, formdata: FormData | object): Promise<string> {
-  if (!(formdata instanceof FormData)) {
-    // FormDataオブジェクトでない場合はFormDataオブジェクトへ変換
-    const fd: FormData = new FormData()
-    const names = Object.getOwnPropertyNames(formdata)
+async function post(url: string, formdata: FormData | object): Promise<string> {
+  const fd = !(formdata instanceof FormData) ?  toFormData(formdata) : formdata
+  return ajax(url, "POST", fd)
+}
 
-    for ( const name of names ) {
-      fd.append(name, prop(name, formdata))
-    }
-    formdata = fd
-  }
-  return ajax(url, "POST", formdata)
+export {
+  get,
+  post,
 }

@@ -45,6 +45,10 @@ export function convMaster(html: string): Master {
  * メインメニュー画面HTMLをオブジェクトデータに変換します
  */
 export function convMenu(html: string): User {
+  if (!/TMS MENU/.test(html)) {
+    return { isAuthenticated: false }
+  }
+
   const $html = parseHTML(html)
   // ユーザ名
   const name = getUserName($html.getElementsByTagName("p").item(1).childNodes[0] as Text)

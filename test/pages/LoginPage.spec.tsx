@@ -5,7 +5,7 @@ import { mount } from "enzyme"
 import Adapter from "enzyme-adapter-react-16"
 import toJson from "enzyme-to-json"
 import { LoginPage } from "~/pages/LoginPage"
-import { getMockRouterProps } from "../__mock__/ReactRouteProps"
+import { getMockRouterProps } from "../__mocks__/ReactRouteProps"
 
 describe("<LoginPage />", () => {
 

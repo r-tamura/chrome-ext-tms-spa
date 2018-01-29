@@ -8,5 +8,6 @@
 @import "components/Header.css";
 @import "components/Modal.css";
 @import "components/SelectBox.css";
+@import "components/Menu.css";
 @import "pages/LoginPage.css";
 @import "pages/Attendance.css";
