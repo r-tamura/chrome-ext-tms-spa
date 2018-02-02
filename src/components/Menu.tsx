@@ -2,13 +2,19 @@ import * as React from "react"
 import EventListener from "react-event-listener"
 import { Link } from "react-router-dom"
 
-interface IMenuItemProps {
+interface IMenuItemProps extends React.HTMLAttributes<{}> {
   button?: boolean
   onClick?: (e: React.SyntheticEvent<any>) => any
   to?: string
   disabled?: boolean
 }
 
+/**
+ * メニューアイテムコンポーネント
+ *
+ * @param button ボタンコンポーネントを使用するか  true: ボタンコンポーネントを利用
+ * @param to     リンク先のパス
+ */
 const MenuItem: React.SFC<IMenuItemProps> = ({
   button = false,
   to,
@@ -25,7 +31,7 @@ const MenuItem: React.SFC<IMenuItemProps> = ({
   const className = classes.join(" ")
   return (
     <li className="menu-item">
-      <Component className={className} {...otherProps}>
+      <Component className={className} {...otherProps} to={to}>
         {children}
       </Component>
     </li>

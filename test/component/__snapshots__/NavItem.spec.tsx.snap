@@ -1,0 +1,43 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<NavItem /> full DOM rendering 1`] = `
+<MockRouter
+  createHref={[Function]}
+  location=""
+  params={Object {}}
+  path=""
+  push={[Function]}
+  replace={[Function]}
+  url=""
+>
+  <NavItem
+    to="/"
+  >
+    <Link
+      className="menu-item nav-item"
+      disabled={false}
+      replace={false}
+      to="/"
+    >
+      <a
+        className="menu-item nav-item"
+        disabled={false}
+        onClick={[Function]}
+      >
+        Item
+      </a>
+    </Link>
+  </NavItem>
+</MockRouter>
+`;
+
+exports[`<NavItem /> snap shot 1`] = `
+<a
+  className="menu-item nav-item"
+  disabled={false}
+  href={undefined}
+  onClick={[Function]}
+>
+  Item
+</a>
+`;

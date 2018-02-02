@@ -1,3 +1,29 @@
 .side-nav {
-  
+  background-color: var(--primary-color-dark);
+  @apply --z-index-mid;
+  @apply --box-shadow;
+}
+
+.nav-item {
+  color: var(--nav-item-color);
+  background-color: inherit;
+
+  &.selected {
+    background-color: var(--nav-item-bg-color-selected);
+
+    &:hover {
+      opacity: 1;
+    }
+  }
+
+  &:visited {
+    color: var(--nav-item-color);
+  }
+
+  &.disabled, &:disabled, &.disabled:hover, &:disabled:hover {
+    opacity: 1;
+    color: var(--nav-item-color-disabled);
+    background-color: inherit;
+    pointer-events: none;
+  }
 }

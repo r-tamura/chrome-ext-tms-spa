@@ -2,11 +2,11 @@ import * as React from "react"
 import { Link, RouteComponentProps } from "react-router-dom"
 import NavItem from "~/components/NavItem"
 
-interface IProps extends React.Props<{}> {
+interface INavProps extends React.Props<{}> {
   path: string
 }
 
-const Nav: React.SFC<IProps> = ({path}) => {
+const Nav: React.SFC<INavProps> = ({ path }) => {
   const pathname = path.replace(/^\/([^/]+).*$/, "$1")
   return (
     <nav id="side-nav-bar" className="side-nav">
@@ -40,6 +40,10 @@ const Nav: React.SFC<IProps> = ({path}) => {
       </ul>
     </nav>
   )
+}
+
+export {
+  INavProps,
 }
 
 export default Nav

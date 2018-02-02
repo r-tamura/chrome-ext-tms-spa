@@ -26,6 +26,7 @@
 }
 
 .menu-item {
+  display: block;
   padding-left: 16px;
   padding-right: 16px;
   padding-top: 12px;
@@ -38,15 +39,26 @@
   cursor: pointer;
 
   &:hover {
-    background-color: rgba(0, 0, 0, 0.14);
+    opacity: 0.7;
+  }
+
+  &.seledted {
+    background-color: var(--menu-hovered-bg-color);
+  }
+
+  &.disabled, &:disabled, &.disabled:hover, &:disabled:hover {
+    cursor: default;
+    color: var(--menu-disabled-color);
+    background-color: inherit;
   }
 
   &.menu-item--strong {
-    cursor: text;
+    cursor: default;
     font-weight: bolder;
 
     &:hover {
-      background-color: initial;
+      opacity: 1;
+      background-color: inherit;
     }
   }
 }

@@ -32,7 +32,7 @@ describe("<MenuItem />", () => {
     )
 
     expect(mockOnClick.mock.calls.length).toBe(0)
-    wrapper.find("button").simulate("click")
+    wrapper.find("span").simulate("click")
     expect(mockOnClick.mock.calls.length).toBe(1)
   })
 })

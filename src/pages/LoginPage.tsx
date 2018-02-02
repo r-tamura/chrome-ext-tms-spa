@@ -67,7 +67,7 @@ class LoginPage extends React.Component<IProps, {}> {
                     />
                     <label htmlFor={"password"}>Password</label>
                   </div>
-                  <button className="tms-btn tms-btn--primary tms-btn--block">SIGN IN</button>
+                  <button className="tms-btn primary ßblock">SIGN IN</button>
                 </form>
               </div>
             )}

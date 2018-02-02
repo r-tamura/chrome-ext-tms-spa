@@ -18,7 +18,9 @@
   font-size: var(--font-size-lg);
   font-weight: bolder;
   line-height: var(--header-height);
-  box-shadow: 0 0 5px #222;
+  
+  @apply --z-index-high;
+  @apply --box-shadow;
 
   & a:focus, & a:hover {
     opacity: 0.8
@@ -31,10 +33,6 @@
 
   & .nav-link {
     height: 100%;
-    
-    &:hover {
-      background-color: darken($COLOR_HEADER_BG, 10%);
-    }
 
     &.active {
       background-color: $nav-selected-bg-color;

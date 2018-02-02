@@ -279,7 +279,7 @@ exports[`<LoginPage /> should render Login page 1`] = `
                   </label>
                 </div>
                 <button
-                  className="tms-btn tms-btn--primary tms-btn--block"
+                  className="tms-btn primary ßblock"
                 >
                   SIGN IN
                 </button>

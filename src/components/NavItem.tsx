@@ -1,8 +1,8 @@
 import * as React from "react"
 import { Link } from "react-router-dom"
 
-interface NavProps extends React.Props<{}> {
-  to: string,         // Routeのナビゲーション先
+interface INavProps extends React.ClassAttributes<{}> {
+  to: string,          // Routeのナビゲーション先
   selected?: boolean,  // 選択中であるか
   disabled?: boolean,  // 無効リンクであるか
 }
@@ -16,25 +16,31 @@ interface NavProps extends React.Props<{}> {
  * @param {boolean} disabled 無効なリンクであるか(true: 無効/false: 有効)
  * @param {React.ReactNode} children 子コンポーネント
  */
-const NavItem: React.SFC<NavProps> = ({
+const NavItem: React.SFC<INavProps> = ({
   to,
-  disabled,
-  selected,
+  disabled = false,
+  selected = false,
   children,
 }) => {
-  // 選択中のリンクの場合
-  const selectedClass = selected ? "selected " : ""
-  // リンクが選択不可の場合
-  const disableClass = disabled ? "disabled " : ""
-  return (
-    <div className={`nav-item ${selectedClass} ${disableClass}`}>
-      <Link to={to} style={selected ? { color: "red"} : {}}>{children}</Link>
-    </div>
-  )
+  // Classes
+  const defaultClass = "menu-item nav-item"
+  const classes = [
+    defaultClass,
+    selected ? "selected" : "",
+    disabled ? "disabled" : "",
+  ].filter(s => s !== "").join(" ")
+
+  // Attributes
+  const attrs = {
+    disabled,
+  }
+  return disabled
+      ? <div className={classes} {...attrs}>{children}</div>
+      : <Link to={to} className={classes} {...attrs}>{children}</Link>
 }
-NavItem.defaultProps = {
-  selected: false,
-  disabled: false,
+
+export {
+  INavProps,
 }
 
 export default NavItem

@@ -31,9 +31,9 @@ class HeaderUser extends React.Component<IHeaderUserProps, IHeaderUserState> {
     const menuOpened = this.state.anchorElement != null
     return (
       <div className="header-user">
-        <span className={"clickable"} onClick={this.handleClick}>{children}</span>
+        <span id={"header-user-button"} className={"clickable"} onClick={this.handleClick}>{children}</span>
         <Menu title={"User Menu"} onClose={this.handleClose} open={menuOpened}>
-          <MenuItem button onClick={this.handleLogout}>Logout</MenuItem>
+          <MenuItem id={"logout"} button onClick={this.handleLogout}>Logout</MenuItem>
         </Menu>
       </div>
     )
