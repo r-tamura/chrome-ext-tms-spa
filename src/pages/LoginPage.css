@@ -1,8 +1,14 @@
-.login-center {
+.login-main {
+  width: 95%;
   align-self: center;
+  justify-self: center;
 
   & > * {
     text-align: center;
+  }
+
+  @media (--sm) {
+    width: 550px;
   }
 }
 

@@ -2,6 +2,8 @@ import * as React from "react"
 import * as ReactDOM from "react-dom"
 import { connect } from "react-redux"
 import { find, propEq } from "ramda"
+import Button, { Color } from "~/components/Button"
+import { AddIcon } from "~/components/Icon"
 import ModalContainer from "~/components/ModalContainer"
 import ModalBody from "~/components/ModalBody"
 import { RootState, getTransExpenses, getMaster } from "~/modules"
@@ -52,16 +54,16 @@ class TransExpenseHistory extends React.Component<IProps, IState> {
         {/* 交通費登録テーブル */}
         {$expenses}
         {/* 新規登録ボタン */}
-        <div className="clearfix">
-          <div className="button-group">
-            <button
-              className="secondary-button btn-raised"
-              onClick={this.openCreateFromTemplateModal}
-            >
-            テンプレートから新規登録
-            </button>
-            <button className="secondary-button circle btn-raised" onClick={this.openAddModal}>+</button>
-          </div>
+        <div className="tms-btn-group">
+          <Button
+            className="secondary-button btn-raised"
+            onClick={this.openCreateFromTemplateModal}
+          >
+          テンプレートから新規登録
+          </Button>
+          <Button color={Color.PRIMARY}circle={true} onClick={this.openAddModal}>
+            <AddIcon />
+          </Button>
         </div>
 
         {/* 編集モーダル */}
@@ -94,8 +96,12 @@ class TransExpenseHistory extends React.Component<IProps, IState> {
             <td>{e.usage.name}</td>
             <td>{e.objective.name}</td>
             <td>{CURRENCY.format(e.cost)}</td>
-            <td><button className="edit button-rev" onClick={() => this.openEditModal(e.expenseId)}>編集</button></td>
-            <td><button className="remove button-rev" onClick={() => deleteExpense(e.expenseId)}>削除</button></td>
+            <td>
+              <Button className="edit reverse link" onClick={() => this.openEditModal(e.expenseId)}>編集</Button>
+            </td>
+            <td>
+              <Button className="remove reverse link" onClick={() => deleteExpense(e.expenseId)}>削除</Button>
+            </td>
           </tr>
         ))}
         </tbody>

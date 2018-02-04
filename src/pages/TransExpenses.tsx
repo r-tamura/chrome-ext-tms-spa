@@ -53,10 +53,12 @@ class TransExpenseComponent extends React.Component<IProps, {}> {
         <Helmet>
           <title>Transportation | TMS</title>
         </Helmet>
-        <h1>Transportation Templates</h1>
-        <TransExpenseTemplates {...this.props}/>
-        <h1>Transportation Expenses</h1>
-        <TransExpenseHistory {...this.props}/>
+        <div className="main-column">
+          <h1>Transportation Templates</h1>
+          <TransExpenseTemplates {...this.props}/>
+          <h1>Transportation Expenses</h1>
+          <TransExpenseHistory {...this.props}/>
+        </div>
       </main>
     )
   }

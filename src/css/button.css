@@ -25,6 +25,10 @@
   letter-spacing: .03em;
   position: relative;
   overflow: hidden;
+  box-shadow: 
+    0px 3px 5px -1px rgba(0, 0, 0, 0.2),
+    0px 6px 10px 0px rgba(0, 0, 0, 0.14),
+    0px 1px 18px 0px rgba(0, 0, 0, 0.12);
 }
 
 .tms-btn:active,.tms-btn:focus,.tms-btn:hover {
@@ -93,4 +97,40 @@
 
 .tms-btn.circle {
   border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  padding-left: 0;
+  padding-right: 0;
 }
+
+.tms-btn.reverse {
+  background-color: transparent;
+  box-shadow: none;
+}
+
+.tms-btn.link {
+  color: hsla(199, 74%, 43%, .8);
+  height: 20px;
+  line-height: 1;
+  vertical-align: middle;
+
+  &:hover {
+    text-decoration-line: underline;
+  }
+}
+
+/* button group */
+.tms-btn-group {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+
+  & > .tms-btn {
+    margin-right: 10px;
+  }
+}
+
+.tms-btn-group.left {
+  justify-content: flex-start;
+}
+

@@ -33,11 +33,11 @@ class LoginPage extends React.Component<IProps, {}> {
     }
 
     return (
-      <div className="main main--full tms-grid-12-col-parent">
+      <main className="main main--full tms-grid-3-container">
         <Helmet>
           <title>Login | TMS</title>
         </Helmet>
-        <div className="tms-grid--offset3 tms-grid--col7 login-center">
+        <div className="login-main tms-grid--offset1 tms-grid--col1 tms-grid-sm--col3">
           <h1>Sign in to TMS</h1>
           <p>Enter your <strong>user name</strong> and <strong>password</strong>.</p>
           <Form onSubmit={this.handleSubmit}>
@@ -67,13 +67,13 @@ class LoginPage extends React.Component<IProps, {}> {
                     />
                     <label htmlFor={"password"}>Password</label>
                   </div>
-                  <button className="tms-btn primary ßblock">SIGN IN</button>
+                  <button className="tms-btn primary block">SIGN IN</button>
                 </form>
               </div>
             )}
           </Form>
         </div>
-      </div>
+      </main>
     )
   }
 

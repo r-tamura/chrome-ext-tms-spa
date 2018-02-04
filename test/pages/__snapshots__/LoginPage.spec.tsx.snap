@@ -53,8 +53,8 @@ exports[`<LoginPage /> should render Login page 1`] = `
   navigateToDashBoard={[MockFunction]}
   staticContext={Object {}}
 >
-  <div
-    className="main main--full tms-grid-12-col-parent"
+  <main
+    className="main main--full tms-grid-3-container"
   >
     <HelmetWrapper
       defer={true}
@@ -75,7 +75,7 @@ exports[`<LoginPage /> should render Login page 1`] = `
       </SideEffect(NullComponent)>
     </HelmetWrapper>
     <div
-      className="tms-grid--offset3 tms-grid--col7 login-center"
+      className="login-main tms-grid--offset1 tms-grid--col1 tms-grid-sm--col3"
     >
       <h1>
         Sign in to TMS
@@ -279,7 +279,7 @@ exports[`<LoginPage /> should render Login page 1`] = `
                   </label>
                 </div>
                 <button
-                  className="tms-btn primary ßblock"
+                  className="tms-btn primary block"
                 >
                   SIGN IN
                 </button>
@@ -289,6 +289,6 @@ exports[`<LoginPage /> should render Login page 1`] = `
         </Connect(t)>
       </t>
     </div>
-  </div>
+  </main>
 </LoginPage>
 `;

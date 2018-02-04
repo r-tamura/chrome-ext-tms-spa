@@ -1,5 +1,5 @@
 .side-nav {
-  background-color: var(--primary-color-dark);
+  background-color: var(--nav-bg-color);
   @apply --z-index-mid;
   @apply --box-shadow;
 }

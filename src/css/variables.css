@@ -5,9 +5,10 @@
   @custom-media --md (min-width: 992px);
   @custom-media --lg (min-width: 1200px);
 
-  --primary-color-light:        #4fc3f7;
-  --primary-color:              #0288d1;
-  --primary-color-dark:         #005b9f;
+  --primary-color-heavy-light:  hsl(199, 91%, 64%);
+  --primary-color-light:        hsl(201, 98%, 41%);
+  --primary-color:              hsl(206, 100%, 31%);
+  --primary-color-dark:         hsl(208, 80%, 27%);
   --primary-color-heavy-dark:   hsl(208, 80%, 27%);
   --white:                      rgb(253, 253, 253);
   --primary-color-reverse:      hsla(0, 0%, 99%, 1);
@@ -16,7 +17,7 @@
 
   --danger-color:               #D32F2F;
 
-  --hovered-bg-color:         rgba(0, 0, 0, 0.03);
+  --hovered-bg-color:           rgba(0, 0, 0, 0.03);
 
   --font-size-xl: 21px;
   --font-size-lg: 17px;
@@ -92,6 +93,7 @@
   --menu-hovered-bg-color:       var(--hovered-bg-color);
 
   /* Nav Item */
+  --nav-bg-color:                var(--primary-color);
   --nav-item-color:              var(--primary-color-reverse);
   --nav-item-color-disabled:     var(--primary-color-reverse-dark);
   --nav-item-bg-color-selected:  var(--primary-color-heavy-dark);

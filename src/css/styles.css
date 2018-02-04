@@ -10,5 +10,6 @@
 @import "components/SelectBox.css";
 @import "components/Menu.css";
 @import "components/Nav.css";
+@import "components/Icon/Icon.css";
 @import "pages/LoginPage.css";
 @import "pages/Attendance.css";

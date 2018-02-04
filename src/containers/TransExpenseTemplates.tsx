@@ -2,6 +2,8 @@ import * as React from "react"
 import { find, propEq } from "ramda"
 import ModalContainer from "~/components/ModalContainer"
 import ModalBody from "~/components/ModalBody"
+import Button, { Color } from "~/components/Button"
+import { AddIcon } from "~/components/Icon"
 import { RootState, getTransExpenseTemplates, getMaster } from "~/modules"
 import { CURRENCY } from "~/helpers/_const"
 import { Project, Usage, Objective, TransExpenseTemplate, TransExpenseTemplateView, FormItemType } from "~/types"
@@ -43,10 +45,14 @@ class TransExpenseTemplateTemplates extends React.Component<IProps, IState> {
         {/* テンプレート一覧 */}
         {templates.length > 0 ? $templates : <p>There is no template in your browser. Create your new template!</p>}
         {/* 新規登録ボタン */}
-        <div className="clearfix">
-          <div className="button-group">
-            <button className="secondary-button circle btn-raised" onClick={this.openCreateModal}>+</button>
-          </div>
+        <div className="tms-btn-group">
+          <Button
+            color={Color.PRIMARY}
+            circle={true}
+            onClick={this.openCreateModal}
+          >
+            <AddIcon />
+          </Button>
         </div>
 
         {/* 編集モーダル */}
@@ -62,7 +68,7 @@ class TransExpenseTemplateTemplates extends React.Component<IProps, IState> {
 
   private renderExpenseTemplates = (
     template: TransExpenseTemplateView[],
-    deleteTemplate: (templateId: string) => void,
+    deleteTemplate: (templateId: string) => void
   ): JSX.Element => {
     const headers = ["#", "テンプレート名", "プロジェクト", "利用区分", "目的", "金額", "", ""]
     return (
@@ -82,8 +88,11 @@ class TransExpenseTemplateTemplates extends React.Component<IProps, IState> {
             <td>{t.usage.name}</td>
             <td>{t.objective.name}</td>
             <td>{CURRENCY.format(t.cost)}</td>
-            <td><button className="edit button-rev" onClick={() => this.openEditModal(t.templateId)}>編集</button></td>
-            <td><button className="remove button-rev" onClick={() => deleteTemplate(t.templateId)}>削除</button></td>
+            <td>
+              {/* <button className="edit reverse" onClick={() => this.openEditModal(t.templateId)}>編集</button> */}
+              <Button className="edit reverse link" onClick={() => this.openEditModal(t.templateId)}>編集</Button>
+            </td>
+            <td><Button className="remove reverse link" onClick={() => deleteTemplate(t.templateId)}>削除</Button></td>
           </tr>
         ))}
         </tbody>

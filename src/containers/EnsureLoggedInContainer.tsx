@@ -28,7 +28,7 @@ class EnsureLoggedInContainer extends React.Component<IProps, {}> {
       return null
     }
 
-    return <div>{this.props.children}</div>
+    return this.props.children
   }
 
   private shouldRedirectToLogin(isAuthenticated: boolean): boolean {

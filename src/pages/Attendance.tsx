@@ -48,36 +48,38 @@ class AttendancePage extends React.Component<IProps, {}> {
       <Helmet>
         <title>Attendance | TMS</title>
       </Helmet>
-      <h1>
-        <button id={"btn-prev-month"} onClick={this.onPrevMonthClick}>{"<"}</button>
-        {year} / {month}
-        <button id={"btn-next-month"} onClick={this.onNextMonthClick}>{">"}</button>
-      </h1>
-      {this.renderMonthly(attendanceMonthly)}
+      <div className="main-column">
+        <h1>
+          <button id={"btn-prev-month"} onClick={this.onPrevMonthClick}>{"<"}</button>
+          {year} / {month}
+          <button id={"btn-next-month"} onClick={this.onNextMonthClick}>{">"}</button>
+        </h1>
+        {this.renderMonthly(attendanceMonthly)}
 
-      {/* 時間リスト */}
-      <datalist id="timelist-am">
-        <option>09:00</option>
-        <option>09:30</option>
-        <option>10:00</option>
-        <option>10:30</option>
-      </datalist>
-      <datalist id="timelist-pm">
-        <option>17:30</option>
-        <option>18:00</option>
-        <option>18:30</option>
-        <option>19:00</option>
-        <option>19:30</option>
-        <option>19:30</option>
-        <option>20:00</option>
-        <option>20:30</option>
-        <option>21:00</option>
-        <option>21:30</option>
-        <option>22:00</option>
-        <option>22:30</option>
-        <option>23:00</option>
-        <option>23:30</option>
-      </datalist>
+        {/* 時間リスト */}
+        <datalist id="timelist-am">
+          <option>09:00</option>
+          <option>09:30</option>
+          <option>10:00</option>
+          <option>10:30</option>
+        </datalist>
+        <datalist id="timelist-pm">
+          <option>17:30</option>
+          <option>18:00</option>
+          <option>18:30</option>
+          <option>19:00</option>
+          <option>19:30</option>
+          <option>19:30</option>
+          <option>20:00</option>
+          <option>20:30</option>
+          <option>21:00</option>
+          <option>21:30</option>
+          <option>22:00</option>
+          <option>22:30</option>
+          <option>23:00</option>
+          <option>23:30</option>
+        </datalist>
+      </div>
     </main>
     )
   }
