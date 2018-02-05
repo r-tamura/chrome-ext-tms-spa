@@ -1,4 +1,5 @@
 // サーバからのレスポンス
+// 2018/2/4 TODO: Status => State へ変更
 export enum Status {
   OK = "ok",
   FAILURE = "error",

@@ -1,5 +1,5 @@
 import { post } from "~/helpers/http"
-import { convMaster } from "~/helpers/htmlConvertor"
+import { convMaster } from "~/helpers/htmlConverter"
 import { Master } from "~/types"
 
 /**

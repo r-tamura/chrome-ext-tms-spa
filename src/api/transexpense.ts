@@ -5,7 +5,7 @@ import {
   convTransExpenseUpdate,
   convTransExpenseCreate,
   convTransExpenseDelete,
-} from "~/helpers/htmlConvertor"
+} from "~/helpers/htmlConverter"
 import { LS_TRANS_EXPENSE_TEMPLATE, urls } from "~/helpers/_const"
 import { composeAsync, remap, uuidv4 } from "~/helpers/common"
 import {

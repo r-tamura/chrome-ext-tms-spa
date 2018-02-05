@@ -29,6 +29,7 @@ export const urls = {
   TRANS_EXPENSE_REGISTER:         "/tmsx/T1025_transport_db.php",
   TMSX_ATTENDANCE_PREVIEW:        "/tmsx/T2022_it_report_preview.php",
   TC_DELETE:                      "/tmsx/T1023_transport_delete.php",
+  ATTENDANCE_REPORT:              "/tmsx/T2020_it_report.php",
   ATTENDANCE_EDIT:                "/tmsx/T2025_it_report_db.php",
 }
 
