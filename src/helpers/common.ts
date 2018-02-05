@@ -46,7 +46,7 @@ export const isFunction = (value: any): boolean => {
  */
 export const leftPad =
   R.curry((padstr: string, digit: number, target: number | string): string =>
-    target.toString().padStart(digit, padstr),
+    target.toString().padStart(digit, padstr)
   )
 
 /**
@@ -85,7 +85,7 @@ export const formatDate = (date: Date, format: string = "yyyymmdd"): string => {
  */
 export const search = (iteratable: Iterable<object>, key: string, value: any): object => {
 
-  for ( const obj of iteratable ) {
+  for (const obj of iteratable) {
     if (key in obj && R.prop(key, obj) === value) {
       return obj
     }

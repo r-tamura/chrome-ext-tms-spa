@@ -22,5 +22,5 @@ export const configureStore = (preloadedState: Partial<RootState> = recoverState
   createStore(
     rootReducer,
     preloadedState,
-    applyMiddleware(thunk, routerMiddleware(history), logger),
+    applyMiddleware(thunk, routerMiddleware(history), logger)
   )

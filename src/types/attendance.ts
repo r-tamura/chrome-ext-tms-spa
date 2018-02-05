@@ -25,6 +25,7 @@ interface AttendanceMonthlyBase {
   reportId: string
   year: number
   month: number
+  hasApplied?: boolean
   total?: number
   isFetching?: boolean
   lastUpdatedOn?: number

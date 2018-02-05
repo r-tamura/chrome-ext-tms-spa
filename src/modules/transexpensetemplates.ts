@@ -84,7 +84,7 @@ const successOrFailToUpdate = (dispatch: Dispatch<{}>, getState: () => RootState
       composeAsync(
         () => fetchExpenseTemplatesAll()(dispatch, getState),
         dispatch,
-        updateTransExpensesSuccess,
+        updateTransExpensesSuccess
       ),
     ],
     [
@@ -100,7 +100,7 @@ export const createExpenseTemplate = (template: TransExpenseTemplate) => {
     try {
       composeAsync(
         successOrFailToUpdate(dispatch, getState),
-        createTemplate,
+        createTemplate
       )(template)
     } catch (err) {
       dispatch(updateTransExpensesFailure({error: err}))
@@ -114,7 +114,7 @@ export const deleteExpenseTemplate = (templateId: string) => {
     try {
       composeAsync(
         successOrFailToUpdate(dispatch, getState),
-        deleteTemplate,
+        deleteTemplate
       )(templateId)
     } catch (err) {
       dispatch(updateTransExpensesFailure({error: err}))
@@ -128,7 +128,7 @@ export const updateExpenseTemplate =
     try {
       composeAsync(
         successOrFailToUpdate(dispatch, getState),
-        updateTemplate,
+        updateTemplate
       )(template)
     } catch (err) {
       dispatch(updateTransExpensesFailure({error: err}))

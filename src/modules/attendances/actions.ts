@@ -7,6 +7,7 @@ import { ActionTypes } from "./actiontypes"
 import {
   fetchMonthlyAttendance,
   saveMonthlyAttendances,
+  getHasApplied,
   getSettings,
   patchSettings,
 } from "~/api/attendance"
@@ -16,11 +17,12 @@ import {
   AttendanceMonthlyAPI,
   AttendanceDaily,
   AttendanceSettings,
+  ResultStatus,
 } from "~/types"
+
 /**
  * Actions
  */
-
 interface IAttendanceMonthliesFetchRequest extends Action {
   type: ActionTypes.FETCH_REQUEST
   monthlyId: string
@@ -42,7 +44,7 @@ interface IAttendanceMonthliesFetchFailure extends Action {
 
 interface AttendanceSaveRequestAction extends Action {
   type: ActionTypes.SAVE_REQUEST
-  monthlyAPI: AttendanceMonthlyAPI
+  monthlyAttendances: AttendanceMonthlyAPI
   isFetching: boolean
 }
 
@@ -130,17 +132,16 @@ const shouldSaveAttendances = (state: any, monthlyId: string): boolean => {
   return true
 }
 
-const fetchAttendances = (year: number, month: number) =>
-  (dispatch: Dispatch<{}>, getState: () => RootState) => {
+export const fetchAttendances = (year: number, month: number) =>
+  async (dispatch: Dispatch<{}>, getState: () => RootState) => {
     const { master } = getState()
     const monthlyId = createMonthlyId(year, month)
     dispatch(fetchAttendanceMonthliesRequest(monthlyId))
     try {
-      composeAsync(
-        dispatch,
-        fetchAttendanceMonthliesSuccess,
-        fetchMonthlyAttendance
-      )(year, month, master)
+      const fetching = fetchMonthlyAttendance(year, month, master)
+      const gettingHasApplied = getHasApplied(year, month)
+      const [monthlyAttendances, hasApplied] = await Promise.all([fetching, gettingHasApplied])
+      dispatch(fetchAttendanceMonthliesSuccess({ ...monthlyAttendances, hasApplied }))
     } catch (err) {
       dispatch(fetchAttendanceMonthliesFailure(monthlyId))
     }
@@ -155,6 +156,7 @@ export const fetchAttendancesIfNeeded = () =>
       dispatch(fetchAttendances(year, month))
     }
   }
+
 const getAttendancesSelectedMonth = (state: any) => {
   const year = state.yearAndMonth.selectedYear
   const month = state.yearAndMonth.selectedMonth
@@ -164,15 +166,12 @@ const getAttendancesSelectedMonth = (state: any) => {
   return { ...monthly, days: attendancesMonthly }
 }
 const saveAttendances = (year: number, month: number, monthly: AttendanceMonthlyAPI) =>
-  (dispatch: Dispatch<{}>, getState: () => RootState) => {
+  async (dispatch: Dispatch<{}>, getState: () => RootState) => {
     const monthlyId = createMonthlyId(year, month)
-    dispatch(saveAttendanceMonthlyRequest(monthlyId, monthly))
+    dispatch(saveAttendanceMonthlyRequest(monthlyId))
     try {
-      composeAsync(
-        dispatch,
-        saveAttendanceMonthlySuccess,
-        saveMonthlyAttendances
-      )(year, month, monthly.days.filter(hasUpdated))
+      const json = await saveMonthlyAttendances(year, month, monthly.days.filter(hasUpdated))
+      dispatch(saveAttendanceMonthlySuccess(json))
     } catch (err) {
       dispatch(saveAttendanceMonthlyFailure(monthlyId))
     }
@@ -184,9 +183,9 @@ export const saveAttendancesIfNeeded = () =>
     const year = state.yearAndMonth.selectedYear
     const month = state.yearAndMonth.selectedMonth
     const monthlyId = createMonthlyId(year, month)
-    const monthlyAPI = getAttendancesSelectedMonth(state)
+    const monthlyAttendances = getAttendancesSelectedMonth(state)
     if (shouldSaveAttendances(state, monthlyId)) {
-      dispatch(saveAttendances(year, month, monthlyAPI))
+      dispatch(saveAttendances(year, month, monthlyAttendances))
     }
   }
 
@@ -218,16 +217,15 @@ export const fetchAttendanceMonthliesFailure = (monthlyId: string) => ({
   isFetching: false,
 })
 
-export const saveAttendanceMonthlyRequest = (monthlyId: string, monthly: AttendanceMonthlyAPI) => ({
+export const saveAttendanceMonthlyRequest = (monthlyId: string) => ({
   type: ActionTypes.SAVE_REQUEST,
   monthlyId,
   isFetching: true,
 })
 
-export const saveAttendanceMonthlySuccess = (attendanceMonthlyResponse: AttendanceMonthlyAPI) => {
+export const saveAttendanceMonthlySuccess = (status: ResultStatus) => {
   return {
     type: ActionTypes.SAVE_SUCCESS,
-    attendanceMonthlyResponse,
     isFetching: false,
   }
 }
