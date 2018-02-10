@@ -52,6 +52,7 @@ const Button: React.SFC<IButtonProps> = ({
 export {
   IButtonProps,
   Color,
+  Button,
 }
 
 export default Button

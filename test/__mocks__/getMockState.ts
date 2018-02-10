@@ -57,4 +57,7 @@ const getMockState = (path: string = ""): any => {
   return state
 }
 
+export {
+  getMockState,
+}
 export default getMockState

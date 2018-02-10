@@ -396,4 +396,7 @@ const attendances = {
   },
 }
 
+export {
+  attendances,
+}
 export default attendances
