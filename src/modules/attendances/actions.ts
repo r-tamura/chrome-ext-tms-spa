@@ -4,13 +4,7 @@ import dailies, * as fromDailies from "./dailies"
 import monthlies, * as fromMonthlies from "./monthlies"
 import { createMonthlyId, hasUpdated } from "./utils"
 import { ActionTypes } from "./actiontypes"
-import {
-  fetchMonthlyAttendance,
-  saveMonthlyAttendances,
-  fetchHasApplied,
-  getSettings,
-  patchSettings,
-} from "~/api/attendance"
+import * as Api from "~/api/attendance"
 import { composeAsync } from "~/helpers/common"
 import {
   AttendanceMonthly,
@@ -20,43 +14,40 @@ import {
   ResultStatus,
   SubmitApplicationReqestPayload,
   SubmitApplicationOkPayload,
+  SubmitApplicationNgPayload,
 } from "~/types"
 
 /**
  * Actions
  */
-interface IAttendanceMonthliesFetchRequest extends Action {
+interface FetchRequestAction extends Action {
   type: ActionTypes.FETCH_REQUEST
   monthlyId: string
   isFetching: boolean
 }
-
-interface IAttendanceMonthliesFetchSuccess extends Action {
+interface FetchSuccessAction extends Action {
   type: ActionTypes.FETCH_SUCCESS
   attendanceMonthlyResponse: AttendanceMonthlyAPI
   isFetching: boolean
   lastUpdatedOn: number
 }
-
-interface IAttendanceMonthliesFetchFailure extends Action {
+interface FetchFailureAction extends Action {
   type: ActionTypes.FETCH_FAILURE
   monthlyId: string
   isFetching: boolean
 }
 
-interface AttendanceSaveRequestAction extends Action {
+interface SaveRequestAction extends Action {
   type: ActionTypes.SAVE_REQUEST
   monthlyAttendances: AttendanceMonthlyAPI
   isFetching: boolean
 }
-
-interface AttendanceSaveSuccessAction extends Action {
+interface SaveSuccessAction extends Action {
   type: ActionTypes.SAVE_SUCCESS
   attendanceMonthlyResponse: AttendanceMonthlyAPI
   isFetching: boolean
 }
-
-interface AttendanceSaveFailureAction extends Action {
+interface SaveFailureAction extends Action {
   type: ActionTypes.SAVE_FAILURE
   monthlyId: string
   isFetching: boolean
@@ -95,14 +86,15 @@ interface SubmitApplicationRequestAction extends Action {
   payload: SubmitApplicationReqestPayload
 }
 
-interface SubmitApplicationSuccessAction extends Action {
+interface SubmitApplicationOkAction extends Action {
   type: ActionTypes.SUBMIT_APPLICATION_OK
   payload: SubmitApplicationOkPayload
 }
 
-interface SubmitApplicationAction extends Action {
+interface SubmitApplicationNgAction extends Action {
   type: ActionTypes.SUBMIT_APPLICATION_NG
   payload: SubmitApplicationReqestPayload
+  error: boolean
 }
 
 /**
@@ -155,8 +147,8 @@ export const fetchAttendances = (year: number, month: number) =>
     const monthlyId = createMonthlyId(year, month)
     dispatch(fetchAttendanceMonthliesRequest(monthlyId))
     try {
-      const fetching = fetchMonthlyAttendance(year, month, master)
-      const gettingHasApplied = fetchHasApplied(year, month)
+      const fetching = Api.fetchMonthlyAttendance(year, month, master)
+      const gettingHasApplied = Api.fetchHasApplied(year, month)
       const [monthlyAttendances, hasApplied] = await Promise.all([fetching, gettingHasApplied])
       dispatch(fetchAttendanceMonthliesSuccess({ ...monthlyAttendances, hasApplied }))
     } catch (err) {
@@ -187,7 +179,7 @@ const saveAttendances = (year: number, month: number, monthly: AttendanceMonthly
     const monthlyId = createMonthlyId(year, month)
     dispatch(saveAttendanceMonthlyRequest(monthlyId))
     try {
-      const json = await saveMonthlyAttendances(year, month, monthly.days.filter(hasUpdated))
+      const json = await Api.saveMonthlyAttendances(year, month, monthly.days.filter(hasUpdated))
       dispatch(saveAttendanceMonthlySuccess(json))
     } catch (err) {
       dispatch(saveAttendanceMonthlyFailure(monthlyId))
@@ -268,7 +260,7 @@ export const updateDaily = (dailyId: string, dailyItem: Partial<AttendanceDaily>
 export const fetchSettings = () =>
   (dispatch: Dispatch<{}>, getState: () => RootState) => {
     const { attendances } = getState()
-    getSettings()
+    Api.getSettings()
       .then(settings => fetchSettingsSuccess(settings, attendances.dailies.allIds))
       .then(action => dispatch(action))
   }
@@ -285,7 +277,7 @@ export const updateSettings = (patch: Partial<AttendanceSettings>) =>
       () => fetchSettings()(dispatch, getState),
       dispatch,
       updateSettingsSuccess,
-      patchSettings
+      Api.patchSettings
     )(patch)
   }
 
@@ -303,12 +295,48 @@ export const setMonthlyWithDefaults = (ids: string[]) =>
     })
   }
 
-export type AttendanceAction =
+const submitApplicationRequest =
+  (payload: SubmitApplicationReqestPayload, meta = {}): SubmitApplicationRequestAction => ({
+    type: ActionTypes.SUBMIT_APPLICATION_REQUEST,
+    payload,
+  })
+
+const submitApplicationOk =
+  (payload: SubmitApplicationOkPayload, meata = {}): SubmitApplicationOkAction => ({
+    type: ActionTypes.SUBMIT_APPLICATION_OK,
+    payload,
+  })
+
+const submitApplicationNg =
+  (payload: SubmitApplicationNgPayload, meata = {}): SubmitApplicationNgAction => ({
+    type: ActionTypes.SUBMIT_APPLICATION_NG,
+    payload,
+    error: true,
+  })
+
+const submitApplication = (year: number, month: number) =>
+  async (dispatch: Dispatch<{}>, getState: () => RootState) => {
+    const monthlyId = createMonthlyId(year, month)
+    dispatch(submitApplicationRequest({ monthlyId, isFetching: true }))
+    try {
+      await Api.submitApplication(year, month)
+      dispatch(submitApplicationOk({ message: "Success", monthlyId, isFetching: false }))
+    } catch (e) {
+      dispatch(submitApplicationNg({ message: "Not Found", monthlyId, isFetching: false, }))
+    }
+  }
+
+type AttendanceAction =
     SetMonthAction
-  | IAttendanceMonthliesFetchRequest
-  | IAttendanceMonthliesFetchSuccess
-  | IAttendanceMonthliesFetchFailure
+  | FetchRequestAction
+  | FetchSuccessAction
+  | FetchFailureAction
   | DailyUpdateAction
   | FetchSettingsSuccessAction
   | MonthlySetDefaultAction
   | PatchSettingsSuccessAction
+
+export {
+  AttendanceAction,
+  submitApplication,
+}

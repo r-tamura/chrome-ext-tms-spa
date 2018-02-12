@@ -1,6 +1,6 @@
 import * as Act from "~/modules/attendances"
 import { ActionTypes } from "~/modules/attendances/actiontypes"
-import getMockState from "../../__mocks__/getMockState"
+import { getMockState, AttendanceModelBuilder } from "../../__mocks__/"
 
 describe("/attendances/action/fetchAttendances", () => {
   it("should fetch not applied attendances", async () => {
@@ -139,5 +139,49 @@ describe("/attendances/action/fetchAttendancesIfNeeded", () => {
     })
     Act.fetchAttendancesIfNeeded()(dispatch, getState)
     expect(dispatch.mock.calls.length).toBe(1)
+  })
+})
+
+describe("/attendances/action/submitApplication", () => {
+  it("should submit an application successfully", async () => {
+    expect.assertions(2)
+    const state = AttendanceModelBuilder.of().with30Days().build()
+    const dispatch = jest.fn()
+    const getState = jest.fn().mockReturnValue(state)
+    await Act.submitApplication(2018, 1)(dispatch, getState)
+
+    expect(dispatch.mock.calls[0][0]).toEqual({
+      type: ActionTypes.SUBMIT_APPLICATION_REQUEST,
+      payload: {
+        monthlyId: "201801",
+        isFetching: true,
+      },
+    })
+    expect(dispatch.mock.calls[1][0]).toEqual({
+      type: ActionTypes.SUBMIT_APPLICATION_OK,
+      payload: {
+        monthlyId: "201801",
+        message: "Success",
+        isFetching: false,
+      },
+    })
+  })
+
+  it("should not submit an application successfully", async () => {
+    expect.assertions(2)
+    const state = AttendanceModelBuilder.of().with30Days().build()
+    const dispatch = jest.fn()
+    const getState = jest.fn().mockReturnValue(state)
+    await Act.submitApplication(2017, 12)(dispatch, getState)
+    expect(dispatch.mock.calls.length).toBe(2)
+    expect(dispatch.mock.calls[1][0]).toEqual({
+      type: ActionTypes.SUBMIT_APPLICATION_NG,
+      payload: {
+        message: "Not Found",
+        monthlyId: "201712",
+        isFetching: false,
+      },
+      error: true,
+    })
   })
 })

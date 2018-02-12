@@ -62,6 +62,14 @@ interface SubmitApplicationReqestPayload {
 
 interface SubmitApplicationOkPayload {
   monthlyId: string
+  message: string
+  isFetching: boolean
+}
+
+interface SubmitApplicationNgPayload {
+  monthlyId: string
+  message: string
+  isFetching: boolean
 }
 
 /* API Response */
@@ -92,4 +100,5 @@ export {
   SummaryResponse,
   SubmitApplicationReqestPayload,
   SubmitApplicationOkPayload,
+  SubmitApplicationNgPayload,
 }

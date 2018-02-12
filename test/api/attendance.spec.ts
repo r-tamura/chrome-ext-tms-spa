@@ -1,12 +1,6 @@
 import "jest"
 import getMockState from "../__mocks__/getMockState"
-import {
-  fetchMonthlyAttendance,
-  fetchHasApplied,
-  fetchSummary,
-  submitApplication,
-  saveMonthlyAttendances,
-} from "~/api/attendance"
+import * as Api from "~/api/attendance"
 import { Project, AttendanceDaily, Status, ResultStatus, ApiResponse, ApiError } from "~/types"
 
 describe("/api/attendance/fetchMonthlyAttendance", () => {
@@ -14,7 +8,7 @@ describe("/api/attendance/fetchMonthlyAttendance", () => {
   it("should be AttendanceMonthlyAPI Data", async () => {
     const projects = getMockState("master.projects")
     expect.assertions(2)
-    const actual = fetchMonthlyAttendance(2018, 2, { projects, usages: [], objectives: [] })
+    const actual = Api.fetchMonthlyAttendance(2018, 2, { projects, usages: [], objectives: [] })
     const expectedDays: AttendanceDaily[] = [
       {
          dailyId: "20180201",
@@ -43,19 +37,19 @@ describe("/api/attendance/fetchMonthlyAttendance", () => {
 describe("/api/attendance/getHasApplied", () => {
   it("should have applied", async () => {
     expect.assertions(1)
-    expect(fetchHasApplied(2017, 12)).resolves.toBeTruthy()
+    expect(Api.fetchHasApplied(2017, 12)).resolves.toBeTruthy()
   })
 
   it("should not have applied", async () => {
     expect.assertions(1)
-    expect(fetchHasApplied(2018, 12)).resolves.toBeFalsy()
+    expect(Api.fetchHasApplied(2018, 12)).resolves.toBeFalsy()
   })
 })
 
 describe("/api/attendance/fetchSummary", () => {
   it("total 120 hours", async () => {
     expect.assertions(1)
-    const actual = await fetchSummary(2017, 12)
+    const actual = await Api.fetchSummary(2017, 12)
     const expected = {
       status: Status.OK,
       body: {
@@ -78,7 +72,7 @@ describe("/api/attendance/saveMonthlyAttendances", () => {
       status: Status.OK,
       message: "There was no update.",
     }
-    expect(saveMonthlyAttendances(2018, 1, [])).resolves.toEqual(expected)
+    expect(Api.saveMonthlyAttendances(2018, 1, [])).resolves.toEqual(expected)
   })
 
   it("should send 1 request", async () => {
@@ -87,7 +81,7 @@ describe("/api/attendance/saveMonthlyAttendances", () => {
       status: Status.OK,
       message: "1 attendances recordes was sent",
     }
-    expect(saveMonthlyAttendances(2018, 1, [
+    expect(Api.saveMonthlyAttendances(2018, 1, [
       {
         dailyId: "20180104",
         day: 4,
@@ -131,7 +125,7 @@ describe("/api/attendance/saveMonthlyAttendances", () => {
 describe("/api/attendance/apply", () => {
   it("should be resolved", async () => {
     expect.assertions(1)
-    const status = await submitApplication({ monthlyId: "201801", isFetching: true })
+    const status = await Api.submitApplication(2018, 1)
     const expected: ApiResponse = {
       status: Status.OK,
       body: {
@@ -153,7 +147,7 @@ describe("/api/attendance/apply", () => {
       },
     }
     try {
-      await submitApplication({ monthlyId: "201712", isFetching: true })
+      await Api.submitApplication(2017, 12)
     } catch (e) {
       expect(e).toEqual(expected)
     }

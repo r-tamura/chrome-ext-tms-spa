@@ -33,29 +33,29 @@ class AttendanceViewModelBuilder {
     lastUpdatedOn: 1516808776046,
   }
 
-  private _props: AttendanceMonthlyView
+  private props: AttendanceMonthlyView
 
   constructor(props: Partial<AttendanceMonthlyView> = {}) {
-    this._props = { ...AttendanceViewModelBuilder._defaultProps, ...props }
+    this.props = { ...AttendanceViewModelBuilder._defaultProps, ...props }
   }
 
   public hasApplied(hasApplied: boolean = true) {
-    this._props.hasApplied = hasApplied
+    this.props.hasApplied = hasApplied
     return this
   }
 
   public isFetching(isFetching: boolean = true) {
-    this._props.isFetching = isFetching
+    this.props.isFetching = isFetching
     return this
   }
 
   public lastUpdatedBefore() {
-    this._props.lastUpdatedOn = 0
+    this.props.lastUpdatedOn = 0
     return this
   }
 
   public build() {
-    return this._props
+    return this.props
   }
 }
 

@@ -9,6 +9,7 @@ import {
   convAttendanceApplyComplete,
   convAttendanceSummary
 } from "~/helpers/htmlConverter"
+import { zerofill2, createMonthlyId } from "~/modules/attendances"
 import {
   AttendanceMonthlyAPI,
   AttendanceDaily,
@@ -130,11 +131,10 @@ const fetchSummary = async (year: number, month: number): Promise<SummaryRespons
 /**
  * 上長申請を実行します
  */
-const submitApplication = async (action: SubmitApplicationReqestPayload): Promise<ApiResponse> => {
+const submitApplication = async (year: number, month: number): Promise<ApiResponse> => {
   // await post(urls.)
-  const [ year, month ] = action.monthlyId.split(":").map(s => parseInt(s, 10))
   const summary = await fetchSummary(year, month)
-  const html = await post(urls.ATTENDANCE_EDIT, { func: "commit", ...summary, eym: action.monthlyId })
+  const html = await post(urls.ATTENDANCE_EDIT, { func: "commit", ...summary, eym: createMonthlyId(year, month) })
   const json = convAttendanceApplyComplete(html)
   return json
 }
