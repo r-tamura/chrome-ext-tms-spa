@@ -9,7 +9,7 @@ import { Status } from "~/types"
 
 const renderFile = promisify<string, object, string>(ejs.renderFile)
 
-const users = new Map<string, { [s: string]: string }>([
+const users = new Map<string, { id: string, name: string, password: string }>([
   ["alice", { id: "alice", name: "Alice Cooper", password: "password" }],
   ["bob", { id: "bob", name: "Bob Warner", password: "bobpass" }],
   ["marie", { id: "marie", name: "Marie Fredriksson", password: "marie1986" }],
@@ -34,19 +34,51 @@ const mockLoginResponse = (fd: FormData) => {
 const mockAttendanceCalendarResponse = (fd: FormData): Promise<string> => {
   // 2018年からは未申請
   return renderFile(path.resolve(MOCK_RESPONSE_DIR, "T2020_it_report.html"), {
-    name: "Marie Fredriksson",
+    name: users.get("bob").name,
     hasApplied: fd.get("year").valueOf() < 2018,
   })
 }
 
-const mockSaveAttencandeDaysResponse = (fd: FormData): Promise<string> => {
-  return Promise.resolve(`
+const mockAttendanceSummaryResponse = (fd: FormData): Promise<string> => {
+  return renderFile(path.resolve(MOCK_RESPONSE_DIR, "T2023_it_report_apply.html"), {
+    name: users.get("bob").name,
+    yrar: fd.get("year").toString(),
+    month: fd.get("month").toString(),
+  })
+}
+
+const mockAttendanceEditResponse = (fd: FormData): Promise<string> => {
+  const func = fd.get("func").toString()
+
+  switch (func) {
+  case "commit": {
+    const monthlyId = fd.get("eym").toString()
+    return monthlyId === "201801"
+    ? Promise.resolve(`
+      <html><body>
+        <p align=\"center\"><p>
+        <p align=\"center\"><p>
+        <p align=\"center\">申請が完了しました<p>
+      </body></html>
+    `)
+    : Promise.reject({
+      response: {
+        status: Status.NG,
+        error: { message: "Not Found" },
+        statusCode: 404,
+      },
+    })
+  }
+  case "accept":
+  default:
+    return Promise.resolve(`
     <html><body>
       <p align=\"center\"><p>
       <p align=\"center\"><p>
       <p align=\"center\">承認が完了しました<p>
     </body></html>
   `)
+  }
 }
 
 const mockAttendancePreviewResponse = (fd: FormData): Promise<string> => {
@@ -57,17 +89,17 @@ const mockAttendancePreviewResponse = (fd: FormData): Promise<string> => {
 
 async function post(url: string, formdata: FormData | object): Promise<string> {
   const fd = (formdata instanceof FormData) ? formdata : toFormData(formdata)
-  switch (url) {
-  case urls.TMSX_MENU:
-    return mockLoginResponse(fd)
-  case urls.ATTENDANCE_REPORT:
-    return mockAttendanceCalendarResponse(fd)
-  case urls.ATTENDANCE_EDIT:
-    return mockSaveAttencandeDaysResponse(fd)
-  case urls.TMSX_ATTENDANCE_PREVIEW:
-    return mockAttendancePreviewResponse(fd)
+  const funcMap = {
+    [urls.TMSX_MENU]: mockLoginResponse,
+    [urls.ATTENDANCE_REPORT]: mockAttendanceCalendarResponse,
+    [urls.ATTENDANCE_EDIT]: mockAttendanceEditResponse,
+    [urls.TMSX_ATTENDANCE_PREVIEW]: mockAttendancePreviewResponse,
+    [urls.ATTENDANCE_APPLY]: mockAttendanceSummaryResponse,
   }
-
+  const func = funcMap[url]
+  if (func) {
+    return func(fd)
+  }
   return Promise.reject("Specified URL doesn't exist")
 }
 

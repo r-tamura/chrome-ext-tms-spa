@@ -31,6 +31,7 @@ export const urls = {
   TC_DELETE:                      "/tmsx/T1023_transport_delete.php",
   ATTENDANCE_REPORT:              "/tmsx/T2020_it_report.php",
   ATTENDANCE_EDIT:                "/tmsx/T2025_it_report_db.php",
+  ATTENDANCE_APPLY:               "/tmsx/T2023_it_report_apply.php",
 }
 
 // 貨幣フォーマッター

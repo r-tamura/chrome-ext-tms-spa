@@ -1,6 +1,7 @@
 import { prop } from "ramda"
 import { composeAsync } from "~/helpers/common"
 import toFormData from "~/helpers/to-formdata"
+import { ApiError, NgResponse } from "~/types"
 
 function toURLEncoded(fd: FormData): string {
   let encoded = ""
@@ -14,7 +15,7 @@ function toHtml(res: Response) {
   if (res.status >= 200 && res.status < 300) {
     return res.text()
   }
-  return Promise.reject(new Error(res.statusText))
+  return Promise.reject({ response: { error: { message: res.statusText }, status: res.status }})
 }
 
 async function ajax(url: string, method: string = "GET", params: any = null): Promise<string> {

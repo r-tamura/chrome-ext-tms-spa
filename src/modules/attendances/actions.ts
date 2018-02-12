@@ -7,7 +7,7 @@ import { ActionTypes } from "./actiontypes"
 import {
   fetchMonthlyAttendance,
   saveMonthlyAttendances,
-  getHasApplied,
+  fetchHasApplied,
   getSettings,
   patchSettings,
 } from "~/api/attendance"
@@ -18,6 +18,8 @@ import {
   AttendanceDaily,
   AttendanceSettings,
   ResultStatus,
+  SubmitApplicationReqestPayload,
+  SubmitApplicationOkPayload,
 } from "~/types"
 
 /**
@@ -88,6 +90,21 @@ interface MonthlySetDefaultAction extends Action {
   ids: string[]
 }
 
+interface SubmitApplicationRequestAction extends Action {
+  type: ActionTypes.SUBMIT_APPLICATION_REQUEST
+  payload: SubmitApplicationReqestPayload
+}
+
+interface SubmitApplicationSuccessAction extends Action {
+  type: ActionTypes.SUBMIT_APPLICATION_OK
+  payload: SubmitApplicationOkPayload
+}
+
+interface SubmitApplicationAction extends Action {
+  type: ActionTypes.SUBMIT_APPLICATION_NG
+  payload: SubmitApplicationReqestPayload
+}
+
 /**
  * Actions Creators
  */
@@ -139,7 +156,7 @@ export const fetchAttendances = (year: number, month: number) =>
     dispatch(fetchAttendanceMonthliesRequest(monthlyId))
     try {
       const fetching = fetchMonthlyAttendance(year, month, master)
-      const gettingHasApplied = getHasApplied(year, month)
+      const gettingHasApplied = fetchHasApplied(year, month)
       const [monthlyAttendances, hasApplied] = await Promise.all([fetching, gettingHasApplied])
       dispatch(fetchAttendanceMonthliesSuccess({ ...monthlyAttendances, hasApplied }))
     } catch (err) {

@@ -1,4 +1,4 @@
-import { Project } from "./master"
+import { Project, ApiResponse } from "~/types"
 
 interface AttendanceDailyBase {
   dailyId: string // yyyymmdd
@@ -12,11 +12,11 @@ interface AttendanceDailyBase {
   hasUpdated?: boolean   // クライアントでデータ更新があったか
 }
 
-export interface AttendanceDaily extends AttendanceDailyBase {
+interface AttendanceDaily extends AttendanceDailyBase {
   projectId: string
 }
 
-export interface AttendanceDailyView extends AttendanceDailyBase {
+interface AttendanceDailyView extends AttendanceDailyBase {
   project: Project
 }
 
@@ -31,20 +31,20 @@ interface AttendanceMonthlyBase {
   lastUpdatedOn?: number
 }
 
-export interface AttendanceMonthly extends AttendanceMonthlyBase {
+interface AttendanceMonthly extends AttendanceMonthlyBase {
   days: string[]
 }
 
-export interface AttendanceMonthlyAPI extends AttendanceMonthlyBase {
+interface AttendanceMonthlyAPI extends AttendanceMonthlyBase {
   days: AttendanceDaily[]
 }
 
-export interface AttendanceMonthlyView extends AttendanceMonthlyBase {
+interface AttendanceMonthlyView extends AttendanceMonthlyBase {
   days: AttendanceDailyView[]
 }
 
 /* APIリクエスト送信の形式 */
-export interface AttendanceOnServer {
+interface AttendanceOnServer {
   pjcd: string,
   from: string,
   to: string,
@@ -53,4 +53,43 @@ export interface AttendanceOnServer {
   day: string,
 }
 
-export type AttendanceSettings = Partial<AttendanceDaily>
+type AttendanceSettings = Partial<AttendanceDaily>
+
+interface SubmitApplicationReqestPayload {
+  monthlyId: string
+  isFetching: boolean
+}
+
+interface SubmitApplicationOkPayload {
+  monthlyId: string
+}
+
+/* API Response */
+interface SummaryResponse extends ApiResponse {
+  body: {
+    /* 合計(s) */
+    totalTime: number
+    /* 普通(s) */
+    normalTime: number
+    /* 深夜(s) */
+    midnightTime: number
+    /* 救出(s) */
+    weekendTime: number
+    /* 徹夜(s) */
+    allnightTime: number
+  }
+}
+
+export {
+  AttendanceDailyBase,
+  AttendanceDaily,
+  AttendanceDailyView,
+  AttendanceMonthly,
+  AttendanceMonthlyAPI,
+  AttendanceMonthlyView,
+  AttendanceOnServer,
+  AttendanceSettings,
+  SummaryResponse,
+  SubmitApplicationReqestPayload,
+  SubmitApplicationOkPayload,
+}

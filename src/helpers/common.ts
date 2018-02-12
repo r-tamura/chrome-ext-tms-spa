@@ -166,14 +166,14 @@ export const set = R.curry((key: string | number, value: any, obj: object) => {
  * オブジェクトを新しいキーで再定義します
  * @param {object} keyMap 再定義前キーと再定義後キーのマップ
  * @param {object} obj 再定義対象のオブジェクト
- * @return {object} 再定義後オブジェクト
+ * @return {any} 再定義後オブジェクト
  *
  * ex:
  *  remap({key1: newkey1, key2: newkey2}, {key1: 1, key2: 2, key3: 3}) // {newkey1: 1, newkey2: 2}
  */
-export const remap = R.curry((keyMap: object , obj: object): object =>
+export const remap = R.curry((keyMap: object , obj: object): any =>
   R.toPairs<string, string>(keyMap)
-    .reduce((acc, [oldKey, newKey]) => (R.prop(oldKey, obj) ? set(newKey, R.prop(oldKey, obj), acc) : acc), {}))
+    .reduce((acc, [oldKey, newKey]) => (R.has(oldKey, obj) ? set(newKey, R.prop(oldKey, obj), acc) : acc), {}))
 
 /**
  *

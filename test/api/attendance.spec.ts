@@ -2,10 +2,12 @@ import "jest"
 import getMockState from "../__mocks__/getMockState"
 import {
   fetchMonthlyAttendance,
-  getHasApplied,
+  fetchHasApplied,
+  fetchSummary,
+  submitApplication,
   saveMonthlyAttendances,
 } from "~/api/attendance"
-import { Status, Project, AttendanceDaily } from "~/types"
+import { Project, AttendanceDaily, Status, ResultStatus, ApiResponse, ApiError } from "~/types"
 
 describe("/api/attendance/fetchMonthlyAttendance", () => {
 
@@ -41,13 +43,32 @@ describe("/api/attendance/fetchMonthlyAttendance", () => {
 describe("/api/attendance/getHasApplied", () => {
   it("should have applied", async () => {
     expect.assertions(1)
-    expect(getHasApplied(2017, 12)).resolves.toBeTruthy()
+    expect(fetchHasApplied(2017, 12)).resolves.toBeTruthy()
   })
 
   it("should not have applied", async () => {
     expect.assertions(1)
-    expect(getHasApplied(2018, 12)).resolves.toBeFalsy()
+    expect(fetchHasApplied(2018, 12)).resolves.toBeFalsy()
   })
+})
+
+describe("/api/attendance/fetchSummary", () => {
+  it("total 120 hours", async () => {
+    expect.assertions(1)
+    const actual = await fetchSummary(2017, 12)
+    const expected = {
+      status: Status.OK,
+      body: {
+        totalTime: 432000,
+        normalTime: 9960,
+        midnightTime: 0,
+        weekendTime: 0,
+        allnightTime: 0,
+      },
+    }
+    expect(actual).toEqual(expected)
+  })
+
 })
 
 describe("/api/attendance/saveMonthlyAttendances", () => {
@@ -104,5 +125,37 @@ describe("/api/attendance/saveMonthlyAttendances", () => {
         start: "09:00",
       },
     ])).resolves.toEqual(expected)
+  })
+})
+
+describe("/api/attendance/apply", () => {
+  it("should be resolved", async () => {
+    expect.assertions(1)
+    const status = await submitApplication({ monthlyId: "201801", isFetching: true })
+    const expected: ApiResponse = {
+      status: Status.OK,
+      body: {
+        message: "申請が完了しました",
+      },
+    }
+    expect(status).toEqual(expected)
+  })
+
+  it("should be rejected", async () => {
+    expect.assertions(1)
+    const expected: ApiError = {
+      response: {
+        status: Status.NG,
+        error: {
+          message: "Not Found",
+        },
+        statusCode: 404,
+      },
+    }
+    try {
+      await submitApplication({ monthlyId: "201712", isFetching: true })
+    } catch (e) {
+      expect(e).toEqual(expected)
+    }
   })
 })

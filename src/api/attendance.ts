@@ -1,8 +1,14 @@
 import { filter, propEq, map, compose } from "ramda"
-import { convAttendancePreview, convAttendanceUpdate, convAttendanceCalendar } from "~/helpers/htmlConverter"
 import { post } from "~/helpers/http"
-import { composeAsync, remap, doAction } from "~/helpers/common"
 import { urls, LS_ATTND_SETTINGS } from "~/helpers/_const"
+import { composeAsync, remap, doAction } from "~/helpers/common"
+import {
+  convAttendancePreview,
+  convAttendanceUpdate,
+  convAttendanceCalendar,
+  convAttendanceApplyComplete,
+  convAttendanceSummary
+} from "~/helpers/htmlConverter"
 import {
   AttendanceMonthlyAPI,
   AttendanceDaily,
@@ -11,6 +17,9 @@ import {
   ResultStatus,
   Status,
   Master,
+  ApiResponse,
+  SummaryResponse,
+  SubmitApplicationReqestPayload,
 } from "~/types"
 
 /**
@@ -98,7 +107,7 @@ const saveMonthlyAttendances =
         message: `${attendancesOnServer.length} attendances recordes was sent`,
       }
       : {
-        status: Status.FAILURE,
+        status: Status.NG,
         message: `${attendancesOnServer.length - okResults.length} attendance requests failed`,
       }
   }
@@ -106,10 +115,28 @@ const saveMonthlyAttendances =
 /**
  * 月勤怠が申請済みであるかを判定します
  */
-const getHasApplied = async (year: number, month: number): Promise<boolean> => {
+const fetchHasApplied = async (year: number, month: number): Promise<boolean> => {
   const htmlRes = await post(urls.ATTENDANCE_REPORT, { year, month })
-  const res = convAttendanceCalendar(htmlRes)
-  return res
+  const json = convAttendanceCalendar(htmlRes)
+  return json
+}
+
+const fetchSummary = async (year: number, month: number): Promise<SummaryResponse> => {
+  const html = await post(urls.ATTENDANCE_APPLY, { year, month, day: "" })
+  const json = convAttendanceSummary(html)
+  return { status: Status.OK, body: { ...json }}
+}
+
+/**
+ * 上長申請を実行します
+ */
+const submitApplication = async (action: SubmitApplicationReqestPayload): Promise<ApiResponse> => {
+  // await post(urls.)
+  const [ year, month ] = action.monthlyId.split(":").map(s => parseInt(s, 10))
+  const summary = await fetchSummary(year, month)
+  const html = await post(urls.ATTENDANCE_EDIT, { func: "commit", ...summary, eym: action.monthlyId })
+  const json = convAttendanceApplyComplete(html)
+  return json
 }
 
 /**
@@ -141,7 +168,9 @@ const patchSettings = async (patch: Partial<AttendanceSettings>): Promise<Result
 export {
   fetchMonthlyAttendance,
   saveMonthlyAttendances,
-  getHasApplied,
+  fetchHasApplied,
+  fetchSummary,
   getSettings,
+  submitApplication,
   patchSettings,
 }
