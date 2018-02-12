@@ -1,5 +1,7 @@
 import { ActionTypes } from "~/modules/attendances/actiontypes"
 import monthlies from "~/modules/attendances/monthlies"
+import * as Act from "~/modules/attendances/actions"
+import { getMockState } from "../../__mocks__"
 import { Project } from "~/types"
 
 describe("monthlies reducer", () => {
@@ -95,6 +97,53 @@ describe("monthlies reducer", () => {
       },
       allIds: [] as string[],
     }
+    expect(monthlies(state, action)).toEqual(expected)
+  })
+
+  it("should be isFetching (SubmitApplicationRequest)", () => {
+    const action: Act.SubmitApplicationRequestAction = {
+      type: ActionTypes.SUBMIT_APPLICATION_REQUEST,
+      payload: {
+        monthlyId: "201802",
+        isFetching: true,
+      },
+    }
+    const state = getMockState("attendances.monthlies")
+    const expected = { ...getMockState("attendances.monthlies") }
+    expected.byId["201802"].isFetching = true
+    expect(monthlies(state, action)).toEqual(expected)
+  })
+
+  it("should be isFetching (SubmitApplicationOK)", () => {
+    const action: Act.SubmitApplicationOkAction = {
+      type: ActionTypes.SUBMIT_APPLICATION_OK,
+      payload: {
+        message: "Success message",
+        monthlyId: "201802",
+        isFetching: false,
+      },
+    }
+    const state = getMockState("attendances.monthlies")
+    state.byId["201802"].isFetching = true
+    const expected = { ...getMockState("attendances.monthlies") }
+    expected.byId["201802"].isFetching = false
+    expect(monthlies(state, action)).toEqual(expected)
+  })
+
+  it("should be isFetching (SubmitApplicationNG)", () => {
+    const action: Act.SubmitApplicationNgAction = {
+      type: ActionTypes.SUBMIT_APPLICATION_NG,
+      payload: {
+        message: "Not Found",
+        monthlyId: "201802",
+        isFetching: false,
+      },
+      error: true,
+    }
+    const state = getMockState("attendances.monthlies")
+    state.byId["201802"].isFetching = true
+    const expected = { ...getMockState("attendances.monthlies") }
+    expected.byId["201802"].isFetching = false
     expect(monthlies(state, action)).toEqual(expected)
   })
 })

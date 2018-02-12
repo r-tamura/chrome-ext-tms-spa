@@ -1,5 +1,11 @@
-import { projects, attendances } from "./stores"
+import fs from "fs"
+import path from "path"
 import { RootState } from "~/modules"
+
+const loadJson = (name: string) => {
+  const text = fs.readFileSync(path.resolve(__dirname, "stores", name + ".json"), "utf8")
+  return JSON.parse(text)
+}
 
 const getRoot = (): RootState => ({
   user: {
@@ -34,23 +40,23 @@ const getRoot = (): RootState => ({
   //   },
   //   settings: {},
   // },
-  attendances,
+  attendances: loadJson("attendances"),
   master: {
-    projects,
+    projects: loadJson("projects"),
     usages: [],
     objectives: [],
     isFetching: false,
   },
 })
 
-const getMockState = (path: string = ""): any => {
+const getMockState = (filepath: string = ""): any => {
   let state: any = getRoot()
 
-  if (path.length === 0) {
+  if (filepath.length === 0) {
     return state
   }
 
-  const keys = path.split(".")
+  const keys = filepath.split(".")
   for (const key of keys) {
     state = state[key]
   }

@@ -93,7 +93,7 @@ interface SubmitApplicationOkAction extends Action {
 
 interface SubmitApplicationNgAction extends Action {
   type: ActionTypes.SUBMIT_APPLICATION_NG
-  payload: SubmitApplicationReqestPayload
+  payload: SubmitApplicationNgPayload
   error: boolean
 }
 
@@ -335,8 +335,14 @@ type AttendanceAction =
   | FetchSettingsSuccessAction
   | MonthlySetDefaultAction
   | PatchSettingsSuccessAction
+  | SubmitApplicationRequestAction
+  | SubmitApplicationOkAction
+  | SubmitApplicationNgAction
 
 export {
   AttendanceAction,
+  SubmitApplicationRequestAction,
+  SubmitApplicationOkAction,
+  SubmitApplicationNgAction,
   submitApplication,
 }
