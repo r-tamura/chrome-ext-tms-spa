@@ -13,75 +13,73 @@ import {
 } from "../__mocks__/"
 import { AttendanceMonthlyView } from "~/types"
 
+const fn = () => jest.fn()
+
+const createComponent = ({
+  attendanceMonthly = AttendanceViewModelBuilder.build(),
+  attendanceSettings = AttendanceSettingsModelBuilder.build(),
+  projects = ProjectsBuilder.of().with2Projects().build(),
+  fetchAttendancesIfNeeded = jest.fn(),
+  fetchSettings = jest.fn(),
+  saveAttendancesIfNeeded = jest.fn(),
+  updateDaily = jest.fn(),
+  setMonthlyWithDefaults = jest.fn(),
+  updateSettings = jest.fn(),
+  changeMonth = jest.fn(),
+  submitApplication = jest.fn(),
+} = {}) => {
+  const data = {
+    attendanceMonthly,
+    attendanceSettings,
+    projects,
+  }
+  const fns = {
+    fetchAttendancesIfNeeded,
+    fetchSettings,
+    saveAttendancesIfNeeded,
+    updateDaily,
+    setMonthlyWithDefaults,
+    updateSettings,
+    changeMonth,
+    submitApplication,
+  }
+  return {
+    fns,
+    component: <AttendancePage {...data} {...fns} {...getMockRouterProps(null)} />,
+  }
+}
+
 describe("<AttendancePage />", () => {
 
   it("shoud match existing snapshot", () => {
-    const mockRoute = getMockRouterProps(null)
-    const mockFunc = jest.fn()
-    const page = renderer.create(
-      <AttendancePage
-        attendanceMonthly={AttendanceViewModelBuilder.build()}
-        attendanceSettings={AttendanceSettingsModelBuilder.build()}
-        projects={ProjectsBuilder.of().with2Projects().build()}
-        fetchAttendancesIfNeeded={jest.fn()}
-        fetchSettings={jest.fn()}
-        saveAttendancesIfNeeded={jest.fn()}
-        updateDaily={jest.fn()}
-        setMonthlyWithDefaults={jest.fn()}
-        updateSettings={jest.fn()}
-        changeMonth={mockFunc}
-        {...mockRoute}
-      />
-    ).toJSON()
-
+    const mock = createComponent()
+    const page = renderer.create(mock.component).toJSON()
     expect(page).toMatchSnapshot()
   })
 
   it("should be right next month", () => {
-    const mockRoute = getMockRouterProps(null)
-    const mockFunc = jest.fn()
-    const w = shallow(
-      <AttendancePage
-        attendanceMonthly={AttendanceViewModelBuilder.build()}
-        attendanceSettings={AttendanceSettingsModelBuilder.build()}
-        projects={ProjectsBuilder.of().with2Projects().build()}
-        fetchAttendancesIfNeeded={jest.fn()}
-        fetchSettings={jest.fn()}
-        saveAttendancesIfNeeded={jest.fn()}
-        updateDaily={jest.fn()}
-        setMonthlyWithDefaults={jest.fn()}
-        updateSettings={jest.fn()}
-        changeMonth={mockFunc}
-        {...mockRoute}
-      />
-    )
+    const mock = createComponent()
+    const { changeMonth } = mock.fns
+    const w = shallow(mock.component)
     w.find("#btn-next-month").simulate("click")
-    expect(mockFunc.mock.calls[0]).toEqual([2018, 2])
+    expect(changeMonth.mock.calls[0]).toEqual([2018, 2])
 
     w.find("#btn-prev-month").simulate("click")
-    expect(mockFunc.mock.calls[1]).toEqual([2017, 12])
+    expect(changeMonth.mock.calls[1]).toEqual([2017, 12])
   })
 
   it("should make disable submit button", () => {
-    const mockRoute = getMockRouterProps(null)
-    const mockFunc = jest.fn()
-    const w = mount(
-      <AttendancePage
-        attendanceMonthly={AttendanceViewModelBuilder.of().hasApplied().build()}
-        attendanceSettings={AttendanceSettingsModelBuilder.build()}
-        projects={ProjectsBuilder.of().with2Projects().build()}
-        fetchAttendancesIfNeeded={jest.fn()}
-        fetchSettings={jest.fn()}
-        saveAttendancesIfNeeded={jest.fn()}
-        updateDaily={jest.fn()}
-        setMonthlyWithDefaults={jest.fn()}
-        updateSettings={jest.fn()}
-        changeMonth={mockFunc}
-        {...mockRoute}
-      />
-    )
+    const mock = createComponent({ attendanceMonthly: AttendanceViewModelBuilder.of().hasApplied().build() })
+    const w = mount(mock.component)
     const $submit = w.find("button#btn-submit")
     expect($submit.length).toBe(1)
     expect($submit.hasClass("disabled")).toBeTruthy()
+  })
+
+  it("should submit Application", () => {
+    const mock = createComponent({ attendanceMonthly: AttendanceViewModelBuilder.of().hasApplied().build() })
+    const w = mount(mock.component)
+    w.find("").simulate("click")
+    expect()
   })
 })

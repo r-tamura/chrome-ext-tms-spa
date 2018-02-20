@@ -13,6 +13,7 @@ import {
   setMonthlyWithDefaults,
   updateSettings,
   changeMonth,
+  submitApplication,
 } from "~/modules/attendances"
 import { zerofill } from "~/helpers/common"
 import { AttendanceMonthlyView, AttendanceSettings, Project } from "~/types"
@@ -31,6 +32,7 @@ interface IProps extends OwnProps {
   setMonthlyWithDefaults: (dailyIds: string[]) => any
   updateSettings: (patch: Partial<AttendanceSettings>) => any
   changeMonth: (year: number, month: number) => any
+  submitApplication: (year: number, month: number) => any
 }
 
 class AttendancePage extends React.Component<IProps, {}> {
