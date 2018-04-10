@@ -76,10 +76,10 @@ describe("<AttendancePage />", () => {
     expect($submit.hasClass("disabled")).toBeTruthy()
   })
 
-  it("should submit Application", () => {
-    const mock = createComponent({ attendanceMonthly: AttendanceViewModelBuilder.of().hasApplied().build() })
-    const w = mount(mock.component)
-    w.find("").simulate("click")
-    expect()
-  })
+  // it("should submit Application", () => {
+  //   const mock = createComponent({ attendanceMonthly: AttendanceViewModelBuilder.of().hasApplied().build() })
+  //   const w = mount(mock.component)
+  //   w.find("").simulate("click")
+  //   expect()
+  // })
 })

@@ -152,7 +152,7 @@ const convTransExpenseUpdate = convResultHtml("更新が完了しました")
 
 /**
  * 月勤怠HTMLから
- * @param html http://www.telema.jp/tmsx/T2020_it_report.php 月勤怠カレンダーHTML
+ * @param html http://www.telema.jp/tmskin/T2020_it_report.php 月勤怠カレンダーHTML
  */
 function convAttendanceCalendar(html: string): boolean {
   const $html = parseHTML(html)
