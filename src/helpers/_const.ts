@@ -21,15 +21,17 @@ export const ALERT_DURATION_TIME = 2000
 export const ALERT_DURATION_TIME_LONG = 3000
 
 // URLリスト
-const URL_TMS_ROOT = "http://telema.jp/tmsx/"
+const URL_TMS_ROOT = "http://telema.jp/tmskin/"
 export const urls = {
   URL_TMS_ROOT,
-  TMSX_MENU:                      "/tmsx/T0010_menu.php",
-  TRANS_ESPENSE:                  "/tmsx/T1020_transport.php",
-  TRANS_EXPENSE_REGISTER:         "/tmsx/T1025_transport_db.php",
-  TMSX_ATTENDANCE_PREVIEW:        "/tmsx/T2022_it_report_preview.php",
-  TC_DELETE:                      "/tmsx/T1023_transport_delete.php",
-  ATTENDANCE_EDIT:                "/tmsx/T2025_it_report_db.php",
+  TMSX_MENU:                      "/tmskin/T0010_menu.php",
+  TRANS_ESPENSE:                  "/tmskin/T1020_transport.php",
+  TRANS_EXPENSE_REGISTER:         "/tmskin/T1025_transport_db.php",
+  TMSX_ATTENDANCE_PREVIEW:        "/tmskin/T2022_it_report_preview.php",
+  TC_DELETE:                      "/tmskin/T1023_transport_delete.php",
+  ATTENDANCE_REPORT:              "/tmskin/T2020_it_report.php",
+  ATTENDANCE_EDIT:                "/tmskin/T2025_it_report_db.php",
+  ATTENDANCE_APPLY:               "/tmskin/T2023_it_report_apply.php",
 }
 
 // 貨幣フォーマッター

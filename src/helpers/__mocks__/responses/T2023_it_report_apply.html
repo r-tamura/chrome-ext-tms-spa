@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <title>TMS Monthly Report</title>
+  <meta content="text/html; charset=utf-8" http-equiv="content-type">
+  <link href="css/style.css" rel="STYLESHEET" type="text/css">
+</head>
+<body>
+  <hr>
+  <p align="center">TMS Monthly Report</p>
+  <hr>
+  <p align="center">ようこそ！&nbsp;システム部&nbsp;<%= name %>さん<br>
+  <br></p>
+  <form action="T2025_it_report_db.php" id="form01" method="post" name="form01">
+    <div align="center">
+      <p align="center"><font size="5"><u><b>2018&nbsp;年&nbsp;02&nbsp;月度　勤怠表申請</b></u></font><br>
+      <font size="3"><u>&nbsp;2018&nbsp;年&nbsp;02&nbsp;月&nbsp;1&nbsp;日　～　2018&nbsp;年&nbsp;02&nbsp;月&nbsp;末&nbsp;日</u></font></p>
+      <table border="1" width="650px">
+        <tbody>
+          <tr align="center">
+            <td><font size="2"><b>Ｎｏ.</b></font></td>
+            <td><font size="3">0133</font></td>
+            <td><font size="2"><b>氏名</b></font></td>
+            <td><font size="3"><%= name %></font></td>
+            <td><font size="2"><b>管理</b></font></td>
+            <td><font size="2"><b>部長</b></font></td>
+            <td><font size="2"><b>ＧＭ</b></font></td>
+            <td><font size="2"><b>ＰＭ</b></font></td>
+          </tr>
+          <tr align="center">
+            <td><font size="2"><b>所属<br>
+            部課</b></font></td>
+            <td colspan="3"><font size="3">システム部</font></td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+          </tr>
+        </tbody>
+      </table><font size="1"><br></font>
+      <table border="1" width="650px">
+        <tbody>
+          <tr>
+            <td colspan="1"><font size="2"><b>作業時間</b></font></td>
+            <td colspan="4"><font size="2"><b>時間外労働</b></font></td>
+          </tr>
+          <tr>
+            <td><font size="2"><b>合計</b></font></td>
+            <td><font size="2"><b>普通</b></font></td>
+            <td><font size="2"><b>深夜</b></font></td>
+            <td><font size="2"><b>休出</b></font></td>
+            <td><font size="2"><b>徹夜</b></font></td>
+          </tr>
+          <tr>
+            <td><font size="2"><%= typeof totalTime != 'undefined' ? totalTime : "120:00" %></font></td>
+            <td><font size="2"><%= typeof normalTime != 'undefined' ? normalTime : "2:46" %></font></td>
+            <td><font size="2"><%= typeof midnightTime != 'undefined' ? midnightTime : "0:00" %></font></td>
+            <td><font size="2"><%= typeof weekendTime != 'undefined' ? weekendTime : "0:00" %></font></td>
+            <td><font size="2"><%= typeof allnightTime != 'undefined' ? allnightTime : "0:00" %></font></td>
+          </tr>
+        </tbody>
+      </table><font size="1"><br></font>
+      <table border="1" width="650px">
+        <tbody>
+          <tr>
+            <th><font size="2">申請日付</font></th>
+            <th><font size="2">取得期間</font></th>
+            <th><font size="2">休暇理由</font></th>
+            <th><font size="2">編集</font></th>
+            <th><font size="2">状態</font></th>
+          </tr>
+        </tbody>
+      </table><font size="1"><br></font> <input onclick="goEntry('commit')" type="button" value="申請"><br>
+      <font size="1"><br></font> <font color="red" size="3"><b>勤怠表の「申請」ボタンは勤怠関係願出書の「状態」を全て「完了」にしないと<br>
+      「申請」を完了できません。<br>
+      １度「申請」を完了した勤怠表を修正する場合は上長に連絡してください。<br></b></font>
+    </div>
+    <input name="func" type="hidden" value="">
+    <input name="eym" type="hidden" value="201802">
+    <input name="val01" type="hidden" value="<%= typeof totalTime != 'undefined' ? totalTime : '120:00' %>">
+    <input name="val02" type="hidden" value="<%= typeof normalTime != 'undefined' ? normalTime : '2:46' %>">
+    <input name="val03" type="hidden" value="<%= typeof midnightTime != 'undefined' ? midnightTime : '0:00' %>">
+    <input name="val04" type="hidden" value="<%= typeof weekendTime != 'undefined' ? weekendTime : '0:00' %>">
+    <input name="val05" type="hidden" value="<%= typeof allnightTime != 'undefined' ? allnightTime : '0:00' %>">
+    <input name="val06" type="hidden" value="0">
+  </form>
+  <p align="center">[&nbsp;<a href="T0010_menu.php">MENUに戻る</a>&nbsp;] &nbsp; [&nbsp;<a href="T2020_it_report.php?year=2018&amp;month=02">前に戻る</a>&nbsp;]</p>
+  <hr>
+  <p align="right">(C)2011 Telema</p>
+</body>
+</html>

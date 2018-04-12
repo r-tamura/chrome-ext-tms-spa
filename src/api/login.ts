@@ -1,4 +1,4 @@
-import { convMenu } from "~/helpers/htmlConvertor"
+import { convMenu } from "~/helpers/htmlConverter"
 import { get, post } from "~/helpers/http"
 import { composeAsync } from "~/helpers/common"
 import { urls } from "~/helpers/_const"

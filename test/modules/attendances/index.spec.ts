@@ -1,7 +1,8 @@
 import "jest"
 import attendances, { yearAndMonth } from "~/modules/attendances/index"
 import { ActionTypes } from "~/modules/attendances/actiontypes"
-import { AttendanceAction } from "~/modules/attendances/actions"
+import * as Act from "~/modules/attendances/actions"
+import { getMockState } from "../../__mocks__"
 
 describe("Reducer yearAndMonth", () => {
 
@@ -18,7 +19,7 @@ describe("Reducer yearAndMonth", () => {
   // })
 
   it("should be set 2018/01", () => {
-    const action: AttendanceAction = {
+    const action: Act.AttendanceAction = {
       type: ActionTypes.SET_MONTH,
       year: 2018,
       month: 1,

@@ -1,5 +1,5 @@
 import { post } from "~/helpers/http"
-import { convMaster } from "~/helpers/htmlConvertor"
+import { convMaster } from "~/helpers/htmlConverter"
 import { Master } from "~/types"
 
 /**
@@ -7,6 +7,6 @@ import { Master } from "~/types"
  * @return {Promise<Master>} マスタデータ
  */
 export async function fetchMasterInfo(): Promise<Master> {
-  return post("/tmsx/T1021_transport_entry.php", { func: 1 })
+  return post("/tmskin/T1021_transport_entry.php", { func: 1 })
     .then(convMaster)
 }

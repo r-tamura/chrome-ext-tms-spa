@@ -21,7 +21,7 @@ yarn install
 1. Open Chrome browser > Menu bar > Menu button > More tools > Extensions 
 1. Check [ Developer mode ]
 1. Click [ Load unpacked extensions ] > Select the directory you pulled
-1. Browse http://www.telema.jp in Chrome
+1. Browse https://kintai.telema.co.jp/tmskin/index.php in Chrome
 
 
 ### Run Auto build

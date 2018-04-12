@@ -6,6 +6,8 @@ import {
   Project, Usage, Objective, Master,
   TransExpenseView,
   AttendanceMonthlyAPI,
+  ApiResponse,
+  SummaryResponse,
 } from "~/types"
 
 import { createMonthlyId, createDailyId } from "~/modules/attendances"
@@ -22,7 +24,7 @@ function getUserName(welcomeText: Text): string {
 /**
  * 登録済み交通費登録画面HTMLをオブジェクトデータへ変換します
  */
-export function convMaster(html: string): Master {
+function convMaster(html: string): Master {
   const $html = parseHTML(html)
   const table = $html.querySelector("form[name=\"form01\"] table")
   const tdTags = table.querySelectorAll("td:nth-child(2)")
@@ -44,7 +46,7 @@ export function convMaster(html: string): Master {
 /**
  * メインメニュー画面HTMLをオブジェクトデータに変換します
  */
-export function convMenu(html: string): User {
+function convMenu(html: string): User {
   if (!/TMS MENU/.test(html)) {
     return { isAuthenticated: false }
   }
@@ -62,7 +64,7 @@ export function convMenu(html: string): User {
 /**
  * 交通費登録情報確認画面HTMLをオブジェクトデータへ変換します
  */
-export const convTransExpenseList = curry((master: Master, html: string): TransExpenseView[] => {
+const convTransExpenseList = curry((master: Master, html: string): TransExpenseView[] => {
     function reduceCallback(children: HTMLCollection, pv: any, cv: any, i: number) {
       const node = children[i].childNodes[0] as Text
       const findNameEq = find(propEq("name", node.wholeText))
@@ -101,7 +103,7 @@ export const convTransExpenseList = curry((master: Master, html: string): TransE
             const index = i / 3
             columnName2.reduce(
               reduceCallback.bind(null, children),
-              pv[Math.floor(index)],
+              pv[Math.floor(index)]
             )
           }
           return pv
@@ -112,57 +114,50 @@ export const convTransExpenseList = curry((master: Master, html: string): TransE
 const convResultHtml = curry((okresult: string, html: string): ResultStatus =>
   compose(
     (res: string) => ({
-      status: res === okresult ? Status.OK : Status.FAILURE,
+      status: res === okresult ? Status.OK : Status.NG,
       message: res,
     }),
     ($html: HTMLDocument) => ($html.querySelectorAll("p[align='center']").item(2).childNodes[0] as Text).wholeText,
-    parseHTML,
-  )(html),
+    parseHTML
+  )(html)
+)
+
+const convCompletePageHtml = curry((okresult: string, html: string): ApiResponse =>
+  compose(
+    (res: string) => ({
+      status: res === okresult ? Status.OK : Status.NG,
+      body: {
+        message: res,
+      },
+    }),
+    ($html: HTMLDocument) => ($html.querySelectorAll("p[align='center']").item(2).childNodes[0] as Text).wholeText,
+    parseHTML
+  )(html)
 )
 
 /**
  * 交通費作成結果HTMLをJSONデータに変換します
  */
-export const convTransExpenseCreate = convResultHtml("登録が完了しました")
+const convTransExpenseCreate = convResultHtml("登録が完了しました")
 
 /**
  * 交通費削除結果HTMLをJSONデータに変換します
  */
-export const convTransExpenseDelete = convResultHtml("削除が完了しました")
+const convTransExpenseDelete = convResultHtml("削除が完了しました")
 
 /**
  * 交通費更新結果HTMLをJSONデータに変換します
  */
-export const convTransExpenseUpdate = convResultHtml("更新が完了しました")
+const convTransExpenseUpdate = convResultHtml("更新が完了しました")
 
 /**
- * 月間勤怠HTMLから日付型データを取得します
+ * 月勤怠HTMLから
+ * @param html http://www.telema.jp/tmskin/T2020_it_report.php 月勤怠カレンダーHTML
  */
-export function convAttendanceCalendar(html: string): boolean {
+function convAttendanceCalendar(html: string): boolean {
   const $html = parseHTML(html)
-  // const table = $html.querySelector("form[name=\"form01\"] table")
-  // const weekDayColor = "black"
-  // const $days = Array.from(table.querySelectorAll("font"))
-  // const weekdayColors = ["black", "green"]
 
-  // // 日付一覧取得
-  // const days = $days.reduce((list, e: HTMLFontElement) => {
-  //     // 日付以外の場合は何も行わない
-  //     const numericDay = Number(e.innerHTML)
-  //     if (isNaN(numericDay)) {
-  //       return list
-  //     }
-
-  //     // 平日判定
-  //     const isWeekDay = weekdayColors.indexOf(e.color) !== -1
-
-  //     return [
-  //       ...list,
-  //       { day: numericDay, isWeekDay },
-  //     ]
-  //   }, [])
-
-  // // 上長申請済みであるか
+  // 上長申請済みであるか
   const trNodes = $html.forms.namedItem("form01").getElementsByTagName("tr")
   const lastTd = trNodes[trNodes.length - 1].getElementsByTagName("td")[0]
   const hasApplied = lastTd.children[0] instanceof HTMLFontElement
@@ -192,7 +187,7 @@ const toDailyAttendance = (projects: Project[], year: number, month: number) => 
  * 勤怠プレビュー画面のHTMLをJSONへ変換します
  * T2022_it_report_preview
  */
-export const convAttendancePreview =
+const convAttendancePreview =
   curry((projects: Project[], html: string): AttendanceMonthlyAPI => {
     const $html = parseHTML(html.replace(/\&nbsp/g, ""))
 
@@ -216,4 +211,45 @@ export const convAttendancePreview =
     return { days, year, month, reportId, monthlyId: createMonthlyId(year, month) }
   })
 
-export const convAttendanceUpdate = convResultHtml("承認が完了しました")
+const convAttendanceUpdate = convResultHtml("承認が完了しました")
+
+const convAttendanceApplyComplete = convCompletePageHtml("申請が完了しました")
+
+const convAttendanceSummary = (html: string) => {
+  const $html = parseHTML(html)
+  const ir =
+    Array
+      .from($html.documentElement.querySelectorAll("input[type=\"hidden\"]"))
+      .filter(($i: HTMLInputElement) => $i.value.match(/\d{1,3}:\d{1,2}/))
+      .map(($i: HTMLInputElement) => {
+        const { 0: h, 1: m } = $i.value.split(":")
+        const sec = 3600 * parseInt(h, 10) + 60 * parseInt(m, 10)
+        return { name: $i.name, sec }
+      })
+      .reduce((acc: {[s: string]: number}, v: { name: string, sec: number }): object => {
+        acc[v.name] = v.sec
+        return acc
+      }, {})
+  const res = Common.remap({
+    val01: "totalTime",
+    val02: "normalTime",
+    val03: "midnightTime",
+    val04: "weekendTime",
+    val05: "allnightTime",
+  }, ir)
+  return res
+}
+
+export {
+  convMaster,
+  convMenu,
+  convTransExpenseList,
+  convTransExpenseCreate,
+  convTransExpenseDelete,
+  convTransExpenseUpdate,
+  convAttendanceCalendar,
+  convAttendancePreview,
+  convAttendanceUpdate,
+  convAttendanceApplyComplete,
+  convAttendanceSummary,
+}

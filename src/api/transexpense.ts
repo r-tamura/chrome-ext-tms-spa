@@ -5,7 +5,7 @@ import {
   convTransExpenseUpdate,
   convTransExpenseCreate,
   convTransExpenseDelete,
-} from "~/helpers/htmlConvertor"
+} from "~/helpers/htmlConverter"
 import { LS_TRANS_EXPENSE_TEMPLATE, urls } from "~/helpers/_const"
 import { composeAsync, remap, uuidv4 } from "~/helpers/common"
 import {
@@ -146,7 +146,7 @@ export async function delete_(expenseId: number): Promise<ResultStatus> {
  * @return View用交通費リスト
  */
 export async function fetchAll(master: Master): Promise<TransExpenseView[]> {
-  const htmlRes = await get("/tmsx/T1020_transport.php")
+  const htmlRes = await get("/tmskin/T1020_transport.php")
     .catch(err => {
       console.error(err)
       throw err

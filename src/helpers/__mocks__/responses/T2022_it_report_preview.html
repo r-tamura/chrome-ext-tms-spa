@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <title>TMS Monthly Report</title>
+  <meta content="text/html; charset=utf-8" http-equiv="content-type">
+</head>
+<body>
+  <form id="form01" name="form01">
+    <div align="center">
+      <font size="5"><u><b>2018&nbsp;年&nbsp;02&nbsp;月度　勤怠表</b></u></font><br>
+      <font size="3"><u>&nbsp;2018&nbsp;年&nbsp;02&nbsp;月&nbsp;1&nbsp;日　～　2018&nbsp;年&nbsp;02&nbsp;月&nbsp;末&nbsp;日</u></font>
+      <table id="table-01" width="650px">
+        <tr align="center">
+          <th><font size="2"><b>Ｎｏ.</b></font></th>
+          <td><font size="3">0133</font></td>
+          <th><font size="2"><b>氏名</b></font></th>
+          <td><font size="3"><%= name %></font></td>
+          <th width="53px"><font size="2"><b>管理</b></font></th>
+          <th width="53px"><font size="2"><b>部長</b></font></th>
+          <th width="53px"><font size="2"><b>ＧＭ</b></font></th>
+          <th width="53px"><font size="2"><b>ＰＭ</b></font></th>
+          <th width="53px"><font size="2"><b>本人</b></font></th>
+        </tr>
+        <tr align="center">
+          <th><font size="2"><b>所属<br>
+          部課</b></font></th>
+          <td colspan="3"><font size="3">システム部</font></td>
+          <td><font color='gray'>N/A</font></td>
+          <td><font color='gray'>N/A</font></td>
+          <td><font color='gray'>N/A</font></td>
+          <td><font color='gray'>N/A</font></td>
+          <td><img height='36px' id='img-01' src='img/0133.png' width='36px'></td>
+        </tr>
+      </table><br>
+      <table id="table-01" width="650px">
+        <tr>
+          <th rowspan="2"><font size="2"><b>日<br>
+          付</b></font></th>
+          <th rowspan="2"><font size="2"><b>曜<br>
+          日</b></font></th>
+          <th colspan="3"><font size="2"><b>作業時間</b></font></th>
+          <th colspan="4"><font size="2"><b>時間外労働</b></font></th>
+          <th rowspan="2"><font size="2"><b>休暇理由</b></font></th>
+          <th rowspan="2"><font size="2"><b>プロジェクト名</b></font></th>
+          <th rowspan="2"><font size="2"><b>備考</b></font></th>
+          <th rowspan="2"><font size="2"><b>確<br>
+          認</b></font></th>
+        </tr>
+        <tr>
+          <th><font size="2"><b>開始</b></font></th>
+          <th><font size="2"><b>終了</b></font></th>
+          <th><font size="2"><b>合計</b></font></th>
+          <th><font size="2"><b>普通</b></font></th>
+          <th><font size="2"><b>深夜</b></font></th>
+          <th><font size="2"><b>休出</b></font></th>
+          <th><font size="2"><b>徹夜</b></font></th>
+        </tr>
+        <tr>
+          <td><font size="2"><b></b></font></td>
+          <td><font size="2"><b></b></font></td>
+          <td><font size="2"></font></td>
+          <td><font size="2"></font></td>
+          <td><font size="2"></font></td>
+          <td><font size="2"></font></td>
+          <td><font size="2"></font></td>
+          <td><font size="2"></font></td>
+          <td><font size="2"></font></td>
+          <td align="left" nowrap width="100"><font size="2"></font></td>
+          <td align="left"><font size="2"></font></td>
+          <td><font size="2"></font></td>
+          <td><font size="2"><b></b></font></td>
+        </tr>
+        <tr>
+          <td><font size="2"><b>01</b></font></td>
+          <td><font size="2"><b><img height='19px' id='img-01' src='img/mo.png' width='20px'></b></font></td>
+          <td><font size="2">&nbsp;</font></td>
+          <td><font size="2">&nbsp;</font></td>
+          <td><font size="2">&nbsp;</font></td>
+          <td><font size="2">&nbsp;</font></td>
+          <td><font size="2">&nbsp;</font></td>
+          <td><font size="2">&nbsp;</font></td>
+          <td><font size="2">&nbsp;</font></td>
+          <td align="left" nowrap width="100"><font size="2"></font></td>
+          <td align="left"><font size="2">&nbsp;</font></td>
+          <td><font size="2">&nbsp;</font></td>
+          <td><font size="2"><b>&nbsp;</b></font></td>
+        </tr>
+        <tr>
+          <td><font size="2"><b>02</b></font></td>
+          <td><font size="2"><b><img height='19px' id='img-01' src='img/ki.png' width='20px'></b></font></td>
+          <td><font size="2">&nbsp;</font></td>
+          <td><font size="2">&nbsp;</font></td>
+          <td><font size="2">&nbsp;</font></td>
+          <td><font size="2">&nbsp;</font></td>
+          <td><font size="2">&nbsp;</font></td>
+          <td><font size="2">&nbsp;</font></td>
+          <td><font size="2">&nbsp;</font></td>
+          <td align="left" nowrap width="100"><font size="2"></font></td>
+          <td align="left"><font size="2">&nbsp;</font></td>
+          <td><font size="2">&nbsp;</font></td>
+          <td><font size="2"><b>&nbsp;</b></font></td>
+        </tr>
+        <tr>
+          <td><font size="2"><b>03</b></font></td>
+          <td><font size="2"><b><img height='19px' id='img-01' src='img/do.png' width='20px'></b></font></td>
+          <td><font size="2">&nbsp;</font></td>
+          <td><font size="2">&nbsp;</font></td>
+          <td><font size="2">&nbsp;</font></td>
+          <td><font size="2">&nbsp;</font></td>
+          <td><font size="2">&nbsp;</font></td>
+          <td><font size="2">&nbsp;</font></td>
+          <td><font size="2">&nbsp;</font></td>
+          <td align="left" nowrap width="100"><font size="2"></font></td>
+          <td align="left"><font size="2">&nbsp;</font></td>
+          <td><font size="2">&nbsp;</font></td>
+          <td><font size="2"><b>&nbsp;</b></font></td>
+        </tr>
+        <tr>
+          <td><font size="2"><b>04</b></font></td>
+          <td><font size="2"><b><img height='19px' id='img-01' src='img/ni.png' width='20px'></b></font></td>
+          <td><font size="2">&nbsp;</font></td>
+          <td><font size="2">&nbsp;</font></td>
+          <td><font size="2">&nbsp;</font></td>
+          <td><font size="2">&nbsp;</font></td>
+          <td><font size="2">&nbsp;</font></td>
+          <td><font size="2">&nbsp;</font></td>
+          <td><font size="2">&nbsp;</font></td>
+          <td align="left" nowrap width="100"><font size="2"></font></td>
+          <td align="left"><font size="2">&nbsp;</font></td>
+          <td><font size="2">&nbsp;</font></td>
+          <td><font size="2"><b>&nbsp;</b></font></td>
+        </tr>
+        <tr>
+          <td><font size="2"><b>05</b></font></td>
+          <td><font size="2"><b><img height='19px' id='img-01' src='img/ge.png' width='20px'></b></font></td>
+          <td><font size="2">&nbsp;</font></td>
+          <td><font size="2">&nbsp;</font></td>
+          <td><font size="2">&nbsp;</font></td>
+          <td><font size="2">&nbsp;</font></td>
+          <td><font size="2">&nbsp;</font></td>
+          <td><font size="2">&nbsp;</font></td>
+          <td><font size="2">&nbsp;</font></td>
+          <td align="left" nowrap width="100"><font size="2"></font></td>
+          <td align="left"><font size="2">&nbsp;</font></td>
+          <td><font size="2">&nbsp;</font></td>
+          <td><font size="2"><b>&nbsp;</b></font></td>
+        </tr>
+        <tr>
+          <td><font size="2"><b>06</b></font></td>
+          <td><font size="2"><b><img height='19px' id='img-01' src='img/ka.png' width='20px'></b></font></td>
+          <td><font size="2">&nbsp;</font></td>
+          <td><font size="2">&nbsp;</font></td>
+          <td><font size="2">&nbsp;</font></td>
+          <td><font size="2">&nbsp;</font></td>
+          <td><font size="2">&nbsp;</font></td>
+          <td><font size="2">&nbsp;</font></td>
+          <td><font size="2">&nbsp;</font></td>
+          <td align="left" nowrap width="100"><font size="2"></font></td>
+          <td align="left"><font size="2">&nbsp;</font></td>
+          <td><font size="2">&nbsp;</font></td>
+          <td><font size="2"><b>&nbsp;</b></font></td>
+        </tr>
+        <tr>
+          <td><font size="2"><b>07</b></font></td>
+          <td><font size="2"><b><img height='19px' id='img-01' src='img/su.png' width='20px'></b></font></td>
+          <td><font size="2">&nbsp;</font></td>
+          <td><font size="2">&nbsp;</font></td>
+          <td><font size="2">&nbsp;</font></td>
+          <td><font size="2">&nbsp;</font></td>
+          <td><font size="2">&nbsp;</font></td>
+          <td><font size="2">&nbsp;</font></td>
+          <td><font size="2">&nbsp;</font></td>
+          <td align="left" nowrap width="100"><font size="2"></font></td>
+          <td align="left"><font size="2">&nbsp;</font></td>
+          <td><font size="2">&nbsp;</font></td>
+          <td><font size="2"><b>&nbsp;</b></font></td>
+        </tr>
+        <tr>
+          <td><font size="2"><b>08</b></font></td>
+          <td><font size="2"><b><img height='19px' id='img-01' src='img/mo.png' width='20px'></b></font></td>
+          <td><font size="2">&nbsp;</font></td>
+          <td><font size="2">&nbsp;</font></td>
+          <td><font size="2">&nbsp;</font></td>
+          <td><font size="2">&nbsp;</font></td>
+          <td><font size="2">&nbsp;</font></td>
+          <td><font size="2">&nbsp;</font></td>
+          <td><font size="2">&nbsp;</font></td>
+          <td align="left" nowrap width="100"><font size="2"></font></td>
+          <td align="left"><font size="2">&nbsp;</font></td>
+          <td><font size="2">&nbsp;</font></td>
+          <td><font size="2"><b>&nbsp;</b></font></td>
+        </tr>
+        <tr>
+          <td><font size="2"><b>09</b></font></td>
+          <td><font size="2"><b><img height='19px' id='img-01' src='img/ki.png' width='20px'></b></font></td>
+          <td><font size="2">&nbsp;</font></td>
+          <td><font size="2">&nbsp;</font></td>
+          <td><font size="2">&nbsp;</font></td>
+          <td><font size="2">&nbsp;</font></td>
+          <td><font size="2">&nbsp;</font></td>
+          <td><font size="2">&nbsp;</font></td>
+          <td><font size="2">&nbsp;</font></td>
+          <td align="left" nowrap width="100"><font size="2"></font></td>
+          <td align="left"><font size="2">&nbsp;</font></td>
+          <td><font size="2">&nbsp;</font></td>
+          <td><font size="2"><b>&nbsp;</b></font></td>
+        </tr>
+        <tr>
+          <td><font size="2"><b>10</b></font></td>
+          <td><font size="2"><b><img height='19px' id='img-01' src='img/do.png' width='20px'></b></font></td>
+          <td><font size="2">&nbsp;</font></td>
+          <td><font size="2">&nbsp;</font></td>
+          <td><font size="2">&nbsp;</font></td>
+          <td><font size="2">&nbsp;</font></td>
+          <td><font size="2">&nbsp;</font></td>
+          <td><font size="2">&nbsp;</font></td>
+          <td><font size="2">&nbsp;</font></td>
+          <td align="left" nowrap width="100"><font size="2"></font></td>
+          <td align="left"><font size="2">&nbsp;</font></td>
+          <td><font size="2">&nbsp;</font></td>
+          <td><font size="2"><b>&nbsp;</b></font></td>
+        </tr>
+        <tr>
+          <td><font size="2"><b>11</b></font></td>
+          <td><font size="2"><b><img height='19px' id='img-01' src='img/ni.png' width='20px'></b></font></td>
+          <td><font size="2">&nbsp;</font></td>
+          <td><font size="2">&nbsp;</font></td>
+          <td><font size="2">&nbsp;</font></td>
+          <td><font size="2">&nbsp;</font></td>
+          <td><font size="2">&nbsp;</font></td>
+          <td><font size="2">&nbsp;</font></td>
+          <td><font size="2">&nbsp;</font></td>
+          <td align="left" nowrap width="100"><font size="2"></font></td>
+          <td align="left"><font size="2">&nbsp;</font></td>
+          <td><font size="2">&nbsp;</font></td>
+          <td><font size="2"><b>&nbsp;</b></font></td>
+        </tr>
+        <tr>
+          <td><font size="2"><b>12</b></font></td>
+          <td><font size="2"><b><img height='19px' id='img-01' src='img/ge.png' width='20px'></b></font></td>
+          <td><font size="2">&nbsp;</font></td>
+          <td><font size="2">&nbsp;</font></td>
+          <td><font size="2">&nbsp;</font></td>
+          <td><font size="2">&nbsp;</font></td>
+          <td><font size="2">&nbsp;</font></td>
+          <td><font size="2">&nbsp;</font></td>
+          <td><font size="2">&nbsp;</font></td>
+          <td align="left" nowrap width="100"><font size="2"></font></td>
+          <td align="left"><font size="2">&nbsp;</font></td>
+          <td><font size="2">&nbsp;</font></td>
+          <td><font size="2"><b>&nbsp;</b></font></td>
+        </tr>
+        <tr>
+          <td><font size="2"><b>13</b></font></td>
+          <td><font size="2"><b><img height='19px' id='img-01' src='img/ka.png' width='20px'></b></font></td>
+          <td><font size="2">&nbsp;</font></td>
+          <td><font size="2">&nbsp;</font></td>
+          <td><font size="2">&nbsp;</font></td>
+          <td><font size="2">&nbsp;</font></td>
+          <td><font size="2">&nbsp;</font></td>
+          <td><font size="2">&nbsp;</font></td>
+          <td><font size="2">&nbsp;</font></td>
+          <td align="left" nowrap width="100"><font size="2"></font></td>
+          <td align="left"><font size="2">&nbsp;</font></td>
+          <td><font size="2">&nbsp;</font></td>
+          <td><font size="2"><b>&nbsp;</b></font></td>
+        </tr>
+        <tr>
+          <td><font size="2"><b>14</b></font></td>
+          <td><font size="2"><b><img height='19px' id='img-01' src='img/su.png' width='20px'></b></font></td>
+          <td><font size="2">&nbsp;</font></td>
+          <td><font size="2">&nbsp;</font></td>
+          <td><font size="2">&nbsp;</font></td>
+          <td><font size="2">&nbsp;</font></td>
+          <td><font size="2">&nbsp;</font></td>
+          <td><font size="2">&nbsp;</font></td>
+          <td><font size="2">&nbsp;</font></td>
+          <td align="left" nowrap width="100"><font size="2"></font></td>
+          <td align="left"><font size="2">&nbsp;</font></td>
+          <td><font size="2">&nbsp;</font></td>
+          <td><font size="2"><b>&nbsp;</b></font></td>
+        </tr>
+        <tr>
+          <td><font size="2"><b>15</b></font></td>
+          <td><font size="2"><b><img height='19px' id='img-01' src='img/mo.png' width='20px'></b></font></td>
+          <td><font size="2">&nbsp;</font></td>
+          <td><font size="2">&nbsp;</font></td>
+          <td><font size="2">&nbsp;</font></td>
+          <td><font size="2">&nbsp;</font></td>
+          <td><font size="2">&nbsp;</font></td>
+          <td><font size="2">&nbsp;</font></td>
+          <td><font size="2">&nbsp;</font></td>
+          <td align="left" nowrap width="100"><font size="2"></font></td>
+          <td align="left"><font size="2">&nbsp;</font></td>
+          <td><font size="2">&nbsp;</font></td>
+          <td><font size="2"><b>&nbsp;</b></font></td>
+        </tr>
+        <tr>
+          <td><font size="2"><b>16</b></font></td>
+          <td><font size="2"><b><img height='19px' id='img-01' src='img/ki.png' width='20px'></b></font></td>
+          <td><font size="2">&nbsp;</font></td>
+          <td><font size="2">&nbsp;</font></td>
+          <td><font size="2">&nbsp;</font></td>
+          <td><font size="2">&nbsp;</font></td>
+          <td><font size="2">&nbsp;</font></td>
+          <td><font size="2">&nbsp;</font></td>
+          <td><font size="2">&nbsp;</font></td>
+          <td align="left" nowrap width="100"><font size="2"></font></td>
+          <td align="left"><font size="2">&nbsp;</font></td>
+          <td><font size="2">&nbsp;</font></td>
+          <td><font size="2"><b>&nbsp;</b></font></td>
+        </tr>
+        <tr>
+          <td><font size="2"><b>17</b></font></td>
+          <td><font size="2"><b><img height='19px' id='img-01' src='img/do.png' width='20px'></b></font></td>
+          <td><font size="2">&nbsp;</font></td>
+          <td><font size="2">&nbsp;</font></td>
+          <td><font size="2">&nbsp;</font></td>
+          <td><font size="2">&nbsp;</font></td>
+          <td><font size="2">&nbsp;</font></td>
+          <td><font size="2">&nbsp;</font></td>
+          <td><font size="2">&nbsp;</font></td>
+          <td align="left" nowrap width="100"><font size="2"></font></td>
+          <td align="left"><font size="2">&nbsp;</font></td>
+          <td><font size="2">&nbsp;</font></td>
+          <td><font size="2"><b>&nbsp;</b></font></td>
+        </tr>
+        <tr>
+          <td><font size="2"><b>18</b></font></td>
+          <td><font size="2"><b><img height='19px' id='img-01' src='img/ni.png' width='20px'></b></font></td>
+          <td><font size="2">&nbsp;</font></td>
+          <td><font size="2">&nbsp;</font></td>
+          <td><font size="2">&nbsp;</font></td>
+          <td><font size="2">&nbsp;</font></td>
+          <td><font size="2">&nbsp;</font></td>
+          <td><font size="2">&nbsp;</font></td>
+          <td><font size="2">&nbsp;</font></td>
+          <td align="left" nowrap width="100"><font size="2"></font></td>
+          <td align="left"><font size="2">&nbsp;</font></td>
+          <td><font size="2">&nbsp;</font></td>
+          <td><font size="2"><b>&nbsp;</b></font></td>
+        </tr>
+        <tr>
+          <td><font size="2"><b>19</b></font></td>
+          <td><font size="2"><b><img height='19px' id='img-01' src='img/ge.png' width='20px'></b></font></td>
+          <td><font size="2">&nbsp;</font></td>
+          <td><font size="2">&nbsp;</font></td>
+          <td><font size="2">&nbsp;</font></td>
+          <td><font size="2">&nbsp;</font></td>
+          <td><font size="2">&nbsp;</font></td>
+          <td><font size="2">&nbsp;</font></td>
+          <td><font size="2">&nbsp;</font></td>
+          <td align="left" nowrap width="100"><font size="2"></font></td>
+          <td align="left"><font size="2">&nbsp;</font></td>
+          <td><font size="2">&nbsp;</font></td>
+          <td><font size="2"><b>&nbsp;</b></font></td>
+        </tr>
+        <tr>
+          <td><font size="2"><b>20</b></font></td>
+          <td><font size="2"><b><img height='19px' id='img-01' src='img/ka.png' width='20px'></b></font></td>
+          <td><font size="2">&nbsp;</font></td>
+          <td><font size="2">&nbsp;</font></td>
+          <td><font size="2">&nbsp;</font></td>
+          <td><font size="2">&nbsp;</font></td>
+          <td><font size="2">&nbsp;</font></td>
+          <td><font size="2">&nbsp;</font></td>
+          <td><font size="2">&nbsp;</font></td>
+          <td align="left" nowrap width="100"><font size="2"></font></td>
+          <td align="left"><font size="2">&nbsp;</font></td>
+          <td><font size="2">&nbsp;</font></td>
+          <td><font size="2"><b>&nbsp;</b></font></td>
+        </tr>
+        <tr>
+          <td><font size="2"><b>21</b></font></td>
+          <td><font size="2"><b><img height='19px' id='img-01' src='img/su.png' width='20px'></b></font></td>
+          <td><font size="2">&nbsp;</font></td>
+          <td><font size="2">&nbsp;</font></td>
+          <td><font size="2">&nbsp;</font></td>
+          <td><font size="2">&nbsp;</font></td>
+          <td><font size="2">&nbsp;</font></td>
+          <td><font size="2">&nbsp;</font></td>
+          <td><font size="2">&nbsp;</font></td>
+          <td align="left" nowrap width="100"><font size="2"></font></td>
+          <td align="left"><font size="2">&nbsp;</font></td>
+          <td><font size="2">&nbsp;</font></td>
+          <td><font size="2"><b>&nbsp;</b></font></td>
+        </tr>
+        <tr>
+          <td><font size="2"><b>22</b></font></td>
+          <td><font size="2"><b><img height='19px' id='img-01' src='img/mo.png' width='20px'></b></font></td>
+          <td><font size="2">&nbsp;</font></td>
+          <td><font size="2">&nbsp;</font></td>
+          <td><font size="2">&nbsp;</font></td>
+          <td><font size="2">&nbsp;</font></td>
+          <td><font size="2">&nbsp;</font></td>
+          <td><font size="2">&nbsp;</font></td>
+          <td><font size="2">&nbsp;</font></td>
+          <td align="left" nowrap width="100"><font size="2"></font></td>
+          <td align="left"><font size="2">&nbsp;</font></td>
+          <td><font size="2">&nbsp;</font></td>
+          <td><font size="2"><b>&nbsp;</b></font></td>
+        </tr>
+        <tr>
+          <td><font size="2"><b>23</b></font></td>
+          <td><font size="2"><b><img height='19px' id='img-01' src='img/ki.png' width='20px'></b></font></td>
+          <td><font size="2">&nbsp;</font></td>
+          <td><font size="2">&nbsp;</font></td>
+          <td><font size="2">&nbsp;</font></td>
+          <td><font size="2">&nbsp;</font></td>
+          <td><font size="2">&nbsp;</font></td>
+          <td><font size="2">&nbsp;</font></td>
+          <td><font size="2">&nbsp;</font></td>
+          <td align="left" nowrap width="100"><font size="2"></font></td>
+          <td align="left"><font size="2">&nbsp;</font></td>
+          <td><font size="2">&nbsp;</font></td>
+          <td><font size="2"><b>&nbsp;</b></font></td>
+        </tr>
+        <tr>
+          <td><font size="2"><b>24</b></font></td>
+          <td><font size="2"><b><img height='19px' id='img-01' src='img/do.png' width='20px'></b></font></td>
+          <td><font size="2">&nbsp;</font></td>
+          <td><font size="2">&nbsp;</font></td>
+          <td><font size="2">&nbsp;</font></td>
+          <td><font size="2">&nbsp;</font></td>
+          <td><font size="2">&nbsp;</font></td>
+          <td><font size="2">&nbsp;</font></td>
+          <td><font size="2">&nbsp;</font></td>
+          <td align="left" nowrap width="100"><font size="2"></font></td>
+          <td align="left"><font size="2">&nbsp;</font></td>
+          <td><font size="2">&nbsp;</font></td>
+          <td><font size="2"><b>&nbsp;</b></font></td>
+        </tr>
+        <tr>
+          <td><font size="2"><b>25</b></font></td>
+          <td><font size="2"><b><img height='19px' id='img-01' src='img/ni.png' width='20px'></b></font></td>
+          <td><font size="2">&nbsp;</font></td>
+          <td><font size="2">&nbsp;</font></td>
+          <td><font size="2">&nbsp;</font></td>
+          <td><font size="2">&nbsp;</font></td>
+          <td><font size="2">&nbsp;</font></td>
+          <td><font size="2">&nbsp;</font></td>
+          <td><font size="2">&nbsp;</font></td>
+          <td align="left" nowrap width="100"><font size="2"></font></td>
+          <td align="left"><font size="2">&nbsp;</font></td>
+          <td><font size="2">&nbsp;</font></td>
+          <td><font size="2"><b>&nbsp;</b></font></td>
+        </tr>
+        <tr>
+          <td><font size="2"><b>26</b></font></td>
+          <td><font size="2"><b><img height='19px' id='img-01' src='img/ge.png' width='20px'></b></font></td>
+          <td><font size="2">&nbsp;</font></td>
+          <td><font size="2">&nbsp;</font></td>
+          <td><font size="2">&nbsp;</font></td>
+          <td><font size="2">&nbsp;</font></td>
+          <td><font size="2">&nbsp;</font></td>
+          <td><font size="2">&nbsp;</font></td>
+          <td><font size="2">&nbsp;</font></td>
+          <td align="left" nowrap width="100"><font size="2"></font></td>
+          <td align="left"><font size="2">&nbsp;</font></td>
+          <td><font size="2">&nbsp;</font></td>
+          <td><font size="2"><b>&nbsp;</b></font></td>
+        </tr>
+        <tr>
+          <td><font size="2"><b>27</b></font></td>
+          <td><font size="2"><b><img height='19px' id='img-01' src='img/ka.png' width='20px'></b></font></td>
+          <td><font size="2">&nbsp;</font></td>
+          <td><font size="2">&nbsp;</font></td>
+          <td><font size="2">&nbsp;</font></td>
+          <td><font size="2">&nbsp;</font></td>
+          <td><font size="2">&nbsp;</font></td>
+          <td><font size="2">&nbsp;</font></td>
+          <td><font size="2">&nbsp;</font></td>
+          <td align="left" nowrap width="100"><font size="2"></font></td>
+          <td align="left"><font size="2">&nbsp;</font></td>
+          <td><font size="2">&nbsp;</font></td>
+          <td><font size="2"><b>&nbsp;</b></font></td>
+        </tr>
+        <tr>
+          <td><font size="2"><b>28</b></font></td>
+          <td><font size="2"><b><img height='19px' id='img-01' src='img/su.png' width='20px'></b></font></td>
+          <td><font size="2">&nbsp;</font></td>
+          <td><font size="2">&nbsp;</font></td>
+          <td><font size="2">&nbsp;</font></td>
+          <td><font size="2">&nbsp;</font></td>
+          <td><font size="2">&nbsp;</font></td>
+          <td><font size="2">&nbsp;</font></td>
+          <td><font size="2">&nbsp;</font></td>
+          <td align="left" nowrap width="100"><font size="2"></font></td>
+          <td align="left"><font size="2">&nbsp;</font></td>
+          <td><font size="2">&nbsp;</font></td>
+          <td><font size="2"><b>&nbsp;</b></font></td>
+        </tr>
+        <tr>
+          <td colspan="2"><font size="2"><b>合計</b></font></td>
+          <td><font size="2">&nbsp;</font></td>
+          <td><font size="2">&nbsp;</font></td>
+          <td><font size="2">00:00</font></td>
+          <td><font size="2">00:00</font></td>
+          <td><font size="2">00:00</font></td>
+          <td><font size="2">00:00</font></td>
+          <td><font size="2">00:00</font></td>
+          <td><font size="2">&nbsp;</font></td>
+          <td><font size="2">&nbsp;</font></td>
+          <td><font size="2">&nbsp;</font></td>
+          <td><font size="2">&nbsp;</font></td>
+        </tr>
+      </table><br>
+      <table id="table-01" width="650px">
+        <tr align="center">
+          <th rowspan="2"><font size="2"><b>年次<br>
+          休暇(日)</b></font></th>
+          <th colspan="2"><font size="2"><b>その他休暇</b></font></th>
+          <th colspan="5"><font size="2"><b>欠　勤　等</b></font></th>
+          <th rowspan="2"><font size="2"><b>代休(日)</b></font></th>
+        </tr>
+        <tr align="center">
+          <th><font size="2"><b>有給(日)</b></font></th>
+          <th><font size="2"><b>無給(日)</b></font></th>
+          <th><font size="2"><b>通常(日)</b></font></th>
+          <th><font size="2"><b>無断(日)</b></font></th>
+          <th><font size="2"><b>遅刻(Ｈ)</b></font></th>
+          <th><font size="2"><b>早退(Ｈ)</b></font></th>
+          <th><font size="2"><b>私外(Ｈ)</b></font></th>
+        </tr>
+        <tr align="center">
+          <td><font size="2">0</font></td>
+          <td><font size="2">0</font></td>
+          <td><font size="2">0</font></td>
+          <td><font size="2">0</font></td>
+          <td><font size="2">0</font></td>
+          <td><font size="2">00:00</font></td>
+          <td><font size="2">00:00</font></td>
+          <td><font size="2">00:00</font></td>
+          <td><font size="2">0</font></td>
+        </tr>
+      </table>
+    </div><input name="func" type="hidden" value=""> <input name="year" type="hidden" value="2018"> <input name="month" type="hidden" value="02"> <input name="day" type="hidden" value="06">
+  </form>
+  <p align='center'>[&nbsp;<a href='T0010_menu.php'>MENUに戻る</a>&nbsp;] &nbsp; [&nbsp;<a href='T2020_it_report.php?year=2018&month=02'>前に戻る</a>&nbsp;]</p>
+  <hr>
+  <p align='right'>(C)2011 Telema</p>
+</body>
+</html>

@@ -19,6 +19,9 @@
 
   --hovered-bg-color:           rgba(0, 0, 0, 0.03);
 
+  --text-main:                  hsl(0, 5%, 5%);
+  --text-gray:                  hsla(0, 5%, 5%, .25);
+
   --font-size-xl: 21px;
   --font-size-lg: 17px;
   --font-size-md: 14px;
@@ -34,7 +37,7 @@
   /* box-shadow */
   --box-shadow:                    { box-shadow: 0px 0px 5px #222222; }
 
-  /* form */
+  /* Form */
 
   --input-height:                  30px;
 
@@ -45,6 +48,8 @@
   --table-cell-padding:            8px;
   --table-cell-padding-sm:         .3rem;
   
+  /* Button */
+  --color-button-disabled:           var(--text-gray);
   --btn-height:                      36px;
   --btn-height-sm:                   var(--btn-height * 0.85);
   --btn-height-lg:                   var(--btn-height * 1.5);
@@ -65,6 +70,9 @@
   
   --btn-margin-vertical:             6px;
   --btn-spacing-horizontal:          8px;
+
+  --btn-shadow-little:               0 0 2px rgba(0,0,0,.12),0 2px 2px rgba(0,0,0,.2);
+  --btn-shadow:                      0px 3px 5px -1px rgba(0, 0, 0, 0.2), 0px 6px 10px 0px rgba(0, 0, 0, 0.14), 0px 1px 18px 0px rgba(0, 0, 0, 0.12);
   
   /* Forms */
   --input-placeholder-color:     rgba(0, 0, 0, 0.09);
