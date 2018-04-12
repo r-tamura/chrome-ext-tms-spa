@@ -21,7 +21,7 @@ import Storage from "~/helpers/storage"
 /**
  * テンプレートに指定されたIDのアイテムを追加します
  */
-export async function createTemplate(template: TransExpense): Promise<ResultStatus> {
+async function createTemplate(template: TransExpense): Promise<ResultStatus> {
   const templates = await fetchTemplatesAll()
   const strJson = JSON.stringify([...templates, { templateId: uuidv4(), ...template }])
 
@@ -37,7 +37,7 @@ export async function createTemplate(template: TransExpense): Promise<ResultStat
 /**
  * テンプレートから指定されたIDのアイテムを削除します
  */
-export async function deleteTemplate(templateId: number): Promise<ResultStatus> {
+async function deleteTemplate(templateId: number): Promise<ResultStatus> {
   const templates = await fetchTemplatesAll()
   const newTemplates = compose(
     filter(compose(
@@ -59,7 +59,7 @@ export async function deleteTemplate(templateId: number): Promise<ResultStatus> 
  *
  * @param {TransExpenseTemplate} newTemplates
  */
-export async function updateTemplate(newTemplate: TransExpenseTemplate): Promise<ResultStatus> {
+async function updateTemplate(newTemplate: TransExpenseTemplate): Promise<ResultStatus> {
   const templates = await fetchTemplatesAll()
   const newTemplates = map(dbTemplate => {
       if (propEq("templateId", newTemplate.templateId, dbTemplate)) {
@@ -76,10 +76,10 @@ export async function updateTemplate(newTemplate: TransExpenseTemplate): Promise
   }
 }
 
-export function fetchTemplatesAll(): Promise<TransExpenseTemplate[]> {
-  // return Promise.resolve(localStorage.getItem(LS_TRANS_EXPENSE_TEMPLATE))
-  //   .then((strjson: string) => strjson === null ? [] : JSON.parse(strjson))
-  return Storage.getFromStorage<TransExpenseTemplate[]>(LS_TRANS_EXPENSE_TEMPLATE)
+function fetchTemplatesAll(): Promise<TransExpenseTemplate[]> {
+  return Storage
+    .getFromStorage<TransExpenseTemplate[]>(LS_TRANS_EXPENSE_TEMPLATE)
+    .then(res => res === null ? [] : res)
 }
 
 const clientToServerKeyMap = {
@@ -102,7 +102,7 @@ const clientToServer = (client: TransExpense) => remap(clientToServerKeyMap, cli
  * @param expenseOnClient 新規作成する交通費データ(クライアント形式)
  * @return 交通費作成の結果
  */
-export async function create(expenseOnClient: TransExpense): Promise<ResultStatus> {
+async function create(expenseOnClient: TransExpense): Promise<ResultStatus> {
   const expenseOnServer = clientToServer(expenseOnClient)
   const action = { func: "insert" }
   const htmlRes = await post(urls.TRANS_EXPENSE_REGISTER, { ...expenseOnServer, ...action})
@@ -116,7 +116,7 @@ export async function create(expenseOnClient: TransExpense): Promise<ResultStatu
  * @param expenseOnClient 更新する交通費データ(クライアント形式)
  * @return 交通費更新の結果
  */
-export async function update(expenseOnClient: TransExpense): Promise<ResultStatus> {
+async function update(expenseOnClient: TransExpense): Promise<ResultStatus> {
   const expenseOnServer = clientToServer(expenseOnClient)
   const action = { func: "update" }
   const htmlRes = await post(urls.TRANS_EXPENSE_REGISTER, { ...expenseOnServer, ...action})
@@ -131,7 +131,7 @@ export async function update(expenseOnClient: TransExpense): Promise<ResultStatu
  * @param expenseId 交通費ID
  * @return 交通費削除の結果
  */
-export async function delete_(expenseId: number): Promise<ResultStatus> {
+async function delete_(expenseId: number): Promise<ResultStatus> {
   const expenseIdKey = clientToServerKeyMap.expenseId
   const action = { func: "delete" }
   const htmlRes = await post(urls.TRANS_EXPENSE_REGISTER, { [expenseIdKey]: expenseId, ...action })
@@ -145,7 +145,7 @@ export async function delete_(expenseId: number): Promise<ResultStatus> {
  * @param master プロジェクト名などのマスタデータ(JSONへの変換に使用)
  * @return View用交通費リスト
  */
-export async function fetchAll(master: Master): Promise<TransExpenseView[]> {
+async function fetchAll(master: Master): Promise<TransExpenseView[]> {
   const htmlRes = await get("/tmskin/T1020_transport.php")
     .catch(err => {
       console.error(err)
@@ -153,4 +153,15 @@ export async function fetchAll(master: Master): Promise<TransExpenseView[]> {
     })
   const res = convTransExpenseList(master, htmlRes)
   return res
+}
+
+export {
+  createTemplate,
+  deleteTemplate,
+  updateTemplate,
+  fetchTemplatesAll,
+  create,
+  update,
+  delete_,
+  fetchAll,
 }
