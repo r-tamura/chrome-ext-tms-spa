@@ -88,14 +88,14 @@ const successOrFailToUpdate = (dispatch: Dispatch<{}>, getState: () => RootState
       composeAsync(
         () => fetchExpensesAll()(dispatch, getState),
         dispatch,
-        updateTransExpensesSuccess,
+        updateTransExpensesSuccess
       ),
     ],
     [
       () => true,
       composeAsync(
         dispatch,
-        updateTransExpensesFailure,
+        updateTransExpensesFailure
       ),
     ],
   ])
@@ -105,7 +105,7 @@ export const createExpense = (expense: TransExpense) => (dispatch: Dispatch<{}>,
     try {
       composeAsync(
         successOrFailToUpdate(dispatch, getState),
-        create,
+        create
       )(expense)
     } catch (err) {
       dispatch(updateTransExpensesFailure({error: err}))
@@ -124,7 +124,7 @@ export const deleteExpense = (expenseId: number) => (dispatch: Dispatch<{}>, get
     try {
       composeAsync(
         successOrFailToUpdate(dispatch, getState),
-        delete_,
+        delete_
       )(expenseId)
     } catch (err) {
       dispatch(updateTransExpensesFailure({error: err}))
@@ -136,7 +136,7 @@ export const updateExpense = (expense: TransExpense) => (dispatch: Dispatch<{}>,
     try {
       composeAsync(
         successOrFailToUpdate(dispatch, getState),
-        update,
+        update
       )(expense)
     } catch (err) {
       dispatch(updateTransExpensesFailure({error: err}))

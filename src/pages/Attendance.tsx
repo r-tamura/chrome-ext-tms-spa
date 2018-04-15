@@ -3,6 +3,7 @@ import { connect } from "react-redux"
 import { Helmet } from "react-helmet"
 import { RouteComponentProps } from "react-router-dom"
 import SelectBox from "~/components/SelectBox"
+import { Button } from "~/components/Button"
 import { RootState, getProjects, getAttendancesSelectedMonth, getAttendanceSettings } from "~/modules"
 import {
   fetchAttendancesIfNeeded,
@@ -12,6 +13,7 @@ import {
   setMonthlyWithDefaults,
   updateSettings,
   changeMonth,
+  submitApplication,
 } from "~/modules/attendances"
 import { zerofill } from "~/helpers/common"
 import { AttendanceMonthlyView, AttendanceSettings, Project } from "~/types"
@@ -30,6 +32,7 @@ interface IProps extends OwnProps {
   setMonthlyWithDefaults: (dailyIds: string[]) => any
   updateSettings: (patch: Partial<AttendanceSettings>) => any
   changeMonth: (year: number, month: number) => any
+  submitApplication: (year: number, month: number) => any
 }
 
 class AttendancePage extends React.Component<IProps, {}> {
@@ -50,9 +53,9 @@ class AttendancePage extends React.Component<IProps, {}> {
       </Helmet>
       <div className="main-column">
         <h1>
-          <button id={"btn-prev-month"} onClick={this.onPrevMonthClick}>{"<"}</button>
+          <Button id={"btn-prev-month"} onClick={this.onPrevMonthClick}>{"<"}</Button>
           {year} / {month}
-          <button id={"btn-next-month"} onClick={this.onNextMonthClick}>{">"}</button>
+          <Button id={"btn-next-month"} onClick={this.onNextMonthClick}>{">"}</Button>
         </h1>
         {this.renderMonthly(attendanceMonthly)}
 
@@ -85,7 +88,7 @@ class AttendancePage extends React.Component<IProps, {}> {
   }
 
   private renderMonthly(attendanceMonthly: AttendanceMonthlyView) {
-    const { year, month, days, isFetching } = attendanceMonthly
+    const { year, month, days, isFetching, hasApplied } = attendanceMonthly
 
     if (isFetching) {
       // TODO: ロードインジケータを表示するように
@@ -98,10 +101,15 @@ class AttendancePage extends React.Component<IProps, {}> {
 
     return (
       <div>
-        <div>
-          <button id={"btn-set-default"} onClick={this.onSetDefaultClick}>set default</button>
-          <button id={"btn-save"} onClick={this.onSaveClick}>Save</button>
-          <button id={"btn-fetch"} onClick={this.props.fetchAttendancesIfNeeded}>Reload</button>
+        <div className={"tms-btn-group"}>
+          <Button id={"btn-set-default"} onClick={this.onSetDefaultClick}>set default</Button>
+          <Button id={"btn-save"} onClick={this.onSaveClick}>Save</Button>
+          <Button id={"btn-fetch"} onClick={this.props.fetchAttendancesIfNeeded}>Reload</Button>
+          {
+            hasApplied
+            ? <Button id={"btn-submit"} title={"上長申請中"} disabled>Submit</Button>
+            : <Button id={"btn-submit"} title={"上長申請"} onClick={this.onSubmit}>Submit</Button>
+          }
         </div>
         <div>
         <SelectBox
@@ -191,6 +199,10 @@ class AttendancePage extends React.Component<IProps, {}> {
     const prevMonth = (curMonth + 10) % 12 + 1
     const prevYear  = prevMonth === 12 ? curYear - 1 : curYear
     this.props.changeMonth(prevYear, prevMonth)
+  }
+
+  private onSubmit = (e: React.MouseEvent<HTMLButtonElement>): void => {
+    console.log("[Attendance] Submitted")
   }
 
 }

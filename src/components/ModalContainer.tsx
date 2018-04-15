@@ -36,7 +36,7 @@ const ModalContainer: React.SFC<IProps> = ({
   :
   /* モーダル非有効時 */
   (
-    <div style={{display: "none"}} />
+    null
   )
 }
 

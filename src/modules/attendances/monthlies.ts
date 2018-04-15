@@ -39,6 +39,7 @@ const initialMonthly: AttendanceMonthly = {
   monthlyId: "",
   reportId: "",
   days: [],
+  hasApplied: false,
   year: ATD_YEAR,
   month: ATD_MONTH,
 }
@@ -48,11 +49,14 @@ const monthly = (state: AttendanceMonthly, action: AttendanceAction): Attendance
     case ActionTypes.FETCH_REQUEST:
     case ActionTypes.FETCH_FAILURE:
       return { ...state, isFetching: action.isFetching }
+    case ActionTypes.SUBMIT_APPLICATION_REQUEST:
+    case ActionTypes.SUBMIT_APPLICATION_OK:
+    case ActionTypes.SUBMIT_APPLICATION_NG:
+      return { ...state, isFetching: action.payload.isFetching }
     case ActionTypes.FETCH_SUCCESS: {
-      const { isFetching, lastUpdatedOn } = action
-      const { monthlyId, reportId, year, month } = action.attendanceMonthlyResponse
-      const days = pluck<string>("dailyId", action.attendanceMonthlyResponse.days)
-      return { ...state, monthlyId, reportId, year, month, days, isFetching, lastUpdatedOn }
+      const { attendanceMonthlyResponse, type, ...otherActionProps } = action
+      const { days, ...otherMonthlyProps } = attendanceMonthlyResponse
+      return { ...state, ...otherActionProps, ...otherMonthlyProps, days: pluck<string>("dailyId", days) }
     }
     default:
     return state
@@ -63,11 +67,14 @@ const byId = (state: ById = {}, action: AttendanceAction) => {
   switch (action.type) {
     case ActionTypes.FETCH_REQUEST:
     case ActionTypes.FETCH_FAILURE:
-    return { ...state, [action.monthlyId]: monthly(state[action.monthlyId], action) }
-    case ActionTypes.FETCH_SUCCESS: {
+      return { ...state, [action.monthlyId]: monthly(state[action.monthlyId], action) }
+    case ActionTypes.SUBMIT_APPLICATION_REQUEST:
+    case ActionTypes.SUBMIT_APPLICATION_OK:
+    case ActionTypes.SUBMIT_APPLICATION_NG:
+      return { ...state, [action.payload.monthlyId]: monthly(state[action.payload.monthlyId], action)}
+    case ActionTypes.FETCH_SUCCESS:
       const { monthlyId } = action.attendanceMonthlyResponse
       return { ...state, [monthlyId]: monthly(state[monthlyId], action) }
-    }
     default:
       return state
     }

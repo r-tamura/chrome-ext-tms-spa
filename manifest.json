@@ -7,10 +7,10 @@
   },
   "content_scripts": [{
     "matches": [
-      "*://www.telema.jp/*"
+      "*://kintai.telema.co.jp/*"
     ],
     "exclude_matches": [
-      "*://www.telema.jp/tmsx/*"
+      "*://kintai.telema.co.jp/tmskin/*"
     ],
     "js": ["dist/bundle.js", "chrome/autoreload.js"],
     "css": ["dist/bundle.css"]

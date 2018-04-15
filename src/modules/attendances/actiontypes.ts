@@ -10,4 +10,7 @@ export enum ActionTypes {
   FETCH_SETTINGS_SUCCESS     = "attendances/fetchsettingssucess",
   SET_MONTHLY_DEFAULTS       = "attendances/setmonthlydefaults",
   PATCH_SETTINGS_SUCCESS     = "attendances/patchsettingssuccess",
+  SUBMIT_APPLICATION_REQUEST = "attendances/submitapplicationrequest",
+  SUBMIT_APPLICATION_OK      = "attendances/submitapplicationsuccess",
+  SUBMIT_APPLICATION_NG      = "attendances/submitapplicationfailure",
 }

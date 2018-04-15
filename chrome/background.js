@@ -6,8 +6,8 @@
     chrome.runtime.reload()
   })
 
-  // TCPコネクション前に処理を割り込ませる
-  chrome.webRequest.onBeforeRequest.addListener(details => {
-    console.log(details)
-  })
+  // TODO: TCPコネクション前に処理を割り込ませる
+  // chrome.webRequest.onBeforeRequest.addListener(details => {
+  //   console.log(details)
+  // })
 }(chrome))
