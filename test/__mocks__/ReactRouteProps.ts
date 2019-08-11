@@ -1,10 +1,9 @@
-import { RouteComponentProps } from "react-router"
-import { match } from "react-router-dom"
+import { RouteComponentProps, } from "react-router"
 import { UnregisterCallback, Href } from "history"
 
 const emptyObject = {}
 
-function getMockRouterProps<P>(data: P) {
+export function getMockRouterProps<P>(data: P) {
 
     const location =  {
       hash: "",
@@ -49,6 +48,3 @@ function getMockRouterProps<P>(data: P) {
     return props
 }
 
-export {
-  getMockRouterProps,
-}

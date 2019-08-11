@@ -1,35 +1,33 @@
-import * as React from "react"
-import { Helmet } from "react-helmet"
-import { RouteComponentProps } from "react-router-dom"
-import { Form, Text } from "react-form"
-import { RootState } from "~/modules"
-import { loginUser, navigateToDashBoard } from "~/modules/user"
-import { Dispatch } from "redux"
-import { connect } from "react-redux"
+import React from "react";
+import { Helmet } from "react-helmet";
+import { RouteComponentProps } from "react-router-dom";
+import { Form, Text } from "react-form";
+import { RootState } from "~/modules";
+import { loginUser, navigateToDashBoard } from "~/modules/user";
+import { connect } from "react-redux";
 
 interface IProps extends React.Props<{}>, RouteComponentProps<{}> {
-  readonly isFetching: boolean,
+  readonly isFetching: boolean;
   /* ログイン済みであるか */
-  readonly isAuthenticated: boolean,
+  readonly isAuthenticated: boolean;
   /* ユーザー名 */
-  readonly name: string,
-  loginUser: (id: string, pw: string) => any
-  navigateToDashBoard: () => any
+  readonly name: string;
+  loginUser: (id: string, pw: string) => any;
+  navigateToDashBoard: () => any;
 }
 
 /**
  * ログインページ
  */
 class LoginPage extends React.Component<IProps, {}> {
-
-  public componentWillMount() {
-    this.redirectToDashboardIfNeeded(this.props.isAuthenticated)
+  public componentDidMount() {
+    this.redirectToDashboardIfNeeded(this.props.isAuthenticated);
   }
 
   public render() {
-    const { isFetching } = this.props
+    const { isFetching } = this.props;
     if (isFetching) {
-      return <p>Fetching...</p>
+      return <p>Fetching...</p>;
     }
 
     return (
@@ -39,9 +37,11 @@ class LoginPage extends React.Component<IProps, {}> {
         </Helmet>
         <div className="login-main tms-grid--offset1 tms-grid--col1 tms-grid-sm--col3">
           <h1>Sign in to TMS</h1>
-          <p>Enter your <strong>user name</strong> and <strong>password</strong>.</p>
+          <p>
+            Enter your <strong>user name</strong> and <strong>password</strong>.
+          </p>
           <Form onSubmit={this.handleSubmit}>
-            { formApi => (
+            {formApi => (
               <div className="tms-panel">
                 <form onSubmit={formApi.submitForm}>
                   {/* User name text filed */}
@@ -74,41 +74,42 @@ class LoginPage extends React.Component<IProps, {}> {
           </Form>
         </div>
       </main>
-    )
+    );
   }
 
   private shouldRedirectToDashBoard(isAuthenticated: boolean): boolean {
-    return isAuthenticated
+    return isAuthenticated;
   }
 
   private redirectToDashboardIfNeeded(isAuthenticated: boolean) {
     if (this.shouldRedirectToDashBoard(isAuthenticated)) {
-      this.props.navigateToDashBoard()
+      this.props.navigateToDashBoard();
     }
   }
 
-  private handleSubmit = ({username = "", password = ""}) => {
-    this.props.loginUser(username, password)
-  }
+  private handleSubmit = ({ username = "", password = "" }) => {
+    this.props.loginUser(username, password);
+  };
 }
 
 const mapStateToProps = (state: RootState, props: IProps) => {
-  const { isFetching, isAuthenticated, name } = state.user
+  const { isFetching, isAuthenticated, name } = state.user;
   return {
     isFetching,
     isAuthenticated,
-    name,
-  }
-}
+    name
+  };
+};
 
 const mapDispatchToProps = {
   loginUser,
-  navigateToDashBoard,
-}
+  navigateToDashBoard
+};
 
-export {
-  LoginPage,
-}
+export { LoginPage };
 
 // export default withNav<RouteComponentProps<{}>>(Login)
-export default connect(mapStateToProps, mapDispatchToProps)(LoginPage)
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(LoginPage);

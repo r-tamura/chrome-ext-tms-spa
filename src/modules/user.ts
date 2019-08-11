@@ -1,111 +1,119 @@
-import { Action, Dispatch } from "redux"
-import { push } from "react-router-redux"
-import { login, logout } from "~/api/login"
-import { RootState } from "~/modules"
+import { Action, Dispatch, AnyAction } from "redux";
+import { push } from "connected-react-router";
+import { login, logout } from "~/api/login";
+import { RootState } from "~/modules";
 
 /**
  * Actions
  */
 enum ActionTypes {
-  LOGIN_REQUEST    = "user/login_request",
-  LOGIN_SUCCESS    = "user/login_success",
-  LOGIN_ERROR      = "user/login_error",
-  LOGOUT_REQUEST   = "user/logout",
+  LOGIN_REQUEST = "user/login_request",
+  LOGIN_SUCCESS = "user/login_success",
+  LOGIN_ERROR = "user/login_error",
+  LOGOUT_REQUEST = "user/logout"
 }
 
 interface IRequestLoginAction extends Action {
-  type: ActionTypes.LOGIN_REQUEST
-  isFetching: boolean
-  isAuthenticated: boolean
+  type: ActionTypes.LOGIN_REQUEST;
+  isFetching: boolean;
+  isAuthenticated: boolean;
 }
 
 interface IReceiveLoginAction extends Action {
-  type: ActionTypes.LOGIN_SUCCESS
-  isFetching: boolean
-  isAuthenticated: boolean
-  name: string
+  type: ActionTypes.LOGIN_SUCCESS;
+  isFetching: boolean;
+  isAuthenticated: boolean;
+  name: string;
 }
 
 interface ILoginError extends Action {
-  type: ActionTypes.LOGIN_ERROR
-  isFetching: boolean
-  isAuthenticated: boolean
+  type: ActionTypes.LOGIN_ERROR;
+  isFetching: boolean;
+  isAuthenticated: boolean;
 }
 
 interface ILogout extends Action {
-  type: ActionTypes.LOGOUT_REQUEST
-  isAuthenticated: boolean
-  name: string
+  type: ActionTypes.LOGOUT_REQUEST;
+  isAuthenticated: boolean;
+  name: string;
 }
 
 const requestLogin = (): IRequestLoginAction => {
   return {
     type: ActionTypes.LOGIN_REQUEST,
     isFetching: true,
-    isAuthenticated: false,
-  }
-}
+    isAuthenticated: false
+  };
+};
 
-const navigateTo = (path: string) => push(path)
-const navigateToLogin = () => navigateTo("/")
-const navigateToTransportation = () => navigateTo("/transportation")
-const navigateToDashBoard = () => navigateTo("/transportation")
+const navigateTo = (path: string) => push(path);
+const navigateToLogin = () => navigateTo("/");
+const navigateToTransportation = () => navigateTo("/transportation");
+const navigateToDashBoard = () => navigateTo("/transportation");
 
-const loginUser = (idToken: string, credential: string) =>
-  (dispatch: Dispatch<{}>, getState: () => RootState) => {
-    dispatch(requestLogin())
-    return login(idToken, credential)
-      .then(res => res.isAuthenticated ? Promise.resolve(res) : Promise.reject("Error"))
-      .then(res => dispatch(receiveLogin(res.name)))
-      .then(() =>  dispatch(navigateToDashBoard()))
-      .catch(err => dispatch(loginError()))
-  }
+const loginUser = (idToken: string, credential: string) => (
+  dispatch: Dispatch<AnyAction>,
+  getState: () => RootState
+) => {
+  dispatch(requestLogin());
+  return login(idToken, credential)
+    .then(res =>
+      res.isAuthenticated ? Promise.resolve(res) : Promise.reject("Error")
+    )
+    .then(res => dispatch(receiveLogin(res.name)))
+    .then(() => dispatch(navigateToDashBoard()))
+    .catch(err => dispatch(loginError()));
+};
 
 const receiveLogin = (name: string): IReceiveLoginAction => ({
   type: ActionTypes.LOGIN_SUCCESS,
   isFetching: false,
   isAuthenticated: true,
-  name,
-})
+  name
+});
 
 const loginError = (): ILoginError => ({
   type: ActionTypes.LOGIN_ERROR,
   isFetching: true,
-  isAuthenticated: false,
-})
+  isAuthenticated: false
+});
 
 const logoutUser = (): ILogout => {
-  logout()
+  logout();
   return {
     type: ActionTypes.LOGOUT_REQUEST,
     isAuthenticated: false,
-    name: null,
-  }
-}
+    name: null
+  };
+};
 
-type UserAction = IRequestLoginAction | IReceiveLoginAction | ILoginError | ILogout
+type UserAction =
+  | IRequestLoginAction
+  | IReceiveLoginAction
+  | ILoginError
+  | ILogout;
 
 /**
  * State
  */
-type UserState =  {
-  readonly isFetching: boolean,
-  readonly isAuthenticated: boolean,
-  readonly name?: string,
-}
+type UserState = {
+  readonly isFetching: boolean;
+  readonly isAuthenticated: boolean;
+  readonly name?: string;
+};
 
 const initialState: UserState = {
   isFetching: false,
   isAuthenticated: false,
-  name: "",
-}
+  name: ""
+};
 
 /**
  * Selectors
  */
-const getUserName = (state: UserState): string => state.name || ""
-const getIsAuthenticated = (state: UserState): boolean => state.isAuthenticated
-const getIsFetching = (state: UserState): boolean => state.isFetching
+const getUserName = (state: UserState): string => state.name || "";
+const getIsAuthenticated = (state: UserState): boolean => state.isAuthenticated;
+const getIsFetching = (state: UserState): boolean => state.isFetching;
 
 /**
  * Reducer
@@ -116,21 +124,21 @@ function user(state: UserState = initialState, action: UserAction): UserState {
       return {
         ...state,
         isFetching: action.isFetching,
-        isAuthenticated: action.isAuthenticated,
-      }
+        isAuthenticated: action.isAuthenticated
+      };
     case ActionTypes.LOGIN_SUCCESS:
       return {
         ...state,
         isFetching: action.isFetching,
         isAuthenticated: action.isAuthenticated,
-        name: action.name,
-      }
+        name: action.name
+      };
     case ActionTypes.LOGIN_ERROR:
-      return { ...state, ...initialState }
+      return { ...state, ...initialState };
     case ActionTypes.LOGOUT_REQUEST:
-      return { ...initialState, isAuthenticated: action.isAuthenticated }
+      return { ...initialState, isAuthenticated: action.isAuthenticated };
     default:
-      return state
+      return state;
   }
 }
 
@@ -149,7 +157,7 @@ export {
   UserState,
   getUserName,
   getIsAuthenticated,
-  getIsFetching,
-}
+  getIsFetching
+};
 
-export default user
+export default user;

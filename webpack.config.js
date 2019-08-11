@@ -1,9 +1,9 @@
-const path = require("path")
-const ExtractTextPlugin = require("extract-text-webpack-plugin")
+const path = require("path");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 module.exports = {
   // Source mapping
-  devtool: "inline-source-map",
+  mode: "development",
 
   entry: path.resolve(__dirname, "src/index.tsx"),
   output: {
@@ -14,22 +14,25 @@ module.exports = {
 
   // 利用loaders一覧
   module: {
-    rules:
-    [
+    rules: [
       {
         test: /\.tsx?$/,
-        loader: "awesome-typescript-loader",
+        loader: "ts-loader"
       },
       {
         test: /\.css$/,
-        use: ExtractTextPlugin.extract({
-          fallback: "style-loader",
-          use: [
-            "css-loader",
-            "postcss-loader",
-          ]
-        })
-      },
+        use: [
+          {
+            loader: MiniCssExtractPlugin.loader,
+            options: {
+              publicPath: "../",
+              hmr: process.env.NODE_ENV === "development"
+            }
+          },
+          "css-loader",
+          "postcss-loader"
+        ]
+      }
     ]
   },
 
@@ -42,6 +45,10 @@ module.exports = {
   },
 
   plugins: [
-    new ExtractTextPlugin("bundle.css")
+    new MiniCssExtractPlugin({
+      name: "[name].css",
+      chunkFilename: "[id].css",
+      ignoreOrder: false
+    })
   ]
-}
+};

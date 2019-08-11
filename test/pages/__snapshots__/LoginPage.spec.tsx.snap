@@ -91,10 +91,10 @@ exports[`<LoginPage /> should render Login page 1`] = `
         </strong>
         .
       </p>
-      <t
+      <ReactForm
         onSubmit={[Function]}
       >
-        <Connect(t)
+        <Connect(Form)
           onSubmit={[Function]}
           store={
             Object {
@@ -106,31 +106,31 @@ exports[`<LoginPage /> should render Login page 1`] = `
             }
           }
         >
-          <t
+          <Form
+            defaultValues={Object {}}
             dispatch={[Function]}
             formState={
               Object {
-                "asyncErrors": Object {},
-                "asyncSuccesses": Object {},
+                "asyncErrors": undefined,
+                "asyncSuccesses": undefined,
                 "asyncValidations": 0,
-                "asyncWarnings": Object {},
-                "errors": Object {},
+                "asyncWarnings": undefined,
+                "errors": undefined,
                 "submits": 1,
                 "submitted": false,
                 "submitting": true,
-                "successes": Object {},
-                "touched": Object {
-                  "password": true,
-                  "username": true,
-                },
-                "validating": Object {},
-                "validationFailed": Object {},
+                "successes": undefined,
+                "touched": Object {},
+                "validating": undefined,
+                "validationFailed": undefined,
                 "validationFailures": 0,
                 "values": Object {},
-                "warnings": Object {},
+                "warnings": undefined,
               }
             }
             onSubmit={[Function]}
+            preventDefault={true}
+            pure={true}
             store={
               Object {
                 "dispatch": [Function],
@@ -170,51 +170,64 @@ exports[`<LoginPage /> should render Login page 1`] = `
                 <div
                   className="tms-textfield"
                 >
-                  <r
+                  <ConnectedField
                     field="username"
                     id="username"
                     maxLength={30}
                     placeholder="John Doe"
                     required={true}
                   >
-                    <t
-                      fieldApi={
-                        Object {
-                          "doneValidatingField": [Function],
-                          "getError": [Function],
-                          "getFieldName": [Function],
-                          "getSuccess": [Function],
-                          "getTouched": [Function],
-                          "getValue": [Function],
-                          "getWarning": [Function],
-                          "registerAsyncValidation": [Function],
-                          "reset": [Function],
-                          "setError": [Function],
-                          "setSuccess": [Function],
-                          "setTouched": [Function],
-                          "setValue": [Function],
-                          "setWarning": [Function],
-                          "submits": 1,
-                          "submitted": false,
-                          "validatingField": [Function],
-                        }
-                      }
+                    <Field
+                      component={[Function]}
+                      field="username"
                       id="username"
                       maxLength={30}
                       placeholder="John Doe"
+                      pure={true}
                       required={true}
                     >
-                      <input
+                      <TextWrapper
+                        fieldApi={
+                          Object {
+                            "addValue": [Function],
+                            "asyncValidate": [Function],
+                            "doneValidatingField": [Function],
+                            "error": undefined,
+                            "fieldName": "username",
+                            "preValidate": [Function],
+                            "removeValue": [Function],
+                            "reset": [Function],
+                            "setError": [Function],
+                            "setSuccess": [Function],
+                            "setTouched": [Function],
+                            "setValue": [Function],
+                            "setWarning": [Function],
+                            "success": undefined,
+                            "swapValues": [Function],
+                            "touched": undefined,
+                            "validate": [Function],
+                            "validatingField": [Function],
+                            "value": undefined,
+                            "warning": undefined,
+                          }
+                        }
                         id="username"
                         maxLength={30}
-                        onBlur={[Function]}
-                        onChange={[Function]}
                         placeholder="John Doe"
                         required={true}
-                        value=""
-                      />
-                    </t>
-                  </r>
+                      >
+                        <input
+                          id="username"
+                          maxLength={30}
+                          onBlur={[Function]}
+                          onChange={[Function]}
+                          placeholder="John Doe"
+                          required={true}
+                          value=""
+                        />
+                      </TextWrapper>
+                    </Field>
+                  </ConnectedField>
                   <label
                     htmlFor="username"
                   >
@@ -224,7 +237,7 @@ exports[`<LoginPage /> should render Login page 1`] = `
                 <div
                   className="tms-textfield"
                 >
-                  <r
+                  <ConnectedField
                     field="password"
                     id="password"
                     maxLength={30}
@@ -232,46 +245,60 @@ exports[`<LoginPage /> should render Login page 1`] = `
                     required={true}
                     type="password"
                   >
-                    <t
-                      fieldApi={
-                        Object {
-                          "doneValidatingField": [Function],
-                          "getError": [Function],
-                          "getFieldName": [Function],
-                          "getSuccess": [Function],
-                          "getTouched": [Function],
-                          "getValue": [Function],
-                          "getWarning": [Function],
-                          "registerAsyncValidation": [Function],
-                          "reset": [Function],
-                          "setError": [Function],
-                          "setSuccess": [Function],
-                          "setTouched": [Function],
-                          "setValue": [Function],
-                          "setWarning": [Function],
-                          "submits": 1,
-                          "submitted": false,
-                          "validatingField": [Function],
-                        }
-                      }
+                    <Field
+                      component={[Function]}
+                      field="password"
                       id="password"
                       maxLength={30}
                       placeholder="Your password"
+                      pure={true}
                       required={true}
                       type="password"
                     >
-                      <input
+                      <TextWrapper
+                        fieldApi={
+                          Object {
+                            "addValue": [Function],
+                            "asyncValidate": [Function],
+                            "doneValidatingField": [Function],
+                            "error": undefined,
+                            "fieldName": "password",
+                            "preValidate": [Function],
+                            "removeValue": [Function],
+                            "reset": [Function],
+                            "setError": [Function],
+                            "setSuccess": [Function],
+                            "setTouched": [Function],
+                            "setValue": [Function],
+                            "setWarning": [Function],
+                            "success": undefined,
+                            "swapValues": [Function],
+                            "touched": undefined,
+                            "validate": [Function],
+                            "validatingField": [Function],
+                            "value": undefined,
+                            "warning": undefined,
+                          }
+                        }
                         id="password"
                         maxLength={30}
-                        onBlur={[Function]}
-                        onChange={[Function]}
                         placeholder="Your password"
                         required={true}
                         type="password"
-                        value=""
-                      />
-                    </t>
-                  </r>
+                      >
+                        <input
+                          id="password"
+                          maxLength={30}
+                          onBlur={[Function]}
+                          onChange={[Function]}
+                          placeholder="Your password"
+                          required={true}
+                          type="password"
+                          value=""
+                        />
+                      </TextWrapper>
+                    </Field>
+                  </ConnectedField>
                   <label
                     htmlFor="password"
                   >
@@ -285,9 +312,9 @@ exports[`<LoginPage /> should render Login page 1`] = `
                 </button>
               </form>
             </div>
-          </t>
-        </Connect(t)>
-      </t>
+          </Form>
+        </Connect(Form)>
+      </ReactForm>
     </div>
   </main>
 </LoginPage>

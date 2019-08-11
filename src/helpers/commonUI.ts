@@ -68,7 +68,7 @@
 //  */
 // export function alertError(title: string = "タイトルなし", message: string = "本文なし") {
 //   addAlert(title, message, "danger", Const.ALERT_DURATION_TIME)
-// }   
+// }
 
 // export function showUnderConstruction(title: string = "タイトルなし") {
 //   addAlert(title, "工事中", "default", Const.ALERT_DURATION_TIME)

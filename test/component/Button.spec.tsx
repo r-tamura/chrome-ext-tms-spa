@@ -1,12 +1,11 @@
 import * as React from "react"
-// @ts-ignore
-import MockRouter from "react-mock-router"
+import { MemoryRouter } from "react-router"
 import { mount, render, shallow } from "enzyme"
 import Button, { Color } from "~/components/Button"
 
 describe("<Button />", () => {
   it("should be button", () => {
-    const $btn = mount(<MockRouter><Button /></MockRouter>).find(".tms-btn")
+    const $btn = mount(<MemoryRouter><Button /></MemoryRouter>).find(".tms-btn")
     expect($btn.length).toBe(1)
     expect($btn.hasClass("tms-btn")).toBeTruthy()
     expect($btn.hasClass("disabled")).toBeFalsy()
@@ -15,7 +14,7 @@ describe("<Button />", () => {
   it("should be button", () => {
     const mockOnClick = jest.fn()
     const $link = mount(
-      <MockRouter>
+      <MemoryRouter>
         <Button
           button={false}
           className={"foo bar"}
@@ -28,7 +27,7 @@ describe("<Button />", () => {
         >
         Foo Button
         </Button>
-      </MockRouter>
+      </MemoryRouter>
     ).find("a")
 
     expect($link.text()).toBe("Foo Button")

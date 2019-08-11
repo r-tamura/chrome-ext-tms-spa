@@ -1,13 +1,14 @@
-import { isObject } from "./common"
-import flatMap from "./flatMap"
+import { isObject } from "./common";
+import flatMap from "./flatMap";
 
 const convertBoolAttrs = (o: string | object) => {
   if (isObject(o)) {
-    return [...Object.entries(o)]
-      .map(([k, v]: [string, boolean]) => v ? k : "")
+    return [...Object.entries(o)].map(([k, v]: [string, boolean]) =>
+      v ? k : ""
+    );
   }
-  return  o
-}
+  return o;
+};
 
 /**
  * クラス名のリストからHTMLノードのclass属性の文字列を出力します
@@ -22,7 +23,7 @@ const convertBoolAttrs = (o: string | object) => {
 const classNames = (...classes: Array<string | object>) => {
   return flatMap<string | object>(convertBoolAttrs, classes)
     .filter(c => !!c)
-    .join(" ")
-}
+    .join(" ");
+};
 
-export default classNames
+export default classNames;

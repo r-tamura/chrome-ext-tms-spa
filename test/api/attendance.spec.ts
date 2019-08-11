@@ -1,5 +1,4 @@
-import "jest";
-import getMockState from "../__mocks__/getMockState";
+import { getMockState } from "../__mocks__/";
 import * as Api from "~/api/attendance";
 import { AttendanceDaily, Status, ApiResponse, ApiError } from "~/types";
 

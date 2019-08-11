@@ -52,6 +52,12 @@ exports[`<AttendancePage /> shoud match existing snapshot 1`] = `
               "calls": Array [
                 Array [],
               ],
+              "results": Array [
+                Object {
+                  "type": "return",
+                  "value": undefined,
+                },
+              ],
             }
           }
         >

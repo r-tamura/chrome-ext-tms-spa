@@ -1,27 +1,23 @@
-import * as React from "react"
-import { Store } from "redux"
-import { Helmet } from "react-helmet"
-import { Router, Route } from "react-router-dom"
-import { Provider } from "react-redux"
-import { ConnectedRouter } from "react-router-redux"
-import { RootState } from "~/modules"
-import { history } from "~/stores"
-import App from "~/pages/App"
+import * as React from "react";
+import { Store, AnyAction } from "redux";
+import { Provider } from "react-redux";
+import { ConnectedRouter } from "connected-react-router";
+import { history } from "~/stores";
+import App from "~/pages/App";
+import { RootState } from "~/modules";
 
-interface Props extends React.Props<{}> {
-  store: Store<{}>
+interface Props {
+  store: Store<RootState, AnyAction>;
 }
 
-class Root extends React.Component<Props, {}> {
-  public render() {
-    return (
-      <Provider store={this.props.store}>
-        <ConnectedRouter history={history}>
-          <App />
-        </ConnectedRouter>
-      </Provider >
-    )
-  }
-}
+const Root: React.FC<Props> = ({ store }) => {
+  return (
+    <Provider store={store}>
+      <ConnectedRouter history={history}>
+        <App />
+      </ConnectedRouter>
+    </Provider>
+  );
+};
 
-export default Root
+export default Root;

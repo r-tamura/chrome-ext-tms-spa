@@ -1,17 +1,14 @@
 import React from "react"
-import renderer from "react-test-renderer"
 import { mount, render, shallow } from "enzyme"
-import toJson from "enzyme-to-json"
-// @ts-ignore
-import MockRouter from "react-mock-router"
+import { MemoryRouter } from "react-router"
 import Nav, { INavProps } from "~/components/Nav"
 
 const component = (props: INavProps = { path: "transportation" }) => (
-  <MockRouter>
+  <MemoryRouter>
     <Nav {...props}>
       Item
     </Nav>
-  </MockRouter>
+  </MemoryRouter>
 )
 
 describe("<Nav />", () => {

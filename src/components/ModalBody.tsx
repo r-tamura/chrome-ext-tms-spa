@@ -97,7 +97,7 @@ export default class ModalBody extends React.Component<IProps, IState> {
   private getValue(formItem: FormModalItem): number | string {
     switch (formItem.type) {
     case FormItemType.SELECT:
-      return formItem.value || prop(formItem.options.valueKey, formItem.options.items[0])
+      return formItem.value || prop(formItem.options.valueKey, formItem.options.items[0] as any)
     default:
       return formItem.value
     }

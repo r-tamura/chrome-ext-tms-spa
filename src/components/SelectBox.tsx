@@ -1,19 +1,31 @@
-import * as React from "react"
-import { prop } from "ramda"
-import { SelectBoxOptions, SelectBox } from "~/types"
+import * as React from "react";
+import { prop } from "ramda";
+import { SelectBoxOptions, SelectBox as SelectBoxType } from "~/types";
 
 /**
  *  オプションタグリストのElementを生成します
  */
-function renderOptions(options: SelectBoxOptions, hasNotSelected: boolean = true): JSX.Element[] {
-  const $notSelected = hasNotSelected ? [<option key={0} className="not-selected" value="-1"> 未選択 </option>] : []
-  const getValue = prop(options.valueKey)
-  const getLabel = prop(options.labelKey)
+function renderOptions(
+  options: SelectBoxOptions,
+  hasNotSelected: boolean = true
+): JSX.Element[] {
+  const $notSelected = hasNotSelected
+    ? [
+        <option key={0} className="not-selected" value="-1">
+          {" "}
+          未選択{" "}
+        </option>
+      ]
+    : [];
+  const getValue = prop(options.valueKey);
+  const getLabel = prop(options.labelKey);
   const $options = options.items.map(e => (
-    <option key={getValue(e)} value={getValue(e)}>{getLabel(e)}</option>
-  ))
+    <option key={getValue(e as any)} value={getValue(e as any)}>
+      {getLabel(e as any)}
+    </option>
+  ));
   // return [ ...$notSelected, ...$options ]
-  return $options
+  return $options;
 }
 
 /**
@@ -25,31 +37,33 @@ function renderOptions(options: SelectBoxOptions, hasNotSelected: boolean = true
  * @param {(select: HTMLSelectElement) => void} onChange セレクトボックス変更時のイベントハンドラー
  * @param {string} additionalClass CSSスタイル
  */
-const SelectBox: React.SFC<SelectBox> = ({
+const SelectBox: React.SFC<SelectBoxType> = ({
   options,
   name,
   label,
   value,
   onChange,
-  additionalClass,
+  additionalClass
 }) => (
-      <div className={`tms-select ${additionalClass || ""}`}>
-        <select
-          name={name}
-          value={value || prop(options.valueKey, options.items[0])}
-          onChange={(e: React.ChangeEvent<HTMLSelectElement>) => onChange(e.currentTarget)}
-        >
-          {renderOptions(options)}
-        </select>
-        <label>{label}</label>
-      </div>
-    )
+  <div className={`tms-select ${additionalClass || ""}`}>
+    <select
+      name={name}
+      value={value || prop(options.valueKey, options.items[0] as any)}
+      onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>
+        onChange(e.currentTarget)
+      }
+    >
+      {renderOptions(options)}
+    </select>
+    <label>{label}</label>
+  </div>
+);
 
 SelectBox.defaultProps = {
-  name: "",
-}
+  name: ""
+};
 
-export default SelectBox
+export default SelectBox;
 
 // export class SelectForTable extends SelectBox {
 //   render() {
@@ -64,13 +78,12 @@ export default SelectBox
 //   }
 // }
 
-
 // // フォーム - セレクト
 // SelectBox = ({
 //   name,
 //   options,
 //   onChange = (e) => {},
-//   selected = 0, 
+//   selected = 0,
 //   disabled = false
 // }) => (
 //   <div className="select-wrapper v-margin">
