@@ -1,49 +1,47 @@
-import React from "react";
-import { connect } from "react-redux";
-import { RootState, getIsAuthenticated } from "~/modules";
+import React, { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { RootState } from "~/modules";
 import { navigateToLogin } from "~/modules/user";
-import { RouterAction } from "connected-react-router";
 
-interface OwnProps extends React.Props<{}> {}
+export const EnsureLoggedInContainer: React.FC = ({ children }) => {
+  const isAuthenticated = useSelector(
+    (state: RootState) => state.user.isAuthenticated
+  );
+  const dispatch = useDispatch();
 
-interface IProps extends OwnProps {
-  isAuthenticated: boolean;
-  currentURL?: string;
-  navigateToLogin: () => RouterAction;
-}
-
-class EnsureLoggedInContainer extends React.Component<IProps, {}> {
-  public componentDidMount() {
-    this.redirectToLoginIfNeeded(this.props.isAuthenticated);
-  }
-
-  public render() {
-    // 非ログイン時にnullを返さないと、
-    // 子コンポーネントのレンダリングが実行されれてしまい、
-    // 子コンポーネント内の初期ロードAPIなどが実行されてしまう
-    if (this.shouldRedirectToLogin(this.props.isAuthenticated)) {
-      return null;
+  useEffect(() => {
+    function dispatchNavigateToLogin() {
+      dispatch(navigateToLogin());
     }
 
-    return this.props.children;
+    function redirectToLoginIfNeeded(isAuthenticated: boolean) {
+      if (shouldRedirectToLogin(isAuthenticated)) {
+        dispatchNavigateToLogin();
+      }
+    }
+
+    redirectToLoginIfNeeded(isAuthenticated);
+  }, [dispatch, isAuthenticated]);
+
+  // 非ログイン時にnullを返さないと、
+  // 子コンポーネントのレンダリングが実行されれてしまい、
+  // 子コンポーネント内の初期ロードAPIなどが実行されてしまう
+  if (shouldRedirectToLogin(isAuthenticated)) {
+    return null;
   }
 
-  private shouldRedirectToLogin(isAuthenticated: boolean): boolean {
+  return <>{children}</>;
+
+  function shouldRedirectToLogin(isAuthenticated: boolean): boolean {
     return !isAuthenticated;
   }
+};
 
-  private redirectToLoginIfNeeded(isAuthenticated: boolean) {
-    if (this.shouldRedirectToLogin(isAuthenticated)) {
-      this.props.navigateToLogin();
-    }
-  }
-}
+// const mapStateToProps = (state: RootState, ownProps: OwnProps) => ({
+//   isAuthenticated: getIsAuthenticated(state)
+// });
 
-const mapStateToProps = (state: RootState, ownProps: OwnProps) => ({
-  isAuthenticated: getIsAuthenticated(state)
-});
-
-export default connect(
-  mapStateToProps,
-  { navigateToLogin }
-)(EnsureLoggedInContainer);
+// export default connect(
+//   mapStateToProps,
+//   { navigateToLogin }
+// )(EnsureLoggedInContainer);

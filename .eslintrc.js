@@ -1,9 +1,12 @@
 module.exports = {
-  extends: ["react-app", "plugin:prettier/recommended"],
-  plugins: ["@typescript-eslint"],
+  extends: ["eslint:recommended", "react-app", "plugin:prettier/recommended", "prettier/@typescript-eslint"],
   parser: "@typescript-eslint/parser",
-  parserOptions: {
-    sourceType: "module",
-    project: "./tsconfig.json"
-  }
+  plugins: [
+    "@typescript-eslint",
+    "import",
+    "flowtype",
+    "jsx-a11y",
+    "react",
+    "react-hooks"
+  ]
 };

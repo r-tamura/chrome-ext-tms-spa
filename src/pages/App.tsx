@@ -1,55 +1,48 @@
-import * as React from "react";
-import { Dispatch } from "redux";
+import React from "react";
 import { Helmet } from "react-helmet";
-import { connect, MapStateToProps, DispatchProp } from "react-redux";
-import {
-  Route,
-  RouteComponentProps,
-  Switch,
-  withRouter
-} from "react-router-dom";
-import Header from "~/components/Header";
+import { Route, Switch, Redirect } from "react-router-dom";
+import { AppHeader } from "~/components/organisms/Header";
 import Nav from "~/components/Nav";
-import { RootState } from "~/modules";
-import EnsureLoggedInContainer from "~/containers/EnsureLoggedInContainer";
-import LoginPage from "./LoginPage";
-import TransExpense from "./TransExpenses";
-import Attendance from "./Attendance";
-import NoMatch from "./NoMatch";
+import { EnsureLoggedInContainer } from "~/containers/EnsureLoggedInContainer";
+import { TransportExpensePage, AttendancePage, SignInPage, NoMatch } from ".";
+import { AppGrid } from "~/components/organisms";
 
-type OwnProps = IProps;
+const PAGES_WITH_NAVBAR = ["/transportation", "/attendance"];
 
-interface IProps extends React.Props<{}> {
-  // fetchMaster: () => Promise<{}>
-}
-
-function App() {
+export function App() {
   return (
-    <div className="app-root">
+    <AppGrid>
       <Helmet>
         <meta
           name="viewport"
           content="width=device-width, initial-scale=1.0, shrink-to-fit=no"
         />
       </Helmet>
-      <Header />
+      <AppHeader />
       <Route
-        path="/:page"
+        path={PAGES_WITH_NAVBAR}
         render={renderProps => {
           return <Nav path={renderProps.match.url} />;
         }}
       />
       <Switch>
-        <Route exact={true} path="/" component={LoginPage} />
+        <Route
+          exact={true}
+          path="/"
+          component={() => <Redirect to={"/signin"} />}
+        />
+        <Route exact={true} path="/signin" component={SignInPage} />
         <EnsureLoggedInContainer>
-          <Route path="/transportation" component={TransExpense} />
-          <Route path="/attendance" component={Attendance} />
+          {/* TODO: Dashboard画面作成までは交通費管理画面へリダイレクト */}
+          <Route
+            path="/dashboard"
+            component={() => <Redirect to={"/transportation"} />}
+          />
+          <Route path="/transportation" component={TransportExpensePage} />
+          <Route path="/attendance" component={AttendancePage} />
         </EnsureLoggedInContainer>
         <Route component={NoMatch} />
       </Switch>
-    </div>
+    </AppGrid>
   );
 }
-
-// export default connect((state: RootState, ownProps: OwnProps) => ({}), { fetchMaster })(App)
-export default App;

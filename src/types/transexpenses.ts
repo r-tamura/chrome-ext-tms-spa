@@ -1,7 +1,9 @@
 import { Project, Usage, Objective } from "./master";
 
+export type ExpenseId = string;
+
 type TransExpenseBase = {
-  expenseId?: number;
+  expenseId?: ExpenseId;
   strdate?: string; // 交通費使用日
   customer: string;
   from: string;

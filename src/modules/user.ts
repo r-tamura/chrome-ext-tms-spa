@@ -47,7 +47,7 @@ const requestLogin = (): IRequestLoginAction => {
 };
 
 const navigateTo = (path: string) => push(path);
-const navigateToLogin = () => navigateTo("/");
+const navigateToLogin = () => navigateTo("/signin");
 const navigateToTransportation = () => navigateTo("/transportation");
 const navigateToDashBoard = () => navigateTo("/transportation");
 
@@ -147,6 +147,7 @@ export {
   UserAction,
   initialState,
   requestLogin,
+  navigateTo,
   navigateToLogin,
   navigateToTransportation,
   navigateToDashBoard,

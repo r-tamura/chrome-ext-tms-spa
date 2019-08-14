@@ -23,32 +23,38 @@ const getRoot = (): RootState => ({
     isUpdating: false
   },
   transexpenses: {
-    byId: {},
-    allIds: [1],
+    byId: {
+      "1": {
+        expenseId: "1",
+        strdate: "20190801",
+        customer: "1",
+        from: "A",
+        to: "B",
+        cost: 500,
+        projectId: "20190501",
+        usageId: "2000",
+        objectiveId: "0303"
+      }
+    },
+    allIds: ["1"],
     isFetching: false,
     isUpdating: false
   },
-  // attendances: {
-  //   yearAndMonth: {
-  //     selectedYear: 2000,
-  //     selectedMonth: 1,
-  //   },
-  //   dailies: {
-  //     byId: {},
-  //     allIds: [""],
-  //   },
-  //   monthlies: {
-  //     byId: {},
-  //     allIds: [""],
-  //   },
-  //   settings: {},
-  // },
   attendances: loadJson("attendances"),
   master: {
     projects: loadJson("projects"),
     usages: [],
     objectives: [],
     isFetching: false
+  },
+  router: {
+    location: {
+      pathname: "",
+      search: "",
+      state: null,
+      hash: ""
+    },
+    action: "REPLACE"
   }
 });
 

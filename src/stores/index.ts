@@ -1,5 +1,5 @@
 import { createStore, Store, applyMiddleware, AnyAction } from "redux";
-import thunk from "redux-thunk";
+import thunk, { ThunkMiddleware } from "redux-thunk";
 import { createLogger } from "redux-logger";
 import { createRootReducer, RootState } from "~/modules";
 import { routerMiddleware } from "connected-react-router";
@@ -26,5 +26,9 @@ export const configureStore = (
   createStore(
     rootReducer,
     preloadedState,
-    applyMiddleware(thunk, routerMiddleware(history), logger)
+    applyMiddleware(
+      thunk as ThunkMiddleware<RootState, AnyAction>,
+      routerMiddleware(history),
+      logger
+    )
   );

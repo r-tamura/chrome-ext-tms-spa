@@ -224,7 +224,7 @@ export const changeMonth = (year: number, month: number) => (
   dispatch: Dispatch<AnyAction>,
   getState: () => RootState
 ) => {
-  const monthlyId = createMonthlyId(year, month);
+  // const monthlyId = createMonthlyId(year, month);
   dispatch(setYearAndMonth(year, month));
   fetchAttendancesIfNeeded()(dispatch, getState);
 };
@@ -321,7 +321,7 @@ export const updateSettings = (patch: Partial<AttendanceSettings>) => (
   )(patch);
 };
 
-export const updateSettingsSuccess = (patch: Partial<AttendanceDaily>) => ({
+export const updateSettingsSuccess = (patch: Partial<AttendanceSettings>) => ({
   type: ActionTypes.PATCH_SETTINGS_SUCCESS
 });
 
@@ -347,7 +347,7 @@ const submitApplicationRequest = (
 
 const submitApplicationOk = (
   payload: SubmitApplicationOkPayload,
-  meata = {}
+  meta = {}
 ): SubmitApplicationOkAction => ({
   type: ActionTypes.SUBMIT_APPLICATION_OK,
   payload
@@ -355,7 +355,7 @@ const submitApplicationOk = (
 
 const submitApplicationNg = (
   payload: SubmitApplicationNgPayload,
-  meata = {}
+  meta = {}
 ): SubmitApplicationNgAction => ({
   type: ActionTypes.SUBMIT_APPLICATION_NG,
   payload,

@@ -7,14 +7,15 @@ import {
   convTransExpenseDelete
 } from "~/helpers/htmlConverter";
 import { LS_TRANS_EXPENSE_TEMPLATE, urls } from "~/helpers/_const";
-import { composeAsync, remap, uuidv4 } from "~/helpers/common";
+import { remap, uuidv4 } from "~/helpers/common";
 import {
   TransExpense,
   TransExpenseTemplate,
   TransExpenseView,
   Master,
   ResultStatus,
-  Status
+  Status,
+  ExpenseId
 } from "~/types";
 import Storage from "~/helpers/storage";
 
@@ -145,7 +146,7 @@ async function update(expenseOnClient: TransExpense): Promise<ResultStatus> {
  * @param expenseId 交通費ID
  * @return 交通費削除の結果
  */
-async function delete_(expenseId: number): Promise<ResultStatus> {
+async function delete_(expenseId: ExpenseId): Promise<ResultStatus> {
   const expenseIdKey = clientToServerKeyMap.expenseId;
   const action = { func: "delete" };
   const htmlRes = await post(urls.TRANS_EXPENSE_REGISTER, {

@@ -1,33 +1,43 @@
-import * as React from "react"
-// @ts-ignore
-import MockRouter from "react-mock-router"
-import { mount, render, shallow } from "enzyme"
-import { MenuList, MenuItem } from "~/components/Menu"
+import React from "react";
+import { MemoryRouter } from "react-router";
+import { shallow, mount } from "enzyme";
+import { MenuList, MenuItem } from "~/components/Menu";
 
-const createComponent = (mockFunc: (e: any) => any =  (e: any) => null) => (
-  <MockRouter>
-    <MenuList>
-      <MenuItem to={"/"} >{"item1"}</MenuItem>
-      <MenuItem button onClick={mockFunc} >{"item2"}</MenuItem>
-    </MenuList>
-  </MockRouter>
-)
+function setup() {
+  const mockedOnClick = jest.fn();
+  return {
+    mockedOnClick,
+    Component: (
+      <MenuList>
+        <MemoryRouter>
+          <MenuItem to={"/"}>{"item1"}</MenuItem>
+        </MemoryRouter>
+        <MemoryRouter>
+          <MenuItem button onClick={mockedOnClick}>
+            {"item2"}
+          </MenuItem>
+        </MemoryRouter>
+      </MenuList>
+    )
+  };
+}
 
 describe("<MenuItem />", () => {
-
   it("shallow rendering", () => {
-    const mockFunc = jest.fn()
-    const wrapper = shallow(createComponent(mockFunc))
-    wrapper.find("MenuItem").at(1).simulate("click")
-    expect(mockFunc.mock.calls)
-    expect(mockFunc.mock.calls.length).toBe(1)
-  })
+    const { Component } = setup();
+    const wrapper = shallow(Component);
+    expect(wrapper.find("MenuItem").length).toBe(2);
+  });
 
   it("static rendering", () => {
-    const wrapper = render(createComponent())
-    expect(wrapper.find("li").length).toBe(2)
-    const $listItems = wrapper.find("li").children()
-    expect($listItems.last().text()).toBe("item2")
-  })
+    const { mockedOnClick, Component } = setup();
+    const wrapper = mount(Component);
+    expect(wrapper.find("li").length).toBe(2);
+    const $listItems = wrapper.find("li").children();
+    expect($listItems.last().text()).toBe("item2");
 
-})
+    expect(mockedOnClick.mock.calls.length).toBe(0);
+    wrapper.find("button").simulate("click");
+    expect(mockedOnClick.mock.calls.length).toBe(1);
+  });
+});

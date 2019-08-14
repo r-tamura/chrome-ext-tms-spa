@@ -114,7 +114,7 @@ const convTransExpenseList = curry(
           // 偶数行
           pv.push(
             columnName1.reduce(reduceCallback.bind(null, children), {
-              expenseId: +(children[5].childNodes[0] as HTMLAnchorElement)
+              expenseId: (children[5].childNodes[0] as HTMLAnchorElement)
                 .getAttribute("href")
                 .match(/[\d]+/g)[1]
             })

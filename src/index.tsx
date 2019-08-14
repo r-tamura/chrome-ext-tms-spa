@@ -1,11 +1,11 @@
-import * as React from "react"
-import * as ReactDOM from "react-dom"
+import React from "react"
+import ReactDOM from "react-dom"
 import { configureStore } from "~/stores"
 import { fetchIsLoggedIn } from "~/api/login"
 import { fetchMasterInfo } from "~/api/common"
 import Root from "~/pages/Root"
 
-import "~/css/styles.css"
+// import "~/css/styles.css"
 
 /**
  * アプリケーション起動時に実行される初期化処理

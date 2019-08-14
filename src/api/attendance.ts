@@ -30,7 +30,7 @@ import {
  * @param master プロジェクト名などのマスタデータ
  * @return Promise<AttendanceMonthlyAPI>
  */
-const fetchMonthlyAttendance = async (
+export const fetchMonthlyAttendance = async (
   year: number,
   month: number,
   master: Master
@@ -60,7 +60,7 @@ const isSuccess = propEq("status", Status.OK);
  * @param attendances 更新データリスト(日ごと)
  * @return Promise<ResultStatus> 更新結果
  */
-const saveMonthlyAttendances = async (
+export const saveMonthlyAttendances = async (
   year: number,
   month: number,
   attendances: Array<Partial<AttendanceDaily>>
@@ -122,7 +122,7 @@ const saveMonthlyAttendances = async (
 /**
  * 月勤怠が申請済みであるかを判定します
  */
-const fetchHasApplied = async (
+export const fetchHasApplied = async (
   year: number,
   month: number
 ): Promise<boolean> => {
@@ -131,7 +131,7 @@ const fetchHasApplied = async (
   return json;
 };
 
-const fetchSummary = async (
+export const fetchSummary = async (
   year: number,
   month: number
 ): Promise<SummaryResponse> => {
@@ -143,7 +143,7 @@ const fetchSummary = async (
 /**
  * 上長申請を実行します
  */
-const submitApplication = async (
+export const submitApplication = async (
   year: number,
   month: number
 ): Promise<ApiResponse> => {
@@ -164,7 +164,7 @@ const submitApplication = async (
  *   - 初期業務終了時間
  *   - 初期プロジェクト
  */
-const getSettings = async (): Promise<Partial<AttendanceDaily>> =>
+export const getSettings = async (): Promise<Partial<AttendanceDaily>> =>
   Promise.resolve(localStorage.getItem(LS_ATTND_SETTINGS)).then(jsonStr =>
     jsonStr ? JSON.parse(jsonStr) : {}
   );
@@ -176,7 +176,7 @@ const getSettings = async (): Promise<Partial<AttendanceDaily>> =>
  * @param patch 更新パ属性のみの出勤データ
  * @return 更新結果
  */
-const patchSettings = async (
+export const patchSettings = async (
   patch: Partial<AttendanceSettings>
 ): Promise<ResultStatus> =>
   Promise.resolve(getSettings())
@@ -188,13 +188,3 @@ const patchSettings = async (
       status: Status.OK,
       message: "勤怠設定の保存が完了しました"
     }));
-
-export {
-  fetchMonthlyAttendance,
-  saveMonthlyAttendances,
-  fetchHasApplied,
-  fetchSummary,
-  getSettings,
-  submitApplication,
-  patchSettings
-};

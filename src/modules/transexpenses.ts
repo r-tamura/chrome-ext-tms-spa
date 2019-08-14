@@ -4,7 +4,8 @@ import { RootState } from "~/modules";
 import { getTransExpenseTemplate } from "~/modules/transexpensetemplates";
 import { fetchAll, update, create, delete_ } from "~/api/transexpense";
 import { composeAsync } from "~/helpers/common";
-import { TransExpense, ResultStatus, Status } from "~/types";
+import { TransExpense, ResultStatus, Status, ExpenseId } from "~/types";
+import { ThunkAction } from "redux-thunk";
 
 /**
  * Actions
@@ -133,9 +134,11 @@ export const createExpenseFromTemplate = (templateId: string, date: string) => (
   );
 };
 
-export const deleteExpense = (expenseId: number) => (
+export const deleteExpense = (
+  expenseId: ExpenseId
+): ThunkAction<void, RootState, {}, TransExpenseAction> => (
   dispatch: Dispatch<AnyAction>,
-  getState: () => RootState
+  getState
 ) => {
   dispatch(updateTransExpensesRequest());
   try {
@@ -192,8 +195,8 @@ export type TransExpenseAction =
 /**
  * State
  */
-type ById = { [expenseId: number]: TransExpense };
-type AllIds = number[];
+type ById = { [expenseId: string]: TransExpense };
+type AllIds = ExpenseId[];
 
 export type TransExpenseState = {
   byId: ById;
@@ -206,7 +209,7 @@ export type TransExpenseState = {
  * Selectors
  */
 export const getTransExpenses = (state: TransExpenseState): TransExpense[] =>
-  state.allIds.map(id => state.byId[id]);
+  state.allIds.map((id: keyof ById) => state.byId[id]);
 
 export const getIsFetching = (state: TransExpenseState) => state.isFetching;
 

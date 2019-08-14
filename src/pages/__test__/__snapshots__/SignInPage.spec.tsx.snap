@@ -1,0 +1,592 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<SignInPage /> should render 'Fetching...' 1`] = `
+<p>
+  Fetching...
+</p>
+`;
+
+exports[`<SignInPage /> should render Login page 1`] = `
+<Component>
+  <styled.main
+    className="app-content-full"
+  >
+    <StyledComponent
+      className="app-content-full"
+      forwardedComponent={
+        Object {
+          "$$typeof": Symbol(react.forward_ref),
+          "attrs": Array [],
+          "componentStyle": ComponentStyle {
+            "componentId": "sc-htpNat",
+            "isStatic": true,
+            "lastClassName": "flTsVq",
+            "rules": Array [
+              "
+  align-self: center;
+  justify-self: center;
+",
+            ],
+          },
+          "displayName": "styled.main",
+          "foldedComponentIds": Array [],
+          "render": [Function],
+          "styledComponentId": "sc-htpNat",
+          "target": "main",
+          "toString": [Function],
+          "warnTooManyClasses": [Function],
+          "withComponent": [Function],
+        }
+      }
+      forwardedRef={null}
+    >
+      <main
+        className="app-content-full sc-htpNat flTsVq"
+      >
+        <HelmetWrapper
+          defer={true}
+          encodeSpecialCharacters={true}
+        >
+          <SideEffect(NullComponent)
+            defer={true}
+            encodeSpecialCharacters={true}
+            title="Sign In | TMS"
+            titleAttributes={Object {}}
+          >
+            <NullComponent
+              defer={true}
+              encodeSpecialCharacters={true}
+              title="Sign In | TMS"
+              titleAttributes={Object {}}
+            />
+          </SideEffect(NullComponent)>
+        </HelmetWrapper>
+        <styled.div>
+          <StyledComponent
+            forwardedComponent={
+              Object {
+                "$$typeof": Symbol(react.forward_ref),
+                "attrs": Array [],
+                "componentStyle": ComponentStyle {
+                  "componentId": "sc-bxivhb",
+                  "isStatic": true,
+                  "lastClassName": "dmfQgN",
+                  "rules": Array [
+                    "
+  width: 95%;
+  align-self: center;
+  justify-self: center;
+
+  & > * {
+    text-align: center;
+  }
+
+  ",
+                    "@media (min-width: 768px)",
+                    " {
+    width: 550px;
+  }
+",
+                  ],
+                },
+                "displayName": "styled.div",
+                "foldedComponentIds": Array [],
+                "render": [Function],
+                "styledComponentId": "sc-bxivhb",
+                "target": "div",
+                "toString": [Function],
+                "warnTooManyClasses": [Function],
+                "withComponent": [Function],
+              }
+            }
+            forwardedRef={null}
+          >
+            <div
+              className="sc-bxivhb dmfQgN"
+            >
+              <h1>
+                Sign in to TMS
+              </h1>
+              <p>
+                Enter your 
+                <strong>
+                  user name
+                </strong>
+                 and 
+                <strong>
+                  password
+                </strong>
+                .
+              </p>
+              <ReactForm
+                onSubmit={[Function]}
+              >
+                <Connect(Form)
+                  onSubmit={[Function]}
+                  store={
+                    Object {
+                      "dispatch": [Function],
+                      "getState": [Function],
+                      "replaceReducer": [Function],
+                      "subscribe": [Function],
+                      Symbol(observable): [Function],
+                    }
+                  }
+                >
+                  <Form
+                    defaultValues={Object {}}
+                    dispatch={[Function]}
+                    formState={
+                      Object {
+                        "asyncErrors": undefined,
+                        "asyncSuccesses": undefined,
+                        "asyncValidations": 0,
+                        "asyncWarnings": undefined,
+                        "errors": undefined,
+                        "submits": 1,
+                        "submitted": false,
+                        "submitting": true,
+                        "successes": undefined,
+                        "touched": Object {},
+                        "validating": undefined,
+                        "validationFailed": undefined,
+                        "validationFailures": 0,
+                        "values": Object {},
+                        "warnings": undefined,
+                      }
+                    }
+                    onSubmit={[Function]}
+                    preventDefault={true}
+                    pure={true}
+                    store={
+                      Object {
+                        "dispatch": [Function],
+                        "getState": [Function],
+                        "replaceReducer": [Function],
+                        "subscribe": [Function],
+                        Symbol(observable): [Function],
+                      }
+                    }
+                    storeSubscription={
+                      Subscription {
+                        "listeners": Object {
+                          "clear": [Function],
+                          "get": [Function],
+                          "notify": [Function],
+                          "subscribe": [Function],
+                        },
+                        "onStateChange": [Function],
+                        "parentSub": undefined,
+                        "store": Object {
+                          "dispatch": [Function],
+                          "getState": [Function],
+                          "replaceReducer": [Function],
+                          "subscribe": [Function],
+                          Symbol(observable): [Function],
+                        },
+                        "unsubscribe": [Function],
+                      }
+                    }
+                  >
+                    <styled.div>
+                      <StyledComponent
+                        forwardedComponent={
+                          Object {
+                            "$$typeof": Symbol(react.forward_ref),
+                            "attrs": Array [],
+                            "componentStyle": ComponentStyle {
+                              "componentId": "sc-bdVaJa",
+                              "isStatic": false,
+                              "lastClassName": "fcklsL",
+                              "rules": Array [
+                                "
+  padding: 15px;
+  margin-bottom: 20px;
+  border-radius: 0;
+  background-color: ",
+                                [Function],
+                                ";
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.16), 0 0 2px 0 rgba(0, 0, 0, 0.12);
+",
+                              ],
+                            },
+                            "displayName": "styled.div",
+                            "foldedComponentIds": Array [],
+                            "render": [Function],
+                            "styledComponentId": "sc-bdVaJa",
+                            "target": "div",
+                            "toString": [Function],
+                            "warnTooManyClasses": [Function],
+                            "withComponent": [Function],
+                          }
+                        }
+                        forwardedRef={null}
+                      >
+                        <div
+                          className="sc-bdVaJa fcklsL"
+                        >
+                          <form
+                            onSubmit={[Function]}
+                          >
+                            <styled.div>
+                              <StyledComponent
+                                forwardedComponent={
+                                  Object {
+                                    "$$typeof": Symbol(react.forward_ref),
+                                    "attrs": Array [],
+                                    "componentStyle": ComponentStyle {
+                                      "componentId": "sc-bwzfXH",
+                                      "isStatic": false,
+                                      "lastClassName": "fsDvwN",
+                                      "rules": Array [
+                                        "
+  display: block;
+  padding-top: ",
+                                        "21.25px",
+                                        ";
+  margin-bottom: ",
+                                        "20px",
+                                        ";
+  position: relative;
+
+  & input,
+  & textarea {
+    display: block;
+    background-color: transparent;
+    color: ",
+                                        "rgba(0, 0, 0, 0.87)",
+                                        ";
+    border: none;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.26);
+    outline: 0;
+    width: 100%;
+    padding: 0;
+    box-shadow: none;
+    border-radius: 0;
+    font-size: ",
+                                        "17px",
+                                        ";
+    font-family: inherit;
+    line-height: inherit;
+    background-image: none;
+    text-indent: 0.5em;
+  }
+
+  & > label {
+    position: absolute;
+    top: 0;
+    display: block;
+    width: 100%;
+    color: ",
+                                        "rgba(0, 0, 0, 0.54)",
+                                        ";
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 15px;
+    overflow-x: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    text-align: left;
+  }
+
+  & input[type=\\"time\\"] {
+    cursor: pointer;
+  }
+
+  /*
+   * autocomplete styles in webkit browsers
+   * https://css-tricks.com/snippets/css/change-autocomplete-styles-webkit-browsers/
+  */
+  & input:-webkit-autofill,
+  & input:-webkit-autofill:hover,
+  & input:-webkit-autofill:focus,
+  & input:-webkit-autofill:active {
+    box-shadow: 0 0 0px 10px ",
+                                        [Function],
+                                        "
+      inset;
+    -webkit-text-fill-color: ",
+                                        [Function],
+                                        ";
+  }
+
+  &.tms-textfield--table input {
+    border-bottom: none;
+  }
+",
+                                      ],
+                                    },
+                                    "displayName": "styled.div",
+                                    "foldedComponentIds": Array [],
+                                    "render": [Function],
+                                    "styledComponentId": "sc-bwzfXH",
+                                    "target": "div",
+                                    "toString": [Function],
+                                    "warnTooManyClasses": [Function],
+                                    "withComponent": [Function],
+                                  }
+                                }
+                                forwardedRef={null}
+                              >
+                                <div
+                                  className="sc-bwzfXH fsDvwN"
+                                >
+                                  <ConnectedField
+                                    field="username"
+                                    id="username"
+                                    maxLength={30}
+                                    placeholder="John Doe"
+                                    required={true}
+                                  >
+                                    <Field
+                                      component={[Function]}
+                                      field="username"
+                                      id="username"
+                                      maxLength={30}
+                                      placeholder="John Doe"
+                                      pure={true}
+                                      required={true}
+                                    >
+                                      <TextWrapper
+                                        fieldApi={
+                                          Object {
+                                            "addValue": [Function],
+                                            "asyncValidate": [Function],
+                                            "doneValidatingField": [Function],
+                                            "error": undefined,
+                                            "fieldName": "username",
+                                            "preValidate": [Function],
+                                            "removeValue": [Function],
+                                            "reset": [Function],
+                                            "setError": [Function],
+                                            "setSuccess": [Function],
+                                            "setTouched": [Function],
+                                            "setValue": [Function],
+                                            "setWarning": [Function],
+                                            "success": undefined,
+                                            "swapValues": [Function],
+                                            "touched": undefined,
+                                            "validate": [Function],
+                                            "validatingField": [Function],
+                                            "value": undefined,
+                                            "warning": undefined,
+                                          }
+                                        }
+                                        id="username"
+                                        maxLength={30}
+                                        placeholder="John Doe"
+                                        required={true}
+                                      >
+                                        <input
+                                          id="username"
+                                          maxLength={30}
+                                          onBlur={[Function]}
+                                          onChange={[Function]}
+                                          placeholder="John Doe"
+                                          required={true}
+                                          value=""
+                                        />
+                                      </TextWrapper>
+                                    </Field>
+                                  </ConnectedField>
+                                  <label
+                                    htmlFor="username"
+                                  >
+                                    UserName
+                                  </label>
+                                </div>
+                              </StyledComponent>
+                            </styled.div>
+                            <styled.div>
+                              <StyledComponent
+                                forwardedComponent={
+                                  Object {
+                                    "$$typeof": Symbol(react.forward_ref),
+                                    "attrs": Array [],
+                                    "componentStyle": ComponentStyle {
+                                      "componentId": "sc-bwzfXH",
+                                      "isStatic": false,
+                                      "lastClassName": "fsDvwN",
+                                      "rules": Array [
+                                        "
+  display: block;
+  padding-top: ",
+                                        "21.25px",
+                                        ";
+  margin-bottom: ",
+                                        "20px",
+                                        ";
+  position: relative;
+
+  & input,
+  & textarea {
+    display: block;
+    background-color: transparent;
+    color: ",
+                                        "rgba(0, 0, 0, 0.87)",
+                                        ";
+    border: none;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.26);
+    outline: 0;
+    width: 100%;
+    padding: 0;
+    box-shadow: none;
+    border-radius: 0;
+    font-size: ",
+                                        "17px",
+                                        ";
+    font-family: inherit;
+    line-height: inherit;
+    background-image: none;
+    text-indent: 0.5em;
+  }
+
+  & > label {
+    position: absolute;
+    top: 0;
+    display: block;
+    width: 100%;
+    color: ",
+                                        "rgba(0, 0, 0, 0.54)",
+                                        ";
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 15px;
+    overflow-x: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    text-align: left;
+  }
+
+  & input[type=\\"time\\"] {
+    cursor: pointer;
+  }
+
+  /*
+   * autocomplete styles in webkit browsers
+   * https://css-tricks.com/snippets/css/change-autocomplete-styles-webkit-browsers/
+  */
+  & input:-webkit-autofill,
+  & input:-webkit-autofill:hover,
+  & input:-webkit-autofill:focus,
+  & input:-webkit-autofill:active {
+    box-shadow: 0 0 0px 10px ",
+                                        [Function],
+                                        "
+      inset;
+    -webkit-text-fill-color: ",
+                                        [Function],
+                                        ";
+  }
+
+  &.tms-textfield--table input {
+    border-bottom: none;
+  }
+",
+                                      ],
+                                    },
+                                    "displayName": "styled.div",
+                                    "foldedComponentIds": Array [],
+                                    "render": [Function],
+                                    "styledComponentId": "sc-bwzfXH",
+                                    "target": "div",
+                                    "toString": [Function],
+                                    "warnTooManyClasses": [Function],
+                                    "withComponent": [Function],
+                                  }
+                                }
+                                forwardedRef={null}
+                              >
+                                <div
+                                  className="sc-bwzfXH fsDvwN"
+                                >
+                                  <ConnectedField
+                                    field="password"
+                                    id="password"
+                                    maxLength={30}
+                                    placeholder="Your password"
+                                    required={true}
+                                    type="password"
+                                  >
+                                    <Field
+                                      component={[Function]}
+                                      field="password"
+                                      id="password"
+                                      maxLength={30}
+                                      placeholder="Your password"
+                                      pure={true}
+                                      required={true}
+                                      type="password"
+                                    >
+                                      <TextWrapper
+                                        fieldApi={
+                                          Object {
+                                            "addValue": [Function],
+                                            "asyncValidate": [Function],
+                                            "doneValidatingField": [Function],
+                                            "error": undefined,
+                                            "fieldName": "password",
+                                            "preValidate": [Function],
+                                            "removeValue": [Function],
+                                            "reset": [Function],
+                                            "setError": [Function],
+                                            "setSuccess": [Function],
+                                            "setTouched": [Function],
+                                            "setValue": [Function],
+                                            "setWarning": [Function],
+                                            "success": undefined,
+                                            "swapValues": [Function],
+                                            "touched": undefined,
+                                            "validate": [Function],
+                                            "validatingField": [Function],
+                                            "value": undefined,
+                                            "warning": undefined,
+                                          }
+                                        }
+                                        id="password"
+                                        maxLength={30}
+                                        placeholder="Your password"
+                                        required={true}
+                                        type="password"
+                                      >
+                                        <input
+                                          id="password"
+                                          maxLength={30}
+                                          onBlur={[Function]}
+                                          onChange={[Function]}
+                                          placeholder="Your password"
+                                          required={true}
+                                          type="password"
+                                          value=""
+                                        />
+                                      </TextWrapper>
+                                    </Field>
+                                  </ConnectedField>
+                                  <label
+                                    htmlFor="password"
+                                  >
+                                    Password
+                                  </label>
+                                </div>
+                              </StyledComponent>
+                            </styled.div>
+                            <button
+                              className="tms-btn primary block"
+                            >
+                              SIGN IN
+                            </button>
+                          </form>
+                        </div>
+                      </StyledComponent>
+                    </styled.div>
+                  </Form>
+                </Connect(Form)>
+              </ReactForm>
+            </div>
+          </StyledComponent>
+        </styled.div>
+      </main>
+    </StyledComponent>
+  </styled.main>
+</Component>
+`;

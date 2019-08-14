@@ -1,5 +1,4 @@
 import * as React from "react";
-import * as ReactDOM from "react-dom";
 import { find, propEq } from "ramda";
 import Button, { Color } from "~/components/Button";
 import { AddIcon } from "~/components/Icon";
@@ -12,7 +11,8 @@ import {
   Objective,
   TransExpenseView,
   TransExpenseTemplateView,
-  FormItemType
+  FormItemType,
+  ExpenseId
 } from "~/types";
 
 interface IProps extends React.Props<{}> {
@@ -21,15 +21,15 @@ interface IProps extends React.Props<{}> {
   projects: Project[];
   usages: Usage[];
   objectives: Objective[];
-  deleteExpense: (expenseId: number) => void;
+  deleteExpense: (expenseId: ExpenseId) => void;
   createExpense: (expense: Partial<TransExpenseView>) => void;
   updateExpense: (expense: Partial<TransExpenseView>) => void;
   createExpenseFromTemplate: (templateId: string, strdate: string) => void;
 }
 
 interface IState {
+  selected?: ExpenseId; // 選択中の交通費ID
   isModalOpen?: boolean; // 編集モーダルがオープン状態であるか
-  selected?: number; // 選択中の交通費ID
   useTemplate?: boolean;
 }
 
@@ -43,12 +43,7 @@ class TransExpenseHistory extends React.Component<IProps, IState> {
   }
 
   public render() {
-    const {
-      expenses,
-      createExpense,
-      deleteExpense,
-      updateExpense
-    } = this.props;
+    const { expenses, deleteExpense } = this.props;
     const { isModalOpen, useTemplate } = this.state;
     const $expenses = this.renderExpenses(expenses, deleteExpense);
     const $modalBody = isModalOpen
@@ -87,7 +82,7 @@ class TransExpenseHistory extends React.Component<IProps, IState> {
 
   private renderExpenses = (
     expenses: TransExpenseView[],
-    deleteExpense: (expenseId: number) => void
+    deleteExpense: (expenseId: ExpenseId) => void
   ): JSX.Element => {
     const headers = [
       "#",
@@ -130,7 +125,7 @@ class TransExpenseHistory extends React.Component<IProps, IState> {
                   <td>
                     <Button
                       className="remove reverse link"
-                      onClick={() => deleteExpense(e.expenseId)}
+                      onClick={() => deleteExpense(e.expenseId.toString())}
                     >
                       削除
                     </Button>
@@ -157,7 +152,7 @@ class TransExpenseHistory extends React.Component<IProps, IState> {
     } = props;
     const { selected } = state;
     const {
-      expenseId = 0,
+      expenseId,
       strdate = "",
       project,
       usage,
@@ -280,17 +275,21 @@ class TransExpenseHistory extends React.Component<IProps, IState> {
     );
   }
 
-  private getInitState(props: IProps) {
-    return { isModalOpen: false, useTemplate: false, selected: 0 };
+  private getInitState(props: IProps): IState {
+    return { isModalOpen: false, useTemplate: false, selected: undefined };
   }
 
   /* モーダルクローズ */
   private closeModal = () => {
-    this.setState({ isModalOpen: false, useTemplate: false, selected: 0 });
+    this.setState({
+      isModalOpen: false,
+      useTemplate: false,
+      selected: undefined
+    });
   };
 
   /* 更新モーダル */
-  private openEditModal = (expenseId: number) => {
+  private openEditModal = (expenseId: ExpenseId) => {
     this.setState({
       isModalOpen: true,
       useTemplate: false,
@@ -300,12 +299,20 @@ class TransExpenseHistory extends React.Component<IProps, IState> {
 
   /* 新規登録モーダル */
   private openAddModal = () => {
-    this.setState({ isModalOpen: true, useTemplate: false, selected: 0 });
+    this.setState({
+      isModalOpen: true,
+      useTemplate: false,
+      selected: undefined
+    });
   };
 
   /* テンプレートから新規登録モーダル */
   private openCreateFromTemplateModal = () => {
-    this.setState({ isModalOpen: true, useTemplate: true, selected: 0 });
+    this.setState({
+      isModalOpen: true,
+      useTemplate: true,
+      selected: undefined
+    });
   };
 }
 

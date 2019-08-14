@@ -128,10 +128,7 @@ export const aryOfObjToObj = <T>(
   keyName: keyof T,
   aryOfObj: T[]
 ): { [s: string]: T } =>
-  aryOfObj.reduce(
-    (acc, v) => ({ ...acc, [R.prop(keyName, v) as any]: v }),
-    {}
-  );
+  aryOfObj.reduce((acc, v) => ({ ...acc, [R.prop(keyName, v) as any]: v }), {});
 
 /**
  * エラーオブジェクトを生成します
@@ -186,7 +183,7 @@ export const set = R.curry((key: string | number, value: any, obj: object) => {
  * ex:
  *  remap({key1: newkey1, key2: newkey2}, {key1: 1, key2: 2, key3: 3}) // {newkey1: 1, newkey2: 2}
  */
-export const remap = R.curry((keyMap: {[k: string]: string}, obj: any): any =>
+export const remap = R.curry((keyMap: { [k: string]: string }, obj: any): any =>
   R.toPairs<string>(keyMap).reduce(
     (acc, [oldKey, newKey]) =>
       R.has(oldKey, obj) ? set(newKey, R.prop(oldKey, obj), acc) : acc,

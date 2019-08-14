@@ -1,13 +1,16 @@
 import * as React from "react";
 import renderer from "react-test-renderer";
 import { shallow, mount } from "enzyme";
-import { AttendancePage } from "~/pages/Attendance";
+import { AttendancePage } from "~/pages";
 import {
-  getMockRouterProps,
   AttendanceSettingsModelBuilder,
   AttendanceViewModelBuilder,
   ProjectsBuilder
-} from "../__mocks__/";
+} from "../../../test/__mocks__";
+import * as hooks from "~/stores/hooks";
+
+jest.mock("../../stores/hooks");
+const mockedHooks = hooks as jest.Mocked<typeof hooks>;
 
 const createComponent = ({
   attendanceMonthly = AttendanceViewModelBuilder.build(),
@@ -24,12 +27,20 @@ const createComponent = ({
   changeMonth = jest.fn(),
   submitApplication = jest.fn()
 } = {}) => {
-  const data = {
+  mockedHooks.useAttendance.mockReturnValue({
     attendanceMonthly,
     attendanceSettings,
-    projects
-  };
-  const fns = {
+    projects,
+    fetchAttendances: fetchAttendancesIfNeeded,
+    fetchSettings,
+    saveAttendances: saveAttendancesIfNeeded,
+    updateDaily,
+    setMonthlyWithDefaults,
+    updateSettings,
+    changeMonth,
+    submitApplication
+  });
+  return {
     fetchAttendancesIfNeeded,
     fetchSettings,
     saveAttendancesIfNeeded,
@@ -37,27 +48,21 @@ const createComponent = ({
     setMonthlyWithDefaults,
     updateSettings,
     changeMonth,
-    submitApplication
-  };
-  return {
-    fns,
-    component: (
-      <AttendancePage {...data} {...fns} {...getMockRouterProps(null)} />
-    )
+    submitApplication,
+    Component: <AttendancePage />
   };
 };
 
 describe("<AttendancePage />", () => {
   it("shoud match existing snapshot", () => {
-    const mock = createComponent();
-    const page = renderer.create(mock.component).toJSON();
+    const { Component } = createComponent();
+    const page = renderer.create(Component).toJSON();
     expect(page).toMatchSnapshot();
   });
 
   it("should be right next month", () => {
-    const mock = createComponent();
-    const { changeMonth } = mock.fns;
-    const w = shallow(mock.component);
+    const { changeMonth, Component } = createComponent();
+    const w = shallow(Component);
     w.find("#btn-next-month").simulate("click");
     expect(changeMonth.mock.calls[0]).toEqual([2018, 2]);
 
@@ -71,7 +76,7 @@ describe("<AttendancePage />", () => {
         .hasApplied()
         .build()
     });
-    const w = mount(mock.component);
+    const w = mount(mock.Component);
     const $submit = w.find("button#btn-submit");
     expect($submit.length).toBe(1);
     expect($submit.hasClass("disabled")).toBeTruthy();

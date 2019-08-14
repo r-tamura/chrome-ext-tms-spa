@@ -1,102 +1,78 @@
 import * as React from "react";
-import { connect } from "react-redux";
+import styled from "styled-components";
 import { Helmet } from "react-helmet";
-import { RouteComponentProps } from "react-router-dom";
 import SelectBox from "~/components/SelectBox";
 import { Button } from "~/components/Button";
-import {
-  RootState,
-  getProjects,
-  getAttendancesSelectedMonth,
-  getAttendanceSettings
-} from "~/modules";
-import {
-  fetchAttendancesIfNeeded,
-  saveAttendancesIfNeeded,
-  updateDaily,
-  fetchSettings,
-  setMonthlyWithDefaults,
-  updateSettings,
-  changeMonth
-} from "~/modules/attendances";
 import { zerofill } from "~/helpers/common";
-import { AttendanceMonthlyView, AttendanceSettings, Project } from "~/types";
+import { AttendanceMonthlyView } from "~/types";
 import { MsgAttendance } from "~/helpers/_const";
+import { useAttendance } from "~/stores/hooks";
+import { MainContent } from "~/components/organisms";
+import { BOLD } from "~/styles/font";
 
-interface OwnProps extends RouteComponentProps<{}>, React.Props<{}> {}
+export const AttendancePage: React.FC = () => {
+  const {
+    projects,
+    fetchAttendances,
+    attendanceSettings,
+    updateSettings,
+    attendanceMonthly,
+    saveAttendances,
+    updateDaily,
+    changeMonth,
+    setMonthlyWithDefaults
+  } = useAttendance();
 
-interface IProps extends OwnProps {
-  attendanceMonthly: AttendanceMonthlyView;
-  attendanceSettings: AttendanceSettings;
-  projects: Project[];
-  fetchAttendancesIfNeeded: () => any;
-  fetchSettings: () => any;
-  saveAttendancesIfNeeded: () => any;
-  updateDaily: (dailyId: string, patch: any) => any;
-  setMonthlyWithDefaults: (dailyIds: string[]) => any;
-  updateSettings: (patch: Partial<AttendanceSettings>) => any;
-  changeMonth: (year: number, month: number) => any;
-  submitApplication: (year: number, month: number) => any;
-}
+  const { year, month } = attendanceMonthly;
+  return (
+    <main className="app-content-with-navbar">
+      <Helmet>
+        <title>Attendance | TMS</title>
+      </Helmet>
+      <MainContent>
+        <h1>
+          <Button id={"btn-prev-month"} onClick={onPrevMonthClick}>
+            {"<"}
+          </Button>
+          {year} / {month}
+          <Button id={"btn-next-month"} onClick={onNextMonthClick}>
+            {">"}
+          </Button>
+        </h1>
+        {renderMonthly(attendanceMonthly)}
 
-class AttendancePage extends React.Component<IProps, {}> {
-  constructor(props: IProps) {
-    super(props);
-    this.props.fetchSettings();
-    this.props.fetchAttendancesIfNeeded();
-  }
+        {/* 時間リスト */}
+        <datalist id="timelist-am">
+          <option>09:00</option>
+          <option>09:30</option>
+          <option>10:00</option>
+          <option>10:30</option>
+        </datalist>
+        <datalist id="timelist-pm">
+          <option>17:30</option>
+          <option>18:00</option>
+          <option>18:30</option>
+          <option>19:00</option>
+          <option>19:30</option>
+          <option>19:30</option>
+          <option>20:00</option>
+          <option>20:30</option>
+          <option>21:00</option>
+          <option>21:30</option>
+          <option>22:00</option>
+          <option>22:30</option>
+          <option>23:00</option>
+          <option>23:30</option>
+        </datalist>
+      </MainContent>
+    </main>
+  );
 
-  public render() {
-    const { attendanceMonthly } = this.props;
-    const { year, month, days } = attendanceMonthly;
-    return (
-      <main className="main">
-        <Helmet>
-          <title>Attendance | TMS</title>
-        </Helmet>
-        <div className="main-column">
-          <h1>
-            <Button id={"btn-prev-month"} onClick={this.onPrevMonthClick}>
-              {"<"}
-            </Button>
-            {year} / {month}
-            <Button id={"btn-next-month"} onClick={this.onNextMonthClick}>
-              {">"}
-            </Button>
-          </h1>
-          {this.renderMonthly(attendanceMonthly)}
-
-          {/* 時間リスト */}
-          <datalist id="timelist-am">
-            <option>09:00</option>
-            <option>09:30</option>
-            <option>10:00</option>
-            <option>10:30</option>
-          </datalist>
-          <datalist id="timelist-pm">
-            <option>17:30</option>
-            <option>18:00</option>
-            <option>18:30</option>
-            <option>19:00</option>
-            <option>19:30</option>
-            <option>19:30</option>
-            <option>20:00</option>
-            <option>20:30</option>
-            <option>21:00</option>
-            <option>21:30</option>
-            <option>22:00</option>
-            <option>22:30</option>
-            <option>23:00</option>
-            <option>23:30</option>
-          </datalist>
-        </div>
-      </main>
-    );
-  }
-
-  private renderMonthly(attendanceMonthly: AttendanceMonthlyView) {
-    const { year, month, days, isFetching, hasApplied } = attendanceMonthly;
-
+  function renderMonthly({
+    days,
+    isFetching,
+    hasApplied
+  }: AttendanceMonthlyView) {
     if (isFetching) {
       // TODO: ロードインジケータを表示するように
       return <p>Now Loading...</p>;
@@ -109,16 +85,13 @@ class AttendancePage extends React.Component<IProps, {}> {
     return (
       <div>
         <div className={"tms-btn-group"}>
-          <Button id={"btn-set-default"} onClick={this.onSetDefaultClick}>
+          <Button id={"btn-set-default"} onClick={onSetDefaultClick}>
             set default
           </Button>
-          <Button id={"btn-save"} onClick={this.onSaveClick}>
+          <Button id={"btn-save"} onClick={onSaveClick}>
             Save
           </Button>
-          <Button
-            id={"btn-fetch"}
-            onClick={this.props.fetchAttendancesIfNeeded}
-          >
+          <Button id={"btn-fetch"} onClick={fetchAttendances}>
             Reload
           </Button>
           {hasApplied ? (
@@ -126,25 +99,21 @@ class AttendancePage extends React.Component<IProps, {}> {
               Submit
             </Button>
           ) : (
-            <Button
-              id={"btn-submit"}
-              title={"上長申請"}
-              onClick={this.onSubmit}
-            >
+            <Button id={"btn-submit"} title={"上長申請"} onClick={onSubmit}>
               Submit
             </Button>
           )}
         </div>
         <div>
           <SelectBox
-            value={this.props.attendanceSettings.projectId || ""}
+            value={attendanceSettings.projectId || ""}
             options={{
-              items: this.props.projects,
+              items: projects,
               valueKey: "projectId",
               labelKey: "name"
             }}
             onChange={$select =>
-              this.props.updateSettings({
+              updateSettings({
                 projectId: $select.selectedOptions[0].value
               })
             }
@@ -169,20 +138,25 @@ class AttendancePage extends React.Component<IProps, {}> {
                 key={a.dailyId}
                 className={a.hasUpdated ? "attendance-diff" : ""}
               >
-                <td
+                {/* <td
                   className={
                     a.isWeekday ? "attendance-weekday" : "attendance-holiday"
                   }
                 >
                   {zerofill(2, index + 1)}
-                </td>
+                </td> */}
+                {a.isWeekday ? (
+                  <TdWeekday>{zerofill(2, index + 1)}</TdWeekday>
+                ) : (
+                  <TdHoliday>{zerofill(2, index + 1)}</TdHoliday>
+                )}
                 <td className="tms-textfield tms-textfield--table">
                   <input
                     type="time"
                     value={a.start}
                     list="timelist-am"
                     onChange={e =>
-                      this.props.updateDaily(a.dailyId, {
+                      updateDaily(a.dailyId, {
                         start: e.target.value
                       })
                     }
@@ -194,7 +168,7 @@ class AttendancePage extends React.Component<IProps, {}> {
                     value={a.end}
                     list="timelist-pm"
                     onChange={e =>
-                      this.props.updateDaily(a.dailyId, { end: e.target.value })
+                      updateDaily(a.dailyId, { end: e.target.value })
                     }
                   />
                 </td>
@@ -203,12 +177,12 @@ class AttendancePage extends React.Component<IProps, {}> {
                   <SelectBox
                     value={a.project ? a.project.projectId : ""}
                     options={{
-                      items: this.props.projects,
+                      items: projects,
                       valueKey: "projectId",
                       labelKey: "name"
                     }}
                     onChange={$select =>
-                      this.props.updateDaily(a.dailyId, {
+                      updateDaily(a.dailyId, {
                         projectId: $select.selectedOptions[0].value
                       })
                     }
@@ -228,56 +202,36 @@ class AttendancePage extends React.Component<IProps, {}> {
     );
   }
 
-  private onSaveClick = (e: React.MouseEvent<HTMLButtonElement>): void => {
-    this.props.saveAttendancesIfNeeded();
-  };
+  function onSaveClick(): void {
+    saveAttendances();
+  }
 
-  private onSetDefaultClick = (
-    e: React.MouseEvent<HTMLButtonElement>
-  ): void => {
-    this.props.setMonthlyWithDefaults(
-      this.props.attendanceMonthly.days.map(d => d.dailyId)
-    );
-  };
+  function onSetDefaultClick(): void {
+    setMonthlyWithDefaults(attendanceMonthly.days.map(d => d.dailyId));
+  }
 
-  private onNextMonthClick = (e: React.MouseEvent<HTMLButtonElement>): void => {
-    const { year: curYear, month: curMonth } = this.props.attendanceMonthly;
+  function onNextMonthClick(): void {
+    const { year: curYear, month: curMonth } = attendanceMonthly;
     const nextMonth = (curMonth % 12) + 1;
     const nextYear = nextMonth === 1 ? curYear + 1 : curYear;
-    this.props.changeMonth(nextYear, nextMonth);
-  };
+    changeMonth(nextYear, nextMonth);
+  }
 
-  private onPrevMonthClick = (e: React.MouseEvent<HTMLButtonElement>): void => {
-    const { year: curYear, month: curMonth } = this.props.attendanceMonthly;
+  function onPrevMonthClick(): void {
+    const { year: curYear, month: curMonth } = attendanceMonthly;
     const prevMonth = ((curMonth + 10) % 12) + 1;
     const prevYear = prevMonth === 12 ? curYear - 1 : curYear;
-    this.props.changeMonth(prevYear, prevMonth);
-  };
+    changeMonth(prevYear, prevMonth);
+  }
 
-  private onSubmit = (e: React.MouseEvent<HTMLButtonElement>): void => {
+  function onSubmit(): void {
     console.log("[Attendance] Submitted");
-  };
-}
-
-const mapStateToProps = (state: RootState, onwProps: OwnProps) => {
-  return {
-    projects: getProjects(state),
-    attendanceSettings: getAttendanceSettings(state),
-    attendanceMonthly: getAttendancesSelectedMonth(state)
-  };
+  }
 };
 
-export { AttendancePage };
+const TdHoliday = styled.td`
+  color: rgba(255, 0, 0, 0.4);
+  font-weight: ${BOLD};
+`;
 
-export default connect(
-  mapStateToProps,
-  {
-    fetchAttendancesIfNeeded,
-    saveAttendancesIfNeeded,
-    updateDaily,
-    fetchSettings,
-    setMonthlyWithDefaults,
-    updateSettings,
-    changeMonth
-  }
-)(AttendancePage);
+const TdWeekday = styled.td``;
