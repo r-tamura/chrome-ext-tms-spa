@@ -1,21 +1,35 @@
 import { ThemeProps as StyledComponentsThemProps } from "styled-components";
 
-type StyleValue = string;
+export type FontFamilyValue = string;
+export type ColorValue = string;
 
 export interface Theme {
-  primaryHeavyLight: StyleValue;
-  primaryLight: StyleValue;
-  primary: StyleValue;
-  primaryDark: StyleValue;
-  primaryHeavyDark: StyleValue;
-  white: StyleValue;
-  primaryReverse: StyleValue;
-  primaryReverseDark: StyleValue;
-  secondary: StyleValue;
-  danger: StyleValue;
-  hoveredBg: StyleValue;
-  textMain: StyleValue;
-  textGray: StyleValue;
+  fontFamily: FontFamilyValue;
+  /* color */
+  primaryHeavyLight: ColorValue;
+  primaryLight: ColorValue;
+  primary: ColorValue;
+  primaryDark: ColorValue;
+  primaryHeavyDark: ColorValue;
+  white: ColorValue;
+  black: ColorValue;
+  primaryReverse: ColorValue;
+  primaryReverseDark: ColorValue;
+  secondary: ColorValue;
+  danger: ColorValue;
+  hoveredBg: ColorValue;
+
+  /* text */
+  textMain: ColorValue;
+  textGray: ColorValue;
+
+  /* form */
+  inputPlaceHolder: ColorValue;
+  formBorderColor: ColorValue;
+  formBorderColorFocused: ColorValue;
+  formBorderColorDisabled: ColorValue;
+  formBorderColorError: ColorValue;
+  buttonDefault: ColorValue;
 }
 
 export type ThemeProps = StyledComponentsThemProps<Theme>;

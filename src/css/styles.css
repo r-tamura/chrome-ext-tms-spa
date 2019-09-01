@@ -1,15 +1,7 @@
 @import "css/variables.css";
-@import "css/reset.css";
 @import "css/layout.css";
 @import "css/panel.css";
-@import "css/button.css";
 @import "css/table.css";
-@import "components/Textfield.css";
-@import "components/Header.css";
-@import "components/Modal.css";
-@import "components/SelectBox.css";
 @import "components/Menu.css";
 @import "components/Nav.css";
 @import "components/Icon/Icon.css";
-@import "pages/LoginPage.css";
-@import "pages/Attendance.css";

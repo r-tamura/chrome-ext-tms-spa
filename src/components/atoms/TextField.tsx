@@ -1,69 +1,48 @@
-import styled from "styled-components";
-import { LG } from "~/styles/font";
-import { math } from "polished";
+import React from "react";
+import { FormItemContainer, FormItem } from "./Form";
+import styled, { css } from "styled-components";
 import { ThemeProps } from "~/styles/theme";
 
-const FORM_GROUP_MARGIN_BOTTOM = "20px";
-const TEXT_AREA_COLOR = "rgba(0, 0, 0, 0.87)";
-const LABEL_COLOR = "rgba(0, 0, 0, 0.54)";
-export const TextFieldContainer = styled.div`
-  display: block;
-  padding-top: ${math(`1.25 * ${LG}`)};
-  margin-bottom: ${FORM_GROUP_MARGIN_BOTTOM};
-  position: relative;
+export type InputProps = FormItem<HTMLInputElement>;
+type LabelProps = FormItem<HTMLLabelElement>;
 
-  & input,
-  & textarea {
-    display: block;
-    background-color: transparent;
-    color: ${TEXT_AREA_COLOR};
-    border: none;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.26);
-    outline: 0;
-    width: 100%;
-    padding: 0;
-    box-shadow: none;
-    border-radius: 0;
-    font-size: ${LG};
-    font-family: inherit;
-    line-height: inherit;
-    background-image: none;
-    text-indent: 0.5em;
+// フォーム Input
+// Reference to 'Forward Refs': dhttps://reactjs.org/docs/forwarding-refs.html
+export const Input: React.SFC<InputProps> = React.forwardRef(
+  ({ name, label, error, ...others }, ref: React.Ref<HTMLInputElement>) => {
+    // styled-componentsの返すinputはstring型でTypeScriptに定義されているHTMLのinput型の属性asの型が異なるため
+    return (
+      <FormItemContainer>
+        <StyledInput
+          name={name}
+          error={error}
+          {...others}
+          as="input"
+          ref={ref}
+        />
+        {label && (
+          <StyledLabel error={error} htmlFor={name}>
+            {label}
+          </StyledLabel>
+        )}
+      </FormItemContainer>
+    );
   }
+);
 
-  & > label {
-    position: absolute;
-    top: 0;
-    display: block;
-    width: 100%;
-    color: ${LABEL_COLOR};
-    font-size: 12px;
-    font-weight: 400;
-    line-height: 15px;
-    overflow-x: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    text-align: left;
-  }
+const errorStyleInput = css`
+  color: ${props => props.theme.danger} !important;
+  border-bottom-color: ${props => props.theme.danger} !important;
+  border-bottom-width: 2px !important;
+`;
+const errorLabelStyle = css`
+  color: ${props => props.theme.danger} !important;
+  font-weight: bold;
+`;
+const StyledInput = styled.input<InputProps>`
+  ${({ error }) => (error ? errorStyleInput : "")};
+`;
 
-  & input[type="time"] {
-    cursor: pointer;
-  }
-
-  /*
-   * autocomplete styles in webkit browsers
-   * https://css-tricks.com/snippets/css/change-autocomplete-styles-webkit-browsers/
-  */
-  & input:-webkit-autofill,
-  & input:-webkit-autofill:hover,
-  & input:-webkit-autofill:focus,
-  & input:-webkit-autofill:active {
-    box-shadow: 0 0 0px 10px ${({ theme }: ThemeProps) => theme.primaryReverse}
-      inset;
-    -webkit-text-fill-color: ${({ theme }: ThemeProps) => theme.textMain};
-  }
-
-  &.tms-textfield--table input {
-    border-bottom: none;
-  }
+const StyledLabel = styled.label<LabelProps>`
+  ${({ error }) => (error ? errorLabelStyle : "")};
 `;

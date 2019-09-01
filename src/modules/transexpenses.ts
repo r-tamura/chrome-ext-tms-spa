@@ -4,7 +4,13 @@ import { RootState } from "~/modules";
 import { getTransExpenseTemplate } from "~/modules/transexpensetemplates";
 import { fetchAll, update, create, delete_ } from "~/api/transexpense";
 import { composeAsync } from "~/helpers/common";
-import { TransExpense, ResultStatus, Status, ExpenseId } from "~/types";
+import {
+  TransExpense,
+  ResultStatus,
+  Status,
+  ExpenseId,
+  TransExpenseCreateRequest
+} from "~/types";
 import { ThunkAction } from "redux-thunk";
 
 /**
@@ -107,7 +113,7 @@ const successOrFailToUpdate = (
     [() => true, composeAsync(dispatch, updateTransExpensesFailure)]
   ]);
 
-export const createExpense = (expense: TransExpense) => (
+export const createExpense = (expense: TransExpenseCreateRequest) => (
   dispatch: Dispatch<AnyAction>,
   getState: () => RootState
 ) => {
@@ -128,10 +134,8 @@ export const createExpenseFromTemplate = (templateId: string, date: string) => (
     state.transexpensetemplates,
     templateId
   );
-  createExpense({ ...(template as TransExpense), strdate: date })(
-    dispatch,
-    getState
-  );
+  const request = { ...template, strdate: date };
+  createExpense(request)(dispatch, getState);
 };
 
 export const deleteExpense = (

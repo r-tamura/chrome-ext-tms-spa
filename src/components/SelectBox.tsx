@@ -1,104 +1,109 @@
-import * as React from "react";
-import { prop } from "ramda";
-import { SelectBoxOptions, SelectBox as SelectBoxType } from "~/types";
+import React from "react";
+import styled from "styled-components";
+import { math } from "polished";
+import { ThemeProps } from "~/styles/theme";
+import { MD } from "~/styles/font";
 
-/**
- *  オプションタグリストのElementを生成します
- */
-function renderOptions(
-  options: SelectBoxOptions,
-  hasNotSelected: boolean = true
-): JSX.Element[] {
-  const $notSelected = hasNotSelected
-    ? [
-        <option key={0} className="not-selected" value="-1">
-          {" "}
-          未選択{" "}
-        </option>
-      ]
-    : [];
-  const getValue = prop(options.valueKey);
-  const getLabel = prop(options.labelKey);
-  const $options = options.items.map(e => (
-    <option key={getValue(e as any)} value={getValue(e as any)}>
-      {getLabel(e as any)}
-    </option>
-  ));
-  // return [ ...$notSelected, ...$options ]
-  return $options;
+export type SelectBoxOptions<T> = {
+  items: T[];
+  /** SelectBox内部で扱われるTのプロパティ値を返す関数 */
+  value(t: T): string;
+  /** SelectBoxに表示されるTのプロパティ値を返す関数 */
+  label(t: T): string;
+};
+export interface SelectBoxProps<T> extends React.HTMLProps<HTMLSelectElement> {
+  label?: string;
+  options?: SelectBoxOptions<T>;
 }
 
 /**
- *  共通セレクトボックス
- * @param {string} name name属性
- * @param {string} label 表示ラベル
- * @param {string | number} value value属性(初期選択値)
- * @param {SelectBoxOptions} options セレクトボックス項目リスト
- * @param {(select: HTMLSelectElement) => void} onChange セレクトボックス変更時のイベントハンドラー
- * @param {string} additionalClass CSSスタイル
+ *  `select`ボックス
+ *   Reference to 'Forward Refs': https://reactjs.org/docs/forwarding-refs.html
  */
-const SelectBox: React.SFC<SelectBoxType> = ({
-  options,
-  name,
-  label,
-  value,
-  onChange,
-  additionalClass
-}) => (
-  <div className={`tms-select ${additionalClass || ""}`}>
-    <select
-      name={name}
-      value={value || prop(options.valueKey, options.items[0] as any)}
-      onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>
-        onChange(e.currentTarget)
-      }
-    >
-      {renderOptions(options)}
-    </select>
-    <label>{label}</label>
-  </div>
+export const SelectBox = React.forwardRef(
+  <T, _>(
+    { label, options, ...otherProps }: SelectBoxProps<T>,
+    ref: React.Ref<HTMLSelectElement>
+  ) => {
+    return (
+      <SelectContainer>
+        <select {...otherProps} ref={ref}>
+          {options.items.map(item => (
+            <option key={options.value(item)} value={options.value(item)}>
+              {options.label(item)}
+            </option>
+          ))}
+        </select>
+        <label>{label}</label>
+      </SelectContainer>
+    );
+  }
 );
 
-SelectBox.defaultProps = {
-  name: ""
-};
+const ITEM_HEIGHT = "30px";
+const ITEM_MARGIN_BOTTOM = "20px";
+const SelectContainer = styled.div`
+  font-family: ${({ theme }: ThemeProps) => theme.fontFamily};
+  display: block;
+  padding-top: calc(1.25 * ${MD});
+  margin-bottom: ${ITEM_MARGIN_BOTTOM};
+  position: relative;
 
-export default SelectBox;
+  &:focus {
+    outline: 0;
+  }
 
-// export class SelectForTable extends SelectBox {
-//   render() {
-//     const select = renderSelect()
-//     const label = renderLabel()
-//     return (
-//       <div className="select-wrapper-for-table">
-//         {select}
-//         {label}
-//       </div>
-//     )
-//   }
-// }
+  & > select {
+    /* Layout */
+    display: block;
+    height: ${math(`${ITEM_HEIGHT} + 1px`)};
+    width: 100%;
+    font-size: 100%;
 
-// // フォーム - セレクト
-// SelectBox = ({
-//   name,
-//   options,
-//   onChange = (e) => {},
-//   selected = 0,
-//   disabled = false
-// }) => (
-//   <div className="select-wrapper v-margin">
-//     {/* 未選択の場合は"not-selected"クラスを付加 */}
-//     <select
-//       className = { selected ? "" : "not-selected" }
-//       value={selected.toString()}
-//       onChange={(e: React.SyntheticEvent) => {
-//         const self = (e.currentTarget as HTMLSelectElement)
-//         self.className = self.options[self.selectedIndex].classList.item(0) || ""
-//         onChange(e)
-//       }}
-//     >
-//       {createOptions(options)}
-//     </select>
-//     {name && <label>{name}</label>}
-//   </div>
-// )
+    /* Look and feel */
+    appearance: none;
+    outline: none;
+    border: none;
+    border-bottom: 1px solid ${({ theme }: ThemeProps) => theme.formBorderColor};
+    border-radius: 0px;
+    box-shadow: none;
+    background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGhlaWdodD0iNiIgd2lkdGg9IjEwIj48cG9seWdvbiBwb2ludHM9IjAsMCAxMCwwIDUsNiIgc3R5bGU9ImZpbGw6cmdiYSgwLDAsMCwuMjQpOyIvPjwvc3ZnPg==");
+    background-repeat: no-repeat;
+    background-position: right center;
+    background-color: inherit;
+    cursor: pointer;
+
+    font-family: inherit;
+    line-height: inherit;
+
+    padding: 0 25px 0 0;
+    text-indent: 8px;
+
+    &:focus {
+      border-color: ${({ theme }: ThemeProps) => theme.formBorderColorFocused};
+      border-width: 2px;
+    }
+  }
+
+  & > label {
+    position: absolute;
+    top: 0;
+    display: block;
+    width: 100%;
+    color: rgba(0, 0, 0, 0.54);
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 15px;
+    overflow-x: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    text-align: left;
+  }
+
+  &.tms-select--table {
+    padding-top: 0;
+    border: 0;
+    height: 100%;
+    margin-bottom: 0px;
+  }
+`;

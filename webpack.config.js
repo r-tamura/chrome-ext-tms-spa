@@ -5,11 +5,13 @@ module.exports = {
   // Source mapping
   mode: "development",
 
-  entry: path.resolve(__dirname, "src/index.tsx"),
+  entry: {
+    bundle: path.resolve(__dirname, "src/index.tsx")
+  },
   output: {
     publicPath: "/",
     path: path.resolve(__dirname, "dist"),
-    filename: "bundle.js"
+    filename: "[name].js"
   },
 
   // 利用loaders一覧
@@ -25,7 +27,7 @@ module.exports = {
           {
             loader: MiniCssExtractPlugin.loader,
             options: {
-              publicPath: "../",
+              // publicPath: "../",
               hmr: process.env.NODE_ENV === "development"
             }
           },
@@ -47,7 +49,6 @@ module.exports = {
   plugins: [
     new MiniCssExtractPlugin({
       name: "[name].css",
-      chunkFilename: "[id].css",
       ignoreOrder: false
     })
   ]

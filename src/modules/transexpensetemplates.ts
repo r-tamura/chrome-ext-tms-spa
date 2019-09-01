@@ -1,6 +1,5 @@
 import { Action, Dispatch, combineReducers, AnyAction } from "redux";
-import { ThunkAction, ThunkDispatch } from "redux-thunk";
-import { cond } from "ramda";
+import { ThunkDispatch } from "redux-thunk";
 import { RootState } from "~/modules";
 import {
   fetchTemplatesAll,

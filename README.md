@@ -2,8 +2,8 @@
 
 ## Todos
 
-[] SCSS -> Styled components/Emotion
-[] Class Componets -> Function Components(React Hooks)
+- [] SCSS -> Styled components/Emotion
+- [] Class Componets -> Function Components(React Hooks)
 
 ## Install
 
@@ -23,10 +23,16 @@ yarn install
 1. Click [ Load unpacked extensions ] > Select the directory you pulled
 1. Browse https://kintai.telema.co.jp/tmskin/index.php in Chrome
 
-## Run
+## Development Commands
 
 ```sh
+# start dev server
 yarn start
+
+# start storybook
+yarn storybook
+# start storybook (don't open browser)
+yarn storybook --ci
 ```
 
-To Reload Extension, `Ctrl + Q` on Chrome
+To Reload Extension, Press `Ctrl + Q` on Chrome

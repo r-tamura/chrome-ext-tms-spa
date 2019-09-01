@@ -14,7 +14,8 @@ import attendances, * as fromAttendances from "./attendances";
 import {
   TransExpenseView,
   TransExpenseTemplateView,
-  AttendanceMonthlyView
+  AttendanceMonthlyView,
+  TransExpenseTemplate
 } from "~/types";
 
 /**
@@ -52,7 +53,7 @@ export const getTransExpenseTemplates = (
   fromTransExpenseTemplates
     .getTransExpenseTemplates(state.transexpensetemplates)
     .map(template => ({
-      ...pick<TransExpenseTemplateView, keyof TransExpenseTemplateView>(
+      ...pick<TransExpenseTemplate, keyof TransExpenseTemplate>(
         ["templateId", "templateName", "customer", "from", "to", "cost"],
         template
       ),
