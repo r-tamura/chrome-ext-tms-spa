@@ -277,17 +277,6 @@ export const TransExpenseTemplates: React.FC<IProps> = ({
               ref={register({ required: true })}
             />
             <SelectBox
-              name="usageId"
-              label="利用区分 *"
-              defaultValue={usage ? usage.usageId : ""}
-              options={{
-                items: usages,
-                value: (usage: Usage) => usage.usageId,
-                label: (usage: Usage) => usage.name
-              }}
-              ref={register({ required: true })}
-            />
-            <SelectBox
               name="objectiveId"
               label="目的コード *"
               defaultValue={objective ? objective.objectiveId : ""}
@@ -300,28 +289,28 @@ export const TransExpenseTemplates: React.FC<IProps> = ({
             />
             <RequiredInput
               name="customer"
-              label="顧客先 *"
+              label="顧客先"
               placeholder="ex: XX株式会社"
               defaultValue={customer}
               error={errors.customer}
             />
             <RequiredInput
               name="from"
-              label="乗車地 *"
+              label="乗車地"
               placeholder="ex: JR千葉駅"
               defaultValue={from}
               error={errors.from}
             />
             <RequiredInput
               name="to"
-              label="降車地 *"
+              label="降車地"
               placeholder="ex: JR東京駅"
               defaultValue={to}
               error={errors.to}
             />
             <RequiredInput
               name="cost"
-              label="金額 *"
+              label="金額"
               placeholder="500"
               defaultValue={costStr}
               error={errors.cost}

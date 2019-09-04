@@ -15,7 +15,8 @@ import {
   TransExpenseView,
   TransExpenseTemplateView,
   AttendanceMonthlyView,
-  TransExpenseTemplate
+  TransExpenseTemplate,
+  TransExpense
 } from "~/types";
 
 /**
@@ -38,7 +39,7 @@ export const getIsAuthenticated = (state: S) =>
 
 export const getTransExpenses = (state: S): TransExpenseView[] =>
   fromTransExpense.getTransExpenses(state.transexpenses).map(expense => ({
-    ...pick<TransExpenseView, keyof TransExpenseView>(
+    ...pick<TransExpense, keyof TransExpense>(
       ["expenseId", "strdate", "customer", "from", "to", "cost"],
       expense
     ),

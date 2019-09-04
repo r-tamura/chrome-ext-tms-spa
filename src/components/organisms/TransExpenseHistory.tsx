@@ -1,8 +1,13 @@
 import React, { useState } from "react";
 import { find, propEq } from "ramda";
-import { Button, ButtonGroup } from "~/components/atoms";
+import {
+  Button,
+  ButtonGroup,
+  Panel,
+  RequiredInput,
+  Modal
+} from "~/components/atoms";
 import { AddIcon } from "~/components/Icon";
-import { Modal } from "~/components/atoms/Modal";
 import { CURRENCY } from "~/helpers/_const";
 import {
   Project,
@@ -12,13 +17,16 @@ import {
   TransExpenseTemplateView,
   ExpenseId,
   TransExpenseCreateRequest,
-  TransExpenseUpdateRequest
+  TransExpenseUpdateRequest,
+  TransExpense
 } from "~/types";
 
 import { Table, Tr, Td } from "~/components/atoms/Table";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEdit, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { useModal } from "~/components/hooks";
+import useForm from "react-hook-form";
+import { SelectBox } from "../SelectBox";
 
 interface IProps {
   expenses: TransExpenseView[];
@@ -46,17 +54,9 @@ export const TransExpenseHistory: React.FC<IProps> = props => {
 
   const { expenses, deleteExpense } = props;
   const { useTemplate } = state;
-  const $expenses = renderExpenses(expenses, deleteExpense);
-  const $modalBody = isModalOpen
-    ? useTemplate
-      ? renderCreateFromTemplateModal()
-      : renderEditorModal()
-    : null;
   return (
     <div>
-      {/* 交通費登録テーブル */}
-      {$expenses}
-      {/* 新規登録ボタン */}
+      {expenses.length > 0 ? <Expenses /> : <p>交通費が登録されていません。</p>}
       <ButtonGroup>
         <Button
           variant={"contained"}
@@ -65,20 +65,22 @@ export const TransExpenseHistory: React.FC<IProps> = props => {
         >
           テンプレートから新規登録
         </Button>
-        <Button variant={"circle"} color={"primary"} onClick={openAddModal}>
+        <Button
+          id={"create-trans-expense"}
+          variant={"circle"}
+          color={"primary"}
+          onClick={openCreateModal}
+        >
           <AddIcon />
         </Button>
       </ButtonGroup>
 
       {/* 編集モーダル */}
-      {$modalBody}
+      <EditorModal />
     </div>
   );
 
-  function renderExpenses(
-    expenses: TransExpenseView[],
-    deleteExpense: (expenseId: ExpenseId) => void
-  ) {
+  function Expenses() {
     const header = [
       "#",
       "利用日",
@@ -90,41 +92,40 @@ export const TransExpenseHistory: React.FC<IProps> = props => {
       ""
     ];
     return (
-      <div className="mr-records">
+      <div>
         <Table header={header}>
-          {expenses.length > 0 &&
-            expenses.map((e, i) => (
-              <Tr key={(() => e.expenseId)()} hover>
-                <Td className="record-id">{i + 1}</Td>
-                <Td>{e.strdate}</Td>
-                <Td>{e.project.name}</Td>
-                <Td>{e.usage.name}</Td>
-                <Td>{e.objective.name}</Td>
-                <Td>
-                  <strong>{CURRENCY.format(e.cost)}</strong>
-                </Td>
-                <Td>
-                  <Button
-                    variant="icon"
-                    color="primary"
-                    onClick={() => openEditModal(e.expenseId)}
-                    title="編集"
-                  >
-                    <FontAwesomeIcon icon={faEdit} />
-                  </Button>
-                </Td>
-                <Td>
-                  <Button
-                    variant="icon"
-                    color="danger"
-                    onClick={() => deleteExpense(e.expenseId.toString())}
-                    title="削除"
-                  >
-                    <FontAwesomeIcon icon={faTrash} />
-                  </Button>
-                </Td>
-              </Tr>
-            ))}
+          {expenses.map((e, i) => (
+            <Tr key={(() => e.expenseId)()} hover>
+              <Td className="record-id">{i + 1}</Td>
+              <Td>{e.strdate}</Td>
+              <Td>{e.project.name}</Td>
+              <Td>{e.usage.name}</Td>
+              <Td>{e.objective.name}</Td>
+              <Td>
+                <strong>{CURRENCY.format(e.cost)}</strong>
+              </Td>
+              <Td>
+                <Button
+                  variant="icon"
+                  color="primary"
+                  onClick={() => openEditModal(e.expenseId)}
+                  title="編集"
+                >
+                  <FontAwesomeIcon icon={faEdit} />
+                </Button>
+              </Td>
+              <Td>
+                <Button
+                  variant="icon"
+                  color="danger"
+                  onClick={() => deleteExpense(e.expenseId.toString())}
+                  title="削除"
+                >
+                  <FontAwesomeIcon icon={faTrash} />
+                </Button>
+              </Td>
+            </Tr>
+          ))}
         </Table>
       </div>
     );
@@ -133,7 +134,16 @@ export const TransExpenseHistory: React.FC<IProps> = props => {
   /*
    * 交通費新規作成/編集モーダルをレンダーします
    */
-  function renderEditorModal() {
+  function EditorModal() {
+    type FormData = Record<keyof TransExpense, string>;
+    const {
+      register,
+      handleSubmit,
+      clearError,
+      errors,
+      setError,
+      formState
+    } = useForm<FormData>();
     const {
       expenses,
       projects,
@@ -143,91 +153,187 @@ export const TransExpenseHistory: React.FC<IProps> = props => {
       updateExpense
     } = props;
     const { selected } = state;
+
+    function handleCancelClick(e: React.MouseEvent) {
+      e.preventDefault();
+      e.stopPropagation();
+      closeModal();
+    }
+
+    function onSubmit({
+      strdate,
+      projectId,
+      usageId,
+      objectiveId,
+      customer,
+      from,
+      to,
+      cost: costStr
+    }: FormData) {
+      let cost;
+      cost = Number.parseInt(costStr, 10);
+      if (Number.isNaN(cost)) {
+        setError(
+          "cost",
+          "NaN",
+          "有効な金額ではありません、正の整数値を入力してください"
+        );
+        return;
+      }
+      if (cost < 0) {
+        setError("cost", "NaN", "正の整数値を入力してください");
+        return;
+      }
+
+      if (selected) {
+        updateExpense({
+          expenseId,
+          strdate,
+          projectId,
+          usageId,
+          objectiveId,
+          customer,
+          from,
+          to,
+          cost
+        });
+      } else {
+        createExpense({
+          strdate,
+          projectId,
+          usageId,
+          objectiveId,
+          customer,
+          from,
+          to,
+          cost
+        });
+      }
+      closeModal();
+    }
+
+    const defaultExpense: TransExpenseView = {
+      expenseId: null,
+      strdate: "",
+      project: projects[0],
+      usage: usages[0],
+      objective: objectives[0],
+      customer: "",
+      from: "",
+      to: "",
+      cost: 0
+    };
+
     const {
       expenseId,
-      strdate = "",
+      strdate,
       project,
       usage,
       objective,
-      customer = "",
-      from = "",
-      to = "",
-      cost = 0
-    }: TransExpenseView = find(propEq("expenseId", selected), expenses) || {};
+      customer,
+      from,
+      to,
+      cost
+    }: TransExpenseView =
+      find(propEq("expenseId", selected), expenses) || defaultExpense;
+    const costStr = cost.toString();
     return (
-      // <FormModal
-      //   isOpen={isModalOpen}
-      //   formItems={[
-      //     {
-      //       type: FormItemType.TEXT,
-      //       name: "strdate",
-      //       label: "日付",
-      //       value: strdate
-      //     },
-      //     {
-      //       type: FormItemType.SELECT,
-      //       name: "projectId",
-      //       label: "プロジェクトコード",
-      //       value: project ? project.projectId : "",
-      //       options: {
-      //         items: projects,
-      //         valueKey: "projectId",
-      //         labelKey: "name"
-      //       }
-      //     },
-      //     {
-      //       type: FormItemType.SELECT,
-      //       name: "usageId",
-      //       label: "利用区分",
-      //       value: usage ? usage.usageId : "",
-      //       options: { items: usages, valueKey: "usageId", labelKey: "name" }
-      //     },
-      //     {
-      //       type: FormItemType.SELECT,
-      //       name: "objectiveId",
-      //       label: "目的コード",
-      //       value: objective ? objective.objectiveId : "",
-      //       options: {
-      //         items: objectives,
-      //         valueKey: "objectiveId",
-      //         labelKey: "name"
-      //       }
-      //     },
-      //     {
-      //       type: FormItemType.TEXT,
-      //       name: "customer",
-      //       label: "顧客先",
-      //       value: customer
-      //     },
-      //     {
-      //       type: FormItemType.TEXT,
-      //       name: "from",
-      //       label: "乗車地",
-      //       value: from
-      //     },
-      //     {
-      //       type: FormItemType.TEXT,
-      //       name: "to",
-      //       label: "降車地",
-      //       value: to
-      //     },
-      //     {
-      //       type: FormItemType.TEXT,
-      //       name: "cost",
-      //       label: "金額",
-      //       value: cost
-      //     }
-      //   ]}
-      //   onClose={closeModal}
-      //   onOKClick={
-      //     selected
-      //       ? (s: TransExpenseCreateRequest) => {
-      //           updateExpense({ ...s, expenseId });
-      //         }
-      //       : (s: TransExpenseCreateRequest) => createExpense(s)
-      //   }
-      // />
-      <div>history</div>
+      <Modal isOpen={isModalOpen} onRequestClose={() => close()}>
+        <Panel>
+          <form onSubmit={handleSubmit(onSubmit)}>
+            <RequiredInput
+              name={"strdate"}
+              label={"日付"}
+              placeholder={"ex: 20190401"}
+              error={errors.strdate}
+              defaultValue={strdate}
+              register={register}
+              clearError={clearError}
+            />
+            <SelectBox
+              name="projectId"
+              label="プロジェクトコード *"
+              defaultValue={project.projectId}
+              options={{
+                items: projects,
+                value: (project: Project) => project.projectId,
+                label: (project: Project) => project.name
+              }}
+              ref={register({ required: true })}
+            />
+            <SelectBox
+              name="usageId"
+              label="利用区分 *"
+              defaultValue={usage.usageId}
+              options={{
+                items: usages,
+                value: (usage: Usage) => usage.usageId,
+                label: (usage: Usage) => usage.name
+              }}
+              ref={register({ required: true })}
+            />
+            <SelectBox
+              name="objectiveId"
+              label="目的コード *"
+              defaultValue={objective.objectiveId}
+              options={{
+                items: objectives,
+                value: (objective: Objective) => objective.objectiveId,
+                label: (objective: Objective) => objective.name
+              }}
+              ref={register({ required: true })}
+            />
+            <RequiredInput
+              name={"customer"}
+              label={"顧客先"}
+              placeholder={"ex: XXXX 株式会社"}
+              error={errors.customer}
+              defaultValue={customer}
+              register={register}
+              clearError={clearError}
+            />
+            <RequiredInput
+              name={"from"}
+              label={"乗車地"}
+              placeholder={"ex: JR 千葉駅"}
+              error={errors.from}
+              defaultValue={from}
+              register={register}
+              clearError={clearError}
+            />
+            <RequiredInput
+              name={"to"}
+              label={"降車地"}
+              placeholder={"ex: JR 東京駅"}
+              error={errors.to}
+              defaultValue={to}
+              register={register}
+              clearError={clearError}
+            />
+            <RequiredInput
+              name={"cost"}
+              label={"金額"}
+              placeholder={"ex: 500"}
+              error={errors.cost}
+              defaultValue={costStr}
+              register={register}
+              clearError={clearError}
+            />
+            <ButtonGroup>
+              <Button variant="contained" onClick={handleCancelClick}>
+                キャンセル
+              </Button>
+              <Button
+                variant="contained"
+                color="primary"
+                disabled={!formState.isValid}
+              >
+                {expenseId ? "更新" : "作成"}
+              </Button>
+            </ButtonGroup>
+          </form>
+        </Panel>
+      </Modal>
     );
   }
 
@@ -264,7 +370,7 @@ export const TransExpenseHistory: React.FC<IProps> = props => {
       //     strdate: string;
       //   }) => createExpenseFromTemplate(templateId, strdate)}
       // />
-      <div>history template</div>
+      <div> history template</div>
     );
   }
 
@@ -276,7 +382,7 @@ export const TransExpenseHistory: React.FC<IProps> = props => {
   function closeModal() {
     setState({
       useTemplate: false,
-      selected: undefined
+      selected: null
     });
     close();
   }
@@ -291,10 +397,10 @@ export const TransExpenseHistory: React.FC<IProps> = props => {
   }
 
   /* 新規登録モーダル */
-  function openAddModal() {
+  function openCreateModal() {
     setState({
       useTemplate: false,
-      selected: undefined
+      selected: null
     });
     open();
   }
@@ -303,7 +409,7 @@ export const TransExpenseHistory: React.FC<IProps> = props => {
   function openCreateFromTemplateModal() {
     setState({
       useTemplate: true,
-      selected: undefined
+      selected: null
     });
     open();
   }

@@ -26,9 +26,9 @@ export type TransExpenseUpdateRequest = TransExpense;
 export type TransExpenseCreateRequest = Omit<TransExpense, "expenseId">;
 
 export interface TransExpenseView extends TransExpenseBase {
-  project?: Project;
-  usage?: Usage;
-  objective?: Objective;
+  project: Project;
+  usage: Usage;
+  objective: Objective;
 }
 
 /* Transportation Expense Template Types */

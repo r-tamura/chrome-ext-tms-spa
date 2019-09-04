@@ -1,0 +1,27 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<TransExpenseHistory /> shallow render snapshot 1`] = `
+<div>
+  <p>
+    交通費が登録されていません。
+  </p>
+  <styled.div>
+    <Component
+      color="secondary"
+      onClick={[Function]}
+      variant="contained"
+    >
+      テンプレートから新規登録
+    </Component>
+    <Component
+      color="primary"
+      id="create-trans-expense"
+      onClick={[Function]}
+      variant="circle"
+    >
+      <Component />
+    </Component>
+  </styled.div>
+  <EditorModal />
+</div>
+`;

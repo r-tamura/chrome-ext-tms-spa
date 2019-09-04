@@ -1,9 +1,18 @@
+import React from "react";
 import { math } from "polished";
 import styled from "styled-components";
+import { ReactHookFormError, RegisterInput } from "react-hook-form/dist/types";
 import { LG } from "~/styles/font";
 import { ThemeProps } from "~/styles/theme";
+import { Input } from "./TextField";
 
 type FormLabel = string;
+
+type FormRegister = (
+  refOrValidateRule: any,
+  validateRule?: RegisterInput | undefined
+) => ((ref: any) => void) | undefined;
+type FormClear<Name> = (name?: Name | Name[] | undefined) => void;
 export interface FormItemBase {
   label?: FormLabel;
   error?: boolean;
@@ -85,3 +94,30 @@ export const FormItemContainer = styled.div`
     -webkit-text-fill-color: ${({ theme }: ThemeProps) => theme.textMain};
   }
 `;
+
+export interface RequiredInputProps<FormData extends { [s: string]: string }> {
+  name: Extract<keyof FormData, string>;
+  label: string;
+  placeholder: string;
+  defaultValue: string;
+  error: ReactHookFormError;
+  register: FormRegister;
+  clearError: FormClear<keyof FormData>;
+}
+
+export function RequiredInput<FormData extends { [s: string]: string }>({
+  label,
+  register,
+  clearError,
+  ...otherProps
+}: RequiredInputProps<FormData>) {
+  return (
+    <Input
+      {...otherProps}
+      error={!!otherProps.error}
+      label={label + " *"}
+      ref={register({ required: `${label}は必須入力です` })}
+      onFocus={() => clearError(otherProps.name)}
+    />
+  );
+}

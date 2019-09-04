@@ -263,9 +263,9 @@ exports[`<SignInPage /> should render Login page 1`] = `
                                         "$$typeof": Symbol(react.forward_ref),
                                         "attrs": Array [],
                                         "componentStyle": ComponentStyle {
-                                          "componentId": "sc-dnqmqq",
+                                          "componentId": "sc-gZMcBi",
                                           "isStatic": false,
-                                          "lastClassName": "fVNZoi",
+                                          "lastClassName": "djsgTb",
                                           "rules": Array [
                                             "
   font-family: ",
@@ -361,7 +361,7 @@ exports[`<SignInPage /> should render Login page 1`] = `
                                         "displayName": "styled.div",
                                         "foldedComponentIds": Array [],
                                         "render": [Function],
-                                        "styledComponentId": "sc-dnqmqq",
+                                        "styledComponentId": "sc-gZMcBi",
                                         "target": "div",
                                         "toString": [Function],
                                         "warnTooManyClasses": [Function],
@@ -371,7 +371,7 @@ exports[`<SignInPage /> should render Login page 1`] = `
                                     forwardedRef={null}
                                   >
                                     <div
-                                      className="sc-dnqmqq fVNZoi"
+                                      className="sc-gZMcBi djsgTb"
                                     >
                                       <ConnectedField
                                         field="username"
@@ -446,9 +446,9 @@ exports[`<SignInPage /> should render Login page 1`] = `
                                         "$$typeof": Symbol(react.forward_ref),
                                         "attrs": Array [],
                                         "componentStyle": ComponentStyle {
-                                          "componentId": "sc-dnqmqq",
+                                          "componentId": "sc-gZMcBi",
                                           "isStatic": false,
-                                          "lastClassName": "fVNZoi",
+                                          "lastClassName": "djsgTb",
                                           "rules": Array [
                                             "
   font-family: ",
@@ -544,7 +544,7 @@ exports[`<SignInPage /> should render Login page 1`] = `
                                         "displayName": "styled.div",
                                         "foldedComponentIds": Array [],
                                         "render": [Function],
-                                        "styledComponentId": "sc-dnqmqq",
+                                        "styledComponentId": "sc-gZMcBi",
                                         "target": "div",
                                         "toString": [Function],
                                         "warnTooManyClasses": [Function],
@@ -554,7 +554,7 @@ exports[`<SignInPage /> should render Login page 1`] = `
                                     forwardedRef={null}
                                   >
                                     <div
-                                      className="sc-dnqmqq fVNZoi"
+                                      className="sc-gZMcBi djsgTb"
                                     >
                                       <ConnectedField
                                         field="password"
