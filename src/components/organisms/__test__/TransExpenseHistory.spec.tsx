@@ -267,6 +267,11 @@ describe("<TransExpenseHistory />", () => {
           expect($input.prop("defaultValue")).toBe("777");
         });
 
+        it("キャンセルボタン - 非サブミットボタン", () => {
+          const $cancel = $.find("form button").first();
+          expect($cancel.prop("type")).toBe("button");
+        });
+
         it("更新ボタン", () => {
           const $buttons = $.find("form button");
           expect($buttons.last().text()).toBe("更新");
@@ -366,6 +371,11 @@ describe("<TransExpenseHistory />", () => {
         const $select = $.find(`select[name="templateId"]`);
         expect($select.length).toBe(1);
         expect($select.prop("defaultValue")).toBe("xxxx-yyyy");
+      });
+
+      it("キャンセルボタン - 非サブミットボタン", () => {
+        const $cancel = $.find("form button").first();
+        expect($cancel.prop("type")).toBe("button");
       });
 
       describe("未入力項目なしでフォームサブミット", () => {

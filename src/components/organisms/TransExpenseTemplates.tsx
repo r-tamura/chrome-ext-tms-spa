@@ -4,13 +4,7 @@ import { find, propEq } from "ramda";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash, faEdit } from "@fortawesome/free-solid-svg-icons";
 import { Modal } from "~/components/atoms/Modal";
-import {
-  Button,
-  ButtonGroup,
-  Panel,
-  Input,
-  RequiredInput
-} from "~/components/atoms";
+import { Button, ButtonGroup, Panel, RequiredInput } from "~/components/atoms";
 import { AddIcon } from "~/components/Icon";
 import { CURRENCY } from "~/helpers/_const";
 import {
@@ -26,6 +20,7 @@ import {
 import { Table, Tr, Td } from "~/components/atoms/Table";
 import { useModal } from "~/components/hooks";
 import { SelectBox } from "../SelectBox";
+import { CancelOkButtons } from "../molecules/CancelOkButtons";
 
 interface IProps {
   templates: TransExpenseTemplateView[];
@@ -309,22 +304,11 @@ export const TransExpenseTemplates: React.FC<IProps> = ({
               register={register}
               clearError={clearError}
             />
-            <ButtonGroup>
-              <Button
-                variant="contained"
-                type="button"
-                onClick={handleCancelClick}
-              >
-                キャンセル
-              </Button>
-              <Button
-                variant="contained"
-                color="primary"
-                disabled={!formState.isValid}
-              >
-                {templateId ? "編集" : "作成"}
-              </Button>
-            </ButtonGroup>
+            <CancelOkButtons
+              handleCancelClick={handleCancelClick}
+              isSubmitDisabled={!formState.isValid}
+              submitText={templateId ? "編集" : "作成"}
+            />
           </form>
         </Panel>
       </Modal>

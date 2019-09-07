@@ -28,6 +28,7 @@ import { useModal } from "~/components/hooks";
 import useForm from "react-hook-form";
 import { SelectBox } from "../SelectBox";
 import { formatDate } from "~/helpers/common";
+import { CancelOkButtons } from "../molecules/CancelOkButtons";
 
 interface IProps {
   expenses: TransExpenseView[];
@@ -327,18 +328,11 @@ export const TransExpenseHistory: React.FC<IProps> = props => {
               register={register}
               clearError={clearError}
             />
-            <ButtonGroup>
-              <Button variant="contained" onClick={handleCancelClick}>
-                キャンセル
-              </Button>
-              <Button
-                variant="contained"
-                color="primary"
-                disabled={!formState.isValid}
-              >
-                {expenseId ? "更新" : "作成"}
-              </Button>
-            </ButtonGroup>
+            <CancelOkButtons
+              handleCancelClick={handleCancelClick}
+              isSubmitDisabled={!formState.isValid}
+              submitText={expenseId ? "更新" : "作成"}
+            />
           </form>
         </Panel>
       </Modal>
@@ -388,18 +382,11 @@ export const TransExpenseHistory: React.FC<IProps> = props => {
               }}
               ref={register({ required: true })}
             />
-            <ButtonGroup>
-              <Button variant="contained" onClick={handleCancelClick}>
-                キャンセル
-              </Button>
-              <Button
-                variant="contained"
-                color="primary"
-                disabled={!formState.isValid}
-              >
-                作成
-              </Button>
-            </ButtonGroup>
+            <CancelOkButtons
+              handleCancelClick={handleCancelClick}
+              isSubmitDisabled={!formState.isValid}
+              submitText={"作成"}
+            />
           </form>
         </Panel>
       </Modal>
