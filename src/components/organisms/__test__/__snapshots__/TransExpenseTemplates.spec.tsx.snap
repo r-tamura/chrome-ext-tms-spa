@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`<TransExpense /> shallow snap shot 1`] = `
+exports[`<TransExpenseTemplates /> shallow snap shot 1`] = `
 <ThemeProvider
   theme={
     Object {

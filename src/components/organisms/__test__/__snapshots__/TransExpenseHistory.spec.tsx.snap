@@ -23,5 +23,6 @@ exports[`<TransExpenseHistory /> shallow render snapshot 1`] = `
     </Component>
   </styled.div>
   <EditorModal />
+  <CreateFromTemplateModal />
 </div>
 `;

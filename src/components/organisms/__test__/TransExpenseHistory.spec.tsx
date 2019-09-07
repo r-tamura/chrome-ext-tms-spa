@@ -4,18 +4,17 @@ import { TransExpenseHistory } from "../TransExpenseHistory";
 import toJson from "enzyme-to-json";
 import { AppThemeProvider } from "~/components/Provider";
 import { TransExpenseView } from "~/types";
-
-function setValue(wrapper: ReactWrapper, name: string, value: string) {
-  wrapper
-    .find(`input[name="${name}"]`)
-    .getDOMNode<HTMLInputElement>().value = value;
-}
+import { setValue, wait } from "~/components/test_util";
 
 function clickCreateButton(wrapper: ReactWrapper) {
   wrapper
     .find("button")
     .last()
     .simulate("click");
+}
+
+function clickCreateFromTemplateButton(wrapper: ReactWrapper) {
+  wrapper.find(`button[color="secondary"]`).simulate("click");
 }
 
 describe("<TransExpenseHistory />", () => {
@@ -52,7 +51,19 @@ describe("<TransExpenseHistory />", () => {
       <AppThemeProvider>
         <TransExpenseHistory
           expenses={[]}
-          templates={[]}
+          templates={[
+            {
+              templateId: "xxxx-yyyy",
+              templateName: "Template A",
+              customer: "XXXX K.K.",
+              project: { name: "Project X", projectId: "201108010001" },
+              usage: { name: "交通費(往復)", usageId: "3" },
+              objective: { name: "作業", objectiveId: "2" },
+              from: "Stop A",
+              to: "Stop B",
+              cost: 1000
+            }
+          ]}
           projects={[{ name: "Project A", projectId: "1234" }]}
           usages={[{ name: "交通費(片道)", usageId: "1" }]}
           objectives={[{ name: "作業", objectiveId: "1" }]}
@@ -126,7 +137,19 @@ describe("<TransExpenseHistory />", () => {
       <AppThemeProvider>
         <TransExpenseHistory
           expenses={fakeExpenses}
-          templates={[]}
+          templates={[
+            {
+              templateId: "xxxx-yyyy",
+              templateName: "Template A",
+              customer: "XXXX K.K.",
+              project: { name: "Project X", projectId: "201108010001" },
+              usage: { name: "交通費(往復)", usageId: "3" },
+              objective: { name: "作業", objectiveId: "2" },
+              from: "Stop A",
+              to: "Stop B",
+              cost: 1000
+            }
+          ]}
           projects={[{ name: "Project X", projectId: "201108010001" }]}
           usages={[{ name: "交通費(往復)", usageId: "3" }]}
           objectives={[{ name: "作業", objectiveId: "2" }]}
@@ -176,7 +199,7 @@ describe("<TransExpenseHistory />", () => {
 
         it("交通費作成関数が呼び出される", async () => {
           // TODO: useFormのhandleSubmitが非同期? 一定時間待つ必要がある(要調査)
-          await new Promise((r, _) => setTimeout(r, 100));
+          await wait();
           expect(spyCreate.mock.calls.length).toBe(1);
           expect(spyCreate.mock.calls[0][0]).toEqual({
             strdate: "20191231",
@@ -295,7 +318,7 @@ describe("<TransExpenseHistory />", () => {
 
         it("更新関数が呼び出される", async () => {
           // TODO: useFormのhandleSubmitが非同期? 一定時間待つ必要がある(要調査)
-          await new Promise((r, _) => setTimeout(r, 100));
+          await wait();
           expect(spyUpdate.mock.calls.length).toBe(1);
           expect(spyUpdate.mock.calls[0][0]).toEqual({
             expenseId: "7980",
@@ -321,6 +344,50 @@ describe("<TransExpenseHistory />", () => {
           .simulate("click");
         expect(spyDelete.mock.calls.length).toBe(1);
         expect(spyDelete.mock.calls[0][0]).toBe("7980");
+      });
+    });
+
+    describe("作成モーダル(交通費テンプレート)", () => {
+      beforeAll(() => {
+        clickCreateFromTemplateButton($);
+      });
+
+      it("フォーム", () => {
+        expect($.find("form").length).toBe(1);
+      });
+
+      it("日付", () => {
+        const $input = $.find(`input[name="strdate"]`);
+        expect($input.length).toBe(1);
+        expect($input.prop("defaultValue")).toBe("");
+      });
+
+      it("テンプレート", () => {
+        const $select = $.find(`select[name="templateId"]`);
+        expect($select.length).toBe(1);
+        expect($select.prop("defaultValue")).toBe("xxxx-yyyy");
+      });
+
+      describe("未入力項目なしでフォームサブミット", () => {
+        beforeAll(() => {
+          setValue($, "strdate", "20191001");
+          $.find("form").simulate("submit");
+        });
+
+        it("交通費作成関数(テンプレート)が呼び出される", async () => {
+          await wait();
+          expect(spyCreateFromTemplate.mock.calls.length).toBe(1);
+          expect(spyCreateFromTemplate.mock.calls[0]).toEqual([
+            "xxxx-yyyy",
+            "20191001"
+          ]);
+        });
+
+        // Note: enzyme上だとform要素が残る 要調査
+        // it("モーダルが閉じられる", async () => {
+        //   await wait();
+        //   expect($.find("form").length).toBe(0);
+        // });
       });
     });
   });

@@ -1,11 +1,28 @@
 import React from "react";
-import { mount, shallow } from "enzyme";
+import { mount, shallow, ReactWrapper } from "enzyme";
 import { TransExpenseTemplates } from "~/components/organisms/TransExpenseTemplates";
 import { AppThemeProvider } from "~/components/Provider";
 import toJson from "enzyme-to-json";
 import { TransExpenseTemplateView } from "~/types";
+import { wait, setValue } from "~/components/test_util";
 
-describe("<TransExpense />", () => {
+function clickCreateButton(wrapper: ReactWrapper) {
+  wrapper
+    .find("button")
+    .last()
+    .simulate("click");
+}
+
+function clickEditButton(wrapper: ReactWrapper, index: number = 0) {
+  wrapper
+    .find("tbody tr")
+    .at(index)
+    .find("button")
+    .first()
+    .simulate("click");
+}
+
+describe("<TransExpenseTemplates />", () => {
   it("shallow snap shot", () => {
     const spyCreate = jest.fn();
     const spyUpdate = jest.fn();
@@ -129,9 +146,9 @@ describe("<TransExpense />", () => {
       <AppThemeProvider>
         <TransExpenseTemplates
           templates={fakeTemplates}
-          projects={[]}
-          usages={[]}
-          objectives={[]}
+          projects={[{ name: "Project X", projectId: "201108010001" }]}
+          usages={[{ name: "交通費(往復)", usageId: "3" }]}
+          objectives={[{ name: "作業", objectiveId: "2" }]}
           createExpenseTemplate={spyCreate}
           updateExpenseTemplate={spyUpdate}
           deleteExpenseTemplate={spyDelete}
@@ -141,6 +158,90 @@ describe("<TransExpense />", () => {
 
     it("指定されたテンプレート数のレコードを表示する", () => {
       expect($.find("tbody tr").length).toBe(3);
+    });
+
+    describe("作成モーダル", () => {
+      beforeAll(() => {
+        clickCreateButton($);
+      });
+
+      it("作成モーダルフォーム", () => {
+        expect($.find("form").length).toBe(1);
+      });
+
+      describe("未入力項目ありでサブミット", () => {
+        beforeAll(() => {
+          $.find("form").simulate("submit");
+        });
+
+        it("テンプレート作成関数は呼ばれない", async () => {
+          await wait();
+          expect(spyCreate.mock.calls.length).toBe(0);
+        });
+      });
+
+      describe("未入力項目なしでサブミット", () => {
+        beforeAll(() => {
+          setValue($, "templateName", "サンプルテンプレート");
+          setValue($, "customer", "XXXX 株式会社");
+          setValue($, "from", "JR 東京駅");
+          setValue($, "to", "JR 名古屋駅");
+          setValue($, "cost", "1000");
+          $.find("form").simulate("submit");
+        });
+
+        it("テンプレート作成関数が呼ばれる", async () => {
+          await wait();
+          expect(spyCreate.mock.calls.length).toBe(1);
+          expect(spyCreate.mock.calls[0][0]).toEqual({
+            templateName: "サンプルテンプレート",
+            customer: "XXXX 株式会社",
+            from: "JR 東京駅",
+            to: "JR 名古屋駅",
+            cost: 1000,
+            objectiveId: "2",
+            projectId: "201108010001",
+            usageId: "3"
+          });
+        });
+      });
+    });
+
+    describe("編集モーダル", () => {
+      beforeAll(() => {
+        clickEditButton($);
+      });
+
+      it("編集モーダルフォーム", () => {
+        expect($.find("form").length).toBe(1);
+      });
+
+      describe("未入力項目なしでサブミット", () => {
+        beforeAll(() => {
+          setValue($, "templateName", "サンプルテンプレート");
+          setValue($, "customer", "XXXX 株式会社");
+          setValue($, "from", "JR 東京駅");
+          setValue($, "to", "JR 名古屋駅");
+          setValue($, "cost", "1000");
+          $.find("form").simulate("submit");
+        });
+
+        it("テンプレート作成関数が呼ばれる", async () => {
+          await wait();
+          expect(spyUpdate.mock.calls.length).toBe(1);
+          expect(spyUpdate.mock.calls[0][0]).toEqual({
+            templateId: "98bd5d97-a169-4fc1-a8a7-f1565e48f162",
+            templateName: "サンプルテンプレート",
+            customer: "XXXX 株式会社",
+            from: "JR 東京駅",
+            to: "JR 名古屋駅",
+            cost: 1000,
+            objectiveId: "2",
+            projectId: "201108010001",
+            usageId: "3"
+          });
+        });
+      });
     });
   });
 });

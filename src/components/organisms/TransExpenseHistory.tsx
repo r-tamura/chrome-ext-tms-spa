@@ -27,6 +27,7 @@ import { faEdit, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { useModal } from "~/components/hooks";
 import useForm from "react-hook-form";
 import { SelectBox } from "../SelectBox";
+import { formatDate } from "~/helpers/common";
 
 interface IProps {
   expenses: TransExpenseView[];
@@ -50,10 +51,14 @@ interface IState {
  */
 export const TransExpenseHistory: React.FC<IProps> = props => {
   const { isOpen: isModalOpen, open, close } = useModal(false);
+  const {
+    isOpen: isCreateFromTemplateOpen,
+    open: openTemplate,
+    close: closeTemplate
+  } = useModal(false);
   const [state, setState] = useState(getInitState(props));
 
   const { expenses, deleteExpense } = props;
-  const { useTemplate } = state;
   return (
     <div>
       {expenses.length > 0 ? <Expenses /> : <p>交通費が登録されていません。</p>}
@@ -77,6 +82,9 @@ export const TransExpenseHistory: React.FC<IProps> = props => {
 
       {/* 編集モーダル */}
       <EditorModal />
+
+      {/* テンプレートから作成モーダル */}
+      <CreateFromTemplateModal />
     </div>
   );
 
@@ -337,40 +345,64 @@ export const TransExpenseHistory: React.FC<IProps> = props => {
     );
   }
 
-  function renderCreateFromTemplateModal() {
+  function CreateFromTemplateModal({ defaultDate }: { defaultDate?: Date }) {
+    type FormData = Record<"strdate" | "templateId", string>;
+    const { register, handleSubmit, errors, clearError, formState } = useForm<
+      FormData
+    >();
     const { templates, createExpenseFromTemplate } = props;
+
+    function onSubmit({ templateId, strdate }: FormData) {
+      createExpenseFromTemplate(templateId, strdate);
+      closeCreateFromTemplateModal();
+    }
+
+    function handleCancelClick(e: React.MouseEvent) {
+      e.stopPropagation();
+      e.preventDefault();
+      closeCreateFromTemplateModal();
+    }
     return (
-      // <Modal
-      //   isOpen={isModalOpen}
-      //   formItems={[
-      //     {
-      //       type: FormItemType.TEXT,
-      //       name: "strdate",
-      //       label: "日付",
-      //       value: ""
-      //     },
-      //     {
-      //       type: FormItemType.SELECT,
-      //       name: "templateId",
-      //       label: "テンプレート名",
-      //       value: "",
-      //       options: {
-      //         items: templates,
-      //         valueKey: "templateId",
-      //         labelKey: "templateName"
-      //       }
-      //     }
-      //   ]}
-      //   onClose={closeModal}
-      //   onOKClick={({
-      //     templateId,
-      //     strdate
-      //   }: {
-      //     templateId: string;
-      //     strdate: string;
-      //   }) => createExpenseFromTemplate(templateId, strdate)}
-      // />
-      <div> history template</div>
+      <Modal isOpen={isCreateFromTemplateOpen} onRequestClose={closeTemplate}>
+        <Panel>
+          <form onSubmit={handleSubmit(onSubmit)}>
+            <RequiredInput
+              name={"strdate"}
+              label={"日付"}
+              placeholder={"ex: 20190901"}
+              error={errors.strdate}
+              defaultValue={defaultDate ? formatDate(defaultDate) : ""}
+              register={register}
+              clearError={clearError}
+            />
+            <SelectBox
+              name="templateId"
+              label="テンプレートID *"
+              defaultValue={templates.length > 0 ? templates[0].templateId : ""}
+              options={{
+                items: templates,
+                value: (template: TransExpenseTemplateView) =>
+                  template.templateId,
+                label: (template: TransExpenseTemplateView) =>
+                  template.templateName
+              }}
+              ref={register({ required: true })}
+            />
+            <ButtonGroup>
+              <Button variant="contained" onClick={handleCancelClick}>
+                キャンセル
+              </Button>
+              <Button
+                variant="contained"
+                color="primary"
+                disabled={!formState.isValid}
+              >
+                作成
+              </Button>
+            </ButtonGroup>
+          </form>
+        </Panel>
+      </Modal>
     );
   }
 
@@ -411,6 +443,14 @@ export const TransExpenseHistory: React.FC<IProps> = props => {
       useTemplate: true,
       selected: null
     });
-    open();
+    openTemplate();
+  }
+
+  function closeCreateFromTemplateModal() {
+    setState({
+      useTemplate: false,
+      selected: null
+    });
+    closeTemplate();
   }
 };

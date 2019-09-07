@@ -4,7 +4,13 @@ import { find, propEq } from "ramda";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash, faEdit } from "@fortawesome/free-solid-svg-icons";
 import { Modal } from "~/components/atoms/Modal";
-import { Button, ButtonGroup, Panel, Input } from "~/components/atoms";
+import {
+  Button,
+  ButtonGroup,
+  Panel,
+  Input,
+  RequiredInput
+} from "~/components/atoms";
 import { AddIcon } from "~/components/Icon";
 import { CURRENCY } from "~/helpers/_const";
 import {
@@ -20,7 +26,6 @@ import {
 import { Table, Tr, Td } from "~/components/atoms/Table";
 import { useModal } from "~/components/hooks";
 import { SelectBox } from "../SelectBox";
-import { ReactHookFormError } from "react-hook-form/dist/types";
 
 interface IProps {
   templates: TransExpenseTemplateView[];
@@ -158,7 +163,6 @@ export const TransExpenseTemplates: React.FC<IProps> = ({
         setError("cost", "NaN", "正の整数値を入力してください");
         return;
       }
-
       if (selected) {
         // 更新
         updateExpenseTemplate({
@@ -188,13 +192,13 @@ export const TransExpenseTemplates: React.FC<IProps> = ({
           cost: costNumber
         });
       }
-      close();
+      handleModalClose();
     }
 
     function handleCancelClick(event: React.MouseEvent) {
       event.stopPropagation();
       event.preventDefault();
-      close();
+      handleModalClose();
     }
 
     const defaultTemplate: TransExpenseTemplateView = {
@@ -209,6 +213,7 @@ export const TransExpenseTemplates: React.FC<IProps> = ({
       cost: 0
     };
     const {
+      templateId,
       templateName,
       project,
       usage,
@@ -222,27 +227,6 @@ export const TransExpenseTemplates: React.FC<IProps> = ({
       : defaultTemplate;
     const costStr = cost === 0 ? "" : cost.toString();
 
-    function RequiredInput({
-      label,
-      ...otherProps
-    }: {
-      name: keyof FormData;
-      label: string;
-      placeholder: string;
-      defaultValue: string;
-      error: ReactHookFormError;
-    }) {
-      return (
-        <Input
-          {...otherProps}
-          error={!!otherProps.error}
-          label={label + " *"}
-          ref={register({ required: `${label}は必須入力です` })}
-          onFocus={() => clearError(otherProps.name)}
-        />
-      );
-    }
-
     return (
       <Modal isOpen={isModalOpen} onRequestClose={handleModalClose}>
         <Panel>
@@ -253,6 +237,8 @@ export const TransExpenseTemplates: React.FC<IProps> = ({
               placeholder="ex: 定期代(JR千葉駅)"
               defaultValue={templateName}
               error={errors.templateName}
+              register={register}
+              clearError={clearError}
             />
             <SelectBox
               name="projectId"
@@ -293,6 +279,8 @@ export const TransExpenseTemplates: React.FC<IProps> = ({
               placeholder="ex: XX株式会社"
               defaultValue={customer}
               error={errors.customer}
+              register={register}
+              clearError={clearError}
             />
             <RequiredInput
               name="from"
@@ -300,6 +288,8 @@ export const TransExpenseTemplates: React.FC<IProps> = ({
               placeholder="ex: JR千葉駅"
               defaultValue={from}
               error={errors.from}
+              register={register}
+              clearError={clearError}
             />
             <RequiredInput
               name="to"
@@ -307,6 +297,8 @@ export const TransExpenseTemplates: React.FC<IProps> = ({
               placeholder="ex: JR東京駅"
               defaultValue={to}
               error={errors.to}
+              register={register}
+              clearError={clearError}
             />
             <RequiredInput
               name="cost"
@@ -314,9 +306,15 @@ export const TransExpenseTemplates: React.FC<IProps> = ({
               placeholder="500"
               defaultValue={costStr}
               error={errors.cost}
+              register={register}
+              clearError={clearError}
             />
             <ButtonGroup>
-              <Button variant="contained" onClick={handleCancelClick}>
+              <Button
+                variant="contained"
+                type="button"
+                onClick={handleCancelClick}
+              >
                 キャンセル
               </Button>
               <Button
@@ -324,7 +322,7 @@ export const TransExpenseTemplates: React.FC<IProps> = ({
                 color="primary"
                 disabled={!formState.isValid}
               >
-                作成/更新
+                {templateId ? "編集" : "作成"}
               </Button>
             </ButtonGroup>
           </form>
@@ -334,6 +332,7 @@ export const TransExpenseTemplates: React.FC<IProps> = ({
   }
 
   function handleModalClose() {
+    setSelected(null);
     close();
   }
 
@@ -346,6 +345,6 @@ export const TransExpenseTemplates: React.FC<IProps> = ({
   /* 新規登録ボタンクリックイベント */
   function openCreateModal(e: React.MouseEvent<HTMLButtonElement>) {
     open();
-    setSelected("");
+    setSelected(null);
   }
 };
