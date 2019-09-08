@@ -4,7 +4,7 @@ import { Route, Switch, Redirect } from "react-router-dom";
 import { AppHeader } from "~/components/organisms/Header";
 import Nav from "~/components/Nav";
 import { EnsureLoggedInContainer } from "~/components/containers/EnsureLoggedInContainer";
-import { TransportExpensePage, AttendancePage, SignInPage, NoMatch } from ".";
+import { TransportExpensePage, TimeCardPage, SignInPage, NoMatch } from ".";
 import { AppGrid } from "~/components/organisms";
 
 const PAGES_WITH_NAVBAR = ["/transportation", "/attendance"];
@@ -43,7 +43,7 @@ export function App() {
             component={() => <Redirect to={"/transportation"} />}
           />
           <Route path="/transportation" component={TransportExpensePage} />
-          <Route path="/attendance" component={AttendancePage} />
+          <Route path="/attendance" component={TimeCardPage} />
         </EnsureLoggedInContainer>
         <Route component={NoMatch} />
       </Switch>

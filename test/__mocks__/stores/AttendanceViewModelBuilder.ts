@@ -28,6 +28,18 @@ class AttendanceViewModelBuilder {
         hasConfirmed: true,
         hasUpdated: false,
         project: { projectId: "000001", name: "Project 1" }
+      },
+      {
+        dailyId: "20180102",
+        day: 1,
+        isWeekday: true,
+        start: "09:00",
+        end: "17:30",
+        overwork: "00:00",
+        overnightwork: "00:00",
+        hasConfirmed: true,
+        hasUpdated: false,
+        project: { projectId: "000001", name: "Project 1" }
       }
     ],
     hasApplied: false,

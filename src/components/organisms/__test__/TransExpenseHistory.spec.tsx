@@ -1,7 +1,8 @@
 import React from "react";
+import { act } from "react-test-renderer";
 import { shallow, mount, ReactWrapper } from "enzyme";
-import { TransExpenseHistory } from "../TransExpenseHistory";
 import toJson from "enzyme-to-json";
+import { TransExpenseHistory } from "~/components/organisms/TransExpenseHistory";
 import { AppThemeProvider } from "~/components/Provider";
 import { TransExpenseView } from "~/types";
 import { setValue, wait } from "~/components/test_util";
@@ -171,7 +172,9 @@ describe("<TransExpenseHistory />", () => {
 
     describe("作成モーダル", () => {
       beforeEach(() => {
-        clickCreateButton($);
+        act(() => {
+          clickCreateButton($);
+        });
       });
 
       describe("表示", () => {

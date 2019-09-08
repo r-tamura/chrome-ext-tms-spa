@@ -1,4 +1,4 @@
-export * from "./Attendance";
+export * from "./TimeCardPage";
 export * from "./SignInPage";
 export * from "./TransportExpensePage";
 export * from "./NoMatch";
