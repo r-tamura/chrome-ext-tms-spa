@@ -1,5 +1,5 @@
 import React, { FC, SyntheticEvent, useState } from "react";
-import Menu, { MenuItem } from "~/components/Menu";
+import { Menu, MenuItem } from "~/components/molecules";
 import styled from "styled-components";
 import { lighten } from "polished";
 import { HIGH } from "~/styles/zIndex";
@@ -22,7 +22,7 @@ const HeaderUser: FC<IHeaderUserProps> = ({ onLogout, children }) => {
         {children}
       </ClickableSpan>
       <Menu title={"User Menu"} onClose={handleClose} open={menuOpened}>
-        <MenuItem id={"logout"} button onClick={handleLogout}>
+        <MenuItem as={"button"} id={"logout"} onClick={handleLogout}>
           Logout
         </MenuItem>
       </Menu>
@@ -37,7 +37,7 @@ const HeaderUser: FC<IHeaderUserProps> = ({ onLogout, children }) => {
     setAnchorElm(null);
   }
 
-  function handleLogout(e: SyntheticEvent<Element, MouseEvent>) {
+  function handleLogout(e: SyntheticEvent<any, MouseEvent>) {
     handleClose(e.nativeEvent);
     onLogout();
   }

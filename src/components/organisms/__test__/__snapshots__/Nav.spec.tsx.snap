@@ -1,0 +1,547 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Nav /> Snapshot 1`] = `
+<Component>
+  <ThemeProvider
+    theme={
+      Object {
+        "black": "rgb(5, 5, 5)",
+        "buttonDefault": "rgba(0, 0, 0, 0.08)",
+        "danger": "#D32F2F",
+        "fontFamily": "\\"M PLUS Rounded 1c\\", sans-serif",
+        "formBorderColor": "rgba(0, 0, 0, 0.16)",
+        "formBorderColorDisabled": "rgba(0, 0, 0, 0.08)",
+        "formBorderColorError": "#D32F2F",
+        "formBorderColorFocused": "hsl(206, 100%, 31%)",
+        "hoveredBg": "rgba(0, 0, 0, 0.03)",
+        "inputPlaceHolder": "rgba(0, 0, 0, 0.09)",
+        "primary": "hsl(206, 100%, 31%)",
+        "primaryDark": "hsl(208, 80%, 27%)",
+        "primaryHeavyDark": "hsl(208, 80%, 27%)",
+        "primaryHeavyLight": "hsl(199, 91%, 64%);",
+        "primaryLight": "hsl(201, 98%, 41%);",
+        "primaryReverse": "hsla(0, 0%, 99%, 1);",
+        "primaryReverseDark": "hsla(0, 0%, 99%, 0.5);",
+        "secondary": "#689F38",
+        "textGray": "hsla(0, 5%, 5%, .25)",
+        "textMain": "hsl(0, 5%, 5%)",
+        "white": "rgb(253, 253, 253)",
+      }
+    }
+  >
+    <MemoryRouter>
+      <Router
+        history={
+          Object {
+            "action": "POP",
+            "block": [Function],
+            "canGo": [Function],
+            "createHref": [Function],
+            "entries": Array [
+              Object {
+                "hash": "",
+                "key": "rviayu",
+                "pathname": "/",
+                "search": "",
+                "state": undefined,
+              },
+            ],
+            "go": [Function],
+            "goBack": [Function],
+            "goForward": [Function],
+            "index": 0,
+            "length": 1,
+            "listen": [Function],
+            "location": Object {
+              "hash": "",
+              "key": "rviayu",
+              "pathname": "/",
+              "search": "",
+              "state": undefined,
+            },
+            "push": [Function],
+            "replace": [Function],
+          }
+        }
+      >
+        <Nav
+          path="transportation"
+        >
+          <nav
+            className="side-nav"
+            id="side-nav-bar"
+          >
+            <ul>
+              <li>
+                <WithTheme(NavItem)
+                  selected={true}
+                  to="transportation"
+                >
+                  <NavItem
+                    selected={true}
+                    theme={
+                      Object {
+                        "black": "rgb(5, 5, 5)",
+                        "buttonDefault": "rgba(0, 0, 0, 0.08)",
+                        "danger": "#D32F2F",
+                        "fontFamily": "\\"M PLUS Rounded 1c\\", sans-serif",
+                        "formBorderColor": "rgba(0, 0, 0, 0.16)",
+                        "formBorderColorDisabled": "rgba(0, 0, 0, 0.08)",
+                        "formBorderColorError": "#D32F2F",
+                        "formBorderColorFocused": "hsl(206, 100%, 31%)",
+                        "hoveredBg": "rgba(0, 0, 0, 0.03)",
+                        "inputPlaceHolder": "rgba(0, 0, 0, 0.09)",
+                        "primary": "hsl(206, 100%, 31%)",
+                        "primaryDark": "hsl(208, 80%, 27%)",
+                        "primaryHeavyDark": "hsl(208, 80%, 27%)",
+                        "primaryHeavyLight": "hsl(199, 91%, 64%);",
+                        "primaryLight": "hsl(201, 98%, 41%);",
+                        "primaryReverse": "hsla(0, 0%, 99%, 1);",
+                        "primaryReverseDark": "hsla(0, 0%, 99%, 0.5);",
+                        "secondary": "#689F38",
+                        "textGray": "hsla(0, 5%, 5%, .25)",
+                        "textMain": "hsl(0, 5%, 5%)",
+                        "white": "rgb(253, 253, 253)",
+                      }
+                    }
+                    to="transportation"
+                  >
+                    <MenuItem
+                      disabled={false}
+                      style={
+                        Object {
+                          "backgroundColor": "hsl(208, 80%, 27%)",
+                        }
+                      }
+                    >
+                      <styled.div
+                        as="div"
+                        disabled={false}
+                        style={
+                          Object {
+                            "backgroundColor": "hsl(208, 80%, 27%)",
+                          }
+                        }
+                      >
+                        <StyledComponent
+                          as="div"
+                          disabled={false}
+                          forwardedComponent={
+                            Object {
+                              "$$typeof": Symbol(react.forward_ref),
+                              "attrs": Array [],
+                              "componentStyle": ComponentStyle {
+                                "componentId": "sc-htpNat",
+                                "isStatic": false,
+                                "lastClassName": "cPDFKX",
+                                "rules": Array [
+                                  "
+  display: block;
+  padding-left: 16px;
+  padding-right: 16px;
+  padding-top: 12px;
+  padding-bottom: 12px;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5em;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  cursor: pointer;
+
+  &:hover {
+    opacity: 0.7;
+  }
+
+  ",
+                                  [Function],
+                                  ";
+",
+                                ],
+                              },
+                              "displayName": "styled.div",
+                              "foldedComponentIds": Array [],
+                              "render": [Function],
+                              "styledComponentId": "sc-htpNat",
+                              "target": "div",
+                              "toString": [Function],
+                              "warnTooManyClasses": [Function],
+                              "withComponent": [Function],
+                            }
+                          }
+                          forwardedRef={null}
+                          style={
+                            Object {
+                              "backgroundColor": "hsl(208, 80%, 27%)",
+                            }
+                          }
+                        >
+                          <div
+                            className="sc-htpNat XnzGZ"
+                            disabled={false}
+                            style={
+                              Object {
+                                "backgroundColor": "hsl(208, 80%, 27%)",
+                              }
+                            }
+                          >
+                            <Styled(Link)
+                              to="transportation"
+                            >
+                              <StyledComponent
+                                forwardedComponent={
+                                  Object {
+                                    "$$typeof": Symbol(react.forward_ref),
+                                    "attrs": Array [],
+                                    "componentStyle": ComponentStyle {
+                                      "componentId": "sc-bxivhb",
+                                      "isStatic": false,
+                                      "lastClassName": "gjOGIy",
+                                      "rules": Array [
+                                        "
+  color: ",
+                                        [Function],
+                                        ";
+  display: block;
+",
+                                      ],
+                                    },
+                                    "displayName": "Styled(Link)",
+                                    "foldedComponentIds": Array [],
+                                    "render": [Function],
+                                    "styledComponentId": "sc-bxivhb",
+                                    "target": [Function],
+                                    "toString": [Function],
+                                    "warnTooManyClasses": [Function],
+                                    "withComponent": [Function],
+                                  }
+                                }
+                                forwardedRef={null}
+                                to="transportation"
+                              >
+                                <Link
+                                  className="sc-bxivhb gjOGIy"
+                                  to="transportation"
+                                >
+                                  <a
+                                    className="sc-bxivhb gjOGIy"
+                                    href="/transportation"
+                                    onClick={[Function]}
+                                  >
+                                    交通費
+                                  </a>
+                                </Link>
+                              </StyledComponent>
+                            </Styled(Link)>
+                          </div>
+                        </StyledComponent>
+                      </styled.div>
+                    </MenuItem>
+                  </NavItem>
+                </WithTheme(NavItem)>
+              </li>
+              <li>
+                <WithTheme(NavItem)
+                  selected={false}
+                  to="attendance"
+                >
+                  <NavItem
+                    selected={false}
+                    theme={
+                      Object {
+                        "black": "rgb(5, 5, 5)",
+                        "buttonDefault": "rgba(0, 0, 0, 0.08)",
+                        "danger": "#D32F2F",
+                        "fontFamily": "\\"M PLUS Rounded 1c\\", sans-serif",
+                        "formBorderColor": "rgba(0, 0, 0, 0.16)",
+                        "formBorderColorDisabled": "rgba(0, 0, 0, 0.08)",
+                        "formBorderColorError": "#D32F2F",
+                        "formBorderColorFocused": "hsl(206, 100%, 31%)",
+                        "hoveredBg": "rgba(0, 0, 0, 0.03)",
+                        "inputPlaceHolder": "rgba(0, 0, 0, 0.09)",
+                        "primary": "hsl(206, 100%, 31%)",
+                        "primaryDark": "hsl(208, 80%, 27%)",
+                        "primaryHeavyDark": "hsl(208, 80%, 27%)",
+                        "primaryHeavyLight": "hsl(199, 91%, 64%);",
+                        "primaryLight": "hsl(201, 98%, 41%);",
+                        "primaryReverse": "hsla(0, 0%, 99%, 1);",
+                        "primaryReverseDark": "hsla(0, 0%, 99%, 0.5);",
+                        "secondary": "#689F38",
+                        "textGray": "hsla(0, 5%, 5%, .25)",
+                        "textMain": "hsl(0, 5%, 5%)",
+                        "white": "rgb(253, 253, 253)",
+                      }
+                    }
+                    to="attendance"
+                  >
+                    <MenuItem
+                      disabled={false}
+                      style={null}
+                    >
+                      <styled.div
+                        as="div"
+                        disabled={false}
+                        style={null}
+                      >
+                        <StyledComponent
+                          as="div"
+                          disabled={false}
+                          forwardedComponent={
+                            Object {
+                              "$$typeof": Symbol(react.forward_ref),
+                              "attrs": Array [],
+                              "componentStyle": ComponentStyle {
+                                "componentId": "sc-htpNat",
+                                "isStatic": false,
+                                "lastClassName": "cPDFKX",
+                                "rules": Array [
+                                  "
+  display: block;
+  padding-left: 16px;
+  padding-right: 16px;
+  padding-top: 12px;
+  padding-bottom: 12px;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5em;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  cursor: pointer;
+
+  &:hover {
+    opacity: 0.7;
+  }
+
+  ",
+                                  [Function],
+                                  ";
+",
+                                ],
+                              },
+                              "displayName": "styled.div",
+                              "foldedComponentIds": Array [],
+                              "render": [Function],
+                              "styledComponentId": "sc-htpNat",
+                              "target": "div",
+                              "toString": [Function],
+                              "warnTooManyClasses": [Function],
+                              "withComponent": [Function],
+                            }
+                          }
+                          forwardedRef={null}
+                          style={null}
+                        >
+                          <div
+                            className="sc-htpNat XnzGZ"
+                            disabled={false}
+                            style={null}
+                          >
+                            <Styled(Link)
+                              to="attendance"
+                            >
+                              <StyledComponent
+                                forwardedComponent={
+                                  Object {
+                                    "$$typeof": Symbol(react.forward_ref),
+                                    "attrs": Array [],
+                                    "componentStyle": ComponentStyle {
+                                      "componentId": "sc-bxivhb",
+                                      "isStatic": false,
+                                      "lastClassName": "gjOGIy",
+                                      "rules": Array [
+                                        "
+  color: ",
+                                        [Function],
+                                        ";
+  display: block;
+",
+                                      ],
+                                    },
+                                    "displayName": "Styled(Link)",
+                                    "foldedComponentIds": Array [],
+                                    "render": [Function],
+                                    "styledComponentId": "sc-bxivhb",
+                                    "target": [Function],
+                                    "toString": [Function],
+                                    "warnTooManyClasses": [Function],
+                                    "withComponent": [Function],
+                                  }
+                                }
+                                forwardedRef={null}
+                                to="attendance"
+                              >
+                                <Link
+                                  className="sc-bxivhb gjOGIy"
+                                  to="attendance"
+                                >
+                                  <a
+                                    className="sc-bxivhb gjOGIy"
+                                    href="/attendance"
+                                    onClick={[Function]}
+                                  >
+                                    勤怠管理
+                                  </a>
+                                </Link>
+                              </StyledComponent>
+                            </Styled(Link)>
+                          </div>
+                        </StyledComponent>
+                      </styled.div>
+                    </MenuItem>
+                  </NavItem>
+                </WithTheme(NavItem)>
+              </li>
+              <li>
+                <WithTheme(NavItem)
+                  disabled={true}
+                  selected={false}
+                  to="resource"
+                >
+                  <NavItem
+                    disabled={true}
+                    selected={false}
+                    theme={
+                      Object {
+                        "black": "rgb(5, 5, 5)",
+                        "buttonDefault": "rgba(0, 0, 0, 0.08)",
+                        "danger": "#D32F2F",
+                        "fontFamily": "\\"M PLUS Rounded 1c\\", sans-serif",
+                        "formBorderColor": "rgba(0, 0, 0, 0.16)",
+                        "formBorderColorDisabled": "rgba(0, 0, 0, 0.08)",
+                        "formBorderColorError": "#D32F2F",
+                        "formBorderColorFocused": "hsl(206, 100%, 31%)",
+                        "hoveredBg": "rgba(0, 0, 0, 0.03)",
+                        "inputPlaceHolder": "rgba(0, 0, 0, 0.09)",
+                        "primary": "hsl(206, 100%, 31%)",
+                        "primaryDark": "hsl(208, 80%, 27%)",
+                        "primaryHeavyDark": "hsl(208, 80%, 27%)",
+                        "primaryHeavyLight": "hsl(199, 91%, 64%);",
+                        "primaryLight": "hsl(201, 98%, 41%);",
+                        "primaryReverse": "hsla(0, 0%, 99%, 1);",
+                        "primaryReverseDark": "hsla(0, 0%, 99%, 0.5);",
+                        "secondary": "#689F38",
+                        "textGray": "hsla(0, 5%, 5%, .25)",
+                        "textMain": "hsl(0, 5%, 5%)",
+                        "white": "rgb(253, 253, 253)",
+                      }
+                    }
+                    to="resource"
+                  >
+                    <MenuItem
+                      disabled={true}
+                      style={null}
+                    >
+                      <styled.div
+                        as="div"
+                        disabled={true}
+                        style={null}
+                      >
+                        <StyledComponent
+                          as="div"
+                          disabled={true}
+                          forwardedComponent={
+                            Object {
+                              "$$typeof": Symbol(react.forward_ref),
+                              "attrs": Array [],
+                              "componentStyle": ComponentStyle {
+                                "componentId": "sc-htpNat",
+                                "isStatic": false,
+                                "lastClassName": "cPDFKX",
+                                "rules": Array [
+                                  "
+  display: block;
+  padding-left: 16px;
+  padding-right: 16px;
+  padding-top: 12px;
+  padding-bottom: 12px;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5em;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  cursor: pointer;
+
+  &:hover {
+    opacity: 0.7;
+  }
+
+  ",
+                                  [Function],
+                                  ";
+",
+                                ],
+                              },
+                              "displayName": "styled.div",
+                              "foldedComponentIds": Array [],
+                              "render": [Function],
+                              "styledComponentId": "sc-htpNat",
+                              "target": "div",
+                              "toString": [Function],
+                              "warnTooManyClasses": [Function],
+                              "withComponent": [Function],
+                            }
+                          }
+                          forwardedRef={null}
+                          style={null}
+                        >
+                          <div
+                            className="sc-htpNat cPDFKX"
+                            disabled={true}
+                            style={null}
+                          >
+                            <styled.div
+                              to="resource"
+                            >
+                              <StyledComponent
+                                forwardedComponent={
+                                  Object {
+                                    "$$typeof": Symbol(react.forward_ref),
+                                    "attrs": Array [],
+                                    "componentStyle": ComponentStyle {
+                                      "componentId": "sc-ifAKCX",
+                                      "isStatic": false,
+                                      "lastClassName": "iDkIWA",
+                                      "rules": Array [
+                                        "
+  color: ",
+                                        [Function],
+                                        ";
+  opacity: 0.7;
+",
+                                      ],
+                                    },
+                                    "displayName": "styled.div",
+                                    "foldedComponentIds": Array [],
+                                    "render": [Function],
+                                    "styledComponentId": "sc-ifAKCX",
+                                    "target": "div",
+                                    "toString": [Function],
+                                    "warnTooManyClasses": [Function],
+                                    "withComponent": [Function],
+                                  }
+                                }
+                                forwardedRef={null}
+                                to="resource"
+                              >
+                                <div
+                                  className="sc-ifAKCX iDkIWA"
+                                  to="resource"
+                                >
+                                  資源管理
+                                </div>
+                              </StyledComponent>
+                            </styled.div>
+                          </div>
+                        </StyledComponent>
+                      </styled.div>
+                    </MenuItem>
+                  </NavItem>
+                </WithTheme(NavItem)>
+              </li>
+            </ul>
+          </nav>
+        </Nav>
+      </Router>
+    </MemoryRouter>
+  </ThemeProvider>
+</Component>
+`;

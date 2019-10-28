@@ -1,13 +1,12 @@
-import * as React from "react"
-import { Link, RouteComponentProps } from "react-router-dom"
-import NavItem from "~/components/NavItem"
+import * as React from "react";
+import NavItem from "~/components/molecules/NavItem";
 
 interface INavProps extends React.Props<{}> {
-  path: string
+  path: string;
 }
 
 const Nav: React.SFC<INavProps> = ({ path }) => {
-  const pathname = path.replace(/^\/([^/]+).*$/, "$1")
+  const pathname = path.replace(/^\/([^/]+).*$/, "$1");
   return (
     <nav id="side-nav-bar" className="side-nav">
       <ul>
@@ -17,33 +16,29 @@ const Nav: React.SFC<INavProps> = ({ path }) => {
             to={"transportation"}
             selected={"transportation" === pathname}
           >
-          交通費
+            交通費
           </NavItem>
         </li>
         <li>
-          <NavItem
-            to={"attendance"}
-            selected={"attendance" === pathname}
-          >
-          勤怠管理
+          <NavItem to={"attendance"} selected={"attendance" === pathname}>
+            勤怠管理
           </NavItem>
         </li>
+        {/* TODO: 資源管理は未実装 */}
         <li>
           <NavItem
             to={"resource"}
             disabled={true}
             selected={"resource" === pathname}
           >
-          資源管理
+            資源管理
           </NavItem>
         </li>
       </ul>
     </nav>
-  )
-}
+  );
+};
 
-export {
-  INavProps,
-}
+export { INavProps };
 
-export default Nav
+export default Nav;

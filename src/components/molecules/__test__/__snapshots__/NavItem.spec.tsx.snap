@@ -1,0 +1,225 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<NavItem /> Snapshot 1`] = `
+<Component>
+  <ThemeProvider
+    theme={
+      Object {
+        "black": "rgb(5, 5, 5)",
+        "buttonDefault": "rgba(0, 0, 0, 0.08)",
+        "danger": "#D32F2F",
+        "fontFamily": "\\"M PLUS Rounded 1c\\", sans-serif",
+        "formBorderColor": "rgba(0, 0, 0, 0.16)",
+        "formBorderColorDisabled": "rgba(0, 0, 0, 0.08)",
+        "formBorderColorError": "#D32F2F",
+        "formBorderColorFocused": "hsl(206, 100%, 31%)",
+        "hoveredBg": "rgba(0, 0, 0, 0.03)",
+        "inputPlaceHolder": "rgba(0, 0, 0, 0.09)",
+        "primary": "hsl(206, 100%, 31%)",
+        "primaryDark": "hsl(208, 80%, 27%)",
+        "primaryHeavyDark": "hsl(208, 80%, 27%)",
+        "primaryHeavyLight": "hsl(199, 91%, 64%);",
+        "primaryLight": "hsl(201, 98%, 41%);",
+        "primaryReverse": "hsla(0, 0%, 99%, 1);",
+        "primaryReverseDark": "hsla(0, 0%, 99%, 0.5);",
+        "secondary": "#689F38",
+        "textGray": "hsla(0, 5%, 5%, .25)",
+        "textMain": "hsl(0, 5%, 5%)",
+        "white": "rgb(253, 253, 253)",
+      }
+    }
+  >
+    <MemoryRouter
+      initialEntries={
+        Array [
+          Object {
+            "key": "testKey",
+            "pathname": "/",
+          },
+        ]
+      }
+    >
+      <Router
+        history={
+          Object {
+            "action": "POP",
+            "block": [Function],
+            "canGo": [Function],
+            "createHref": [Function],
+            "entries": Array [
+              Object {
+                "hash": "",
+                "key": "testKey",
+                "pathname": "/",
+                "search": "",
+              },
+            ],
+            "go": [Function],
+            "goBack": [Function],
+            "goForward": [Function],
+            "index": 0,
+            "length": 1,
+            "listen": [Function],
+            "location": Object {
+              "hash": "",
+              "key": "testKey",
+              "pathname": "/",
+              "search": "",
+            },
+            "push": [Function],
+            "replace": [Function],
+          }
+        }
+      >
+        <WithTheme(NavItem)
+          to="/"
+        >
+          <NavItem
+            theme={
+              Object {
+                "black": "rgb(5, 5, 5)",
+                "buttonDefault": "rgba(0, 0, 0, 0.08)",
+                "danger": "#D32F2F",
+                "fontFamily": "\\"M PLUS Rounded 1c\\", sans-serif",
+                "formBorderColor": "rgba(0, 0, 0, 0.16)",
+                "formBorderColorDisabled": "rgba(0, 0, 0, 0.08)",
+                "formBorderColorError": "#D32F2F",
+                "formBorderColorFocused": "hsl(206, 100%, 31%)",
+                "hoveredBg": "rgba(0, 0, 0, 0.03)",
+                "inputPlaceHolder": "rgba(0, 0, 0, 0.09)",
+                "primary": "hsl(206, 100%, 31%)",
+                "primaryDark": "hsl(208, 80%, 27%)",
+                "primaryHeavyDark": "hsl(208, 80%, 27%)",
+                "primaryHeavyLight": "hsl(199, 91%, 64%);",
+                "primaryLight": "hsl(201, 98%, 41%);",
+                "primaryReverse": "hsla(0, 0%, 99%, 1);",
+                "primaryReverseDark": "hsla(0, 0%, 99%, 0.5);",
+                "secondary": "#689F38",
+                "textGray": "hsla(0, 5%, 5%, .25)",
+                "textMain": "hsl(0, 5%, 5%)",
+                "white": "rgb(253, 253, 253)",
+              }
+            }
+            to="/"
+          >
+            <MenuItem
+              disabled={false}
+              style={null}
+            >
+              <styled.div
+                as="div"
+                disabled={false}
+                style={null}
+              >
+                <StyledComponent
+                  as="div"
+                  disabled={false}
+                  forwardedComponent={
+                    Object {
+                      "$$typeof": Symbol(react.forward_ref),
+                      "attrs": Array [],
+                      "componentStyle": ComponentStyle {
+                        "componentId": "sc-htpNat",
+                        "isStatic": false,
+                        "lastClassName": "XnzGZ",
+                        "rules": Array [
+                          "
+  display: block;
+  padding-left: 16px;
+  padding-right: 16px;
+  padding-top: 12px;
+  padding-bottom: 12px;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5em;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  cursor: pointer;
+
+  &:hover {
+    opacity: 0.7;
+  }
+
+  ",
+                          [Function],
+                          ";
+",
+                        ],
+                      },
+                      "displayName": "styled.div",
+                      "foldedComponentIds": Array [],
+                      "render": [Function],
+                      "styledComponentId": "sc-htpNat",
+                      "target": "div",
+                      "toString": [Function],
+                      "warnTooManyClasses": [Function],
+                      "withComponent": [Function],
+                    }
+                  }
+                  forwardedRef={null}
+                  style={null}
+                >
+                  <div
+                    className="sc-htpNat XnzGZ"
+                    disabled={false}
+                    style={null}
+                  >
+                    <Styled(Link)
+                      to="/"
+                    >
+                      <StyledComponent
+                        forwardedComponent={
+                          Object {
+                            "$$typeof": Symbol(react.forward_ref),
+                            "attrs": Array [],
+                            "componentStyle": ComponentStyle {
+                              "componentId": "sc-bxivhb",
+                              "isStatic": false,
+                              "lastClassName": "gjOGIy",
+                              "rules": Array [
+                                "
+  color: ",
+                                [Function],
+                                ";
+  display: block;
+",
+                              ],
+                            },
+                            "displayName": "Styled(Link)",
+                            "foldedComponentIds": Array [],
+                            "render": [Function],
+                            "styledComponentId": "sc-bxivhb",
+                            "target": [Function],
+                            "toString": [Function],
+                            "warnTooManyClasses": [Function],
+                            "withComponent": [Function],
+                          }
+                        }
+                        forwardedRef={null}
+                        to="/"
+                      >
+                        <Link
+                          className="sc-bxivhb gjOGIy"
+                          to="/"
+                        >
+                          <a
+                            className="sc-bxivhb gjOGIy"
+                            href="/"
+                            onClick={[Function]}
+                          >
+                            Item
+                          </a>
+                        </Link>
+                      </StyledComponent>
+                    </Styled(Link)>
+                  </div>
+                </StyledComponent>
+              </styled.div>
+            </MenuItem>
+          </NavItem>
+        </WithTheme(NavItem)>
+      </Router>
+    </MemoryRouter>
+  </ThemeProvider>
+</Component>
+`;

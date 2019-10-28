@@ -2,7 +2,7 @@ import React from "react";
 import { Helmet } from "react-helmet";
 import { Route, Switch, Redirect } from "react-router-dom";
 import { AppHeader } from "~/components/organisms/Header";
-import Nav from "~/components/Nav";
+import Nav from "~/components/organisms/Nav";
 import { EnsureLoggedInContainer } from "~/components/containers/EnsureLoggedInContainer";
 import { TransportExpensePage, TimeCardPage, SignInPage, NoMatch } from ".";
 import { AppGrid } from "~/components/organisms";

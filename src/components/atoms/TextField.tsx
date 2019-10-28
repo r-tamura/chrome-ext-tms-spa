@@ -1,7 +1,6 @@
 import React from "react";
 import { FormItemContainer, FormItem } from "./Form";
 import styled, { css } from "styled-components";
-import { ThemeProps } from "~/styles/theme";
 
 export type InputProps = FormItem<HTMLInputElement>;
 type LabelProps = FormItem<HTMLLabelElement>;

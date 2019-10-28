@@ -1,6 +1,6 @@
-import * as React from "react";
+import React from "react";
 import { mount, shallow } from "enzyme";
-import Menu, { MenuItem } from "~/components/Menu";
+import { Menu, MenuItem } from "~/components/molecules";
 import { MemoryRouter } from "react-router";
 
 function setup() {
@@ -9,12 +9,8 @@ function setup() {
     mockedOnClick,
     Component: (
       <Menu title={"Test Menu"} open={true} onClose={mockedOnClick}>
-        <MemoryRouter>
-          <MenuItem to={"/"}>{"item1"}</MenuItem>
-        </MemoryRouter>
-        <MemoryRouter>
-          <MenuItem to={"/"}>{"item2"}</MenuItem>
-        </MemoryRouter>
+        <MenuItem>{"item1"}</MenuItem>
+        <MenuItem>{"item2"}</MenuItem>
       </Menu>
     )
   };
@@ -25,8 +21,8 @@ describe("<Menu />", () => {
     const mockedOnClick = jest.fn();
     const wrapper = shallow(
       <Menu title={"Test Menu"} open={true} onClose={mockedOnClick}>
-        <MenuItem to={"/"}>{"item1"}</MenuItem>
-        <MenuItem to={"/"}>{"item2"}</MenuItem>
+        <MenuItem>{"item1"}</MenuItem>
+        <MenuItem>{"item2"}</MenuItem>
       </Menu>
     );
     expect(wrapper.text().includes("Test Menu")).toBe(true);
