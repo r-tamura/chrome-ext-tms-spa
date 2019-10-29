@@ -95,8 +95,8 @@
   --menu-hovered-bg-color:       var(--hovered-bg-color); */
 
   /* Nav Item */
-  --nav-bg-color:                var(--primary-color);
+  /* --nav-bg-color:                var(--primary-color);
   --nav-item-color:              var(--primary-color-reverse);
   --nav-item-color-disabled:     var(--primary-color-reverse-dark);
-  --nav-item-bg-color-selected:  var(--primary-color-heavy-dark);
+  --nav-item-bg-color-selected:  var(--primary-color-heavy-dark); */
 }

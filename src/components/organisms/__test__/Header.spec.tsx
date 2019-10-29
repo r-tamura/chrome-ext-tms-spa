@@ -52,7 +52,7 @@ describe("<AppHeader />", () => {
     expect($HeaderUser.children().text()).toBe("testuser");
   });
 
-  describe("", () => {
+  describe("2要素", () => {
     const mockLogoutUser = jest.fn();
     mockedHooks.useUser.mockReturnValue({
       isAuthenticated: true,

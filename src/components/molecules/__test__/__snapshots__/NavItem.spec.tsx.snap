@@ -71,10 +71,10 @@ exports[`<NavItem /> Snapshot 1`] = `
           }
         }
       >
-        <WithTheme(NavItem)
+        <WithTheme(NavItemBase)
           to="/"
         >
-          <NavItem
+          <NavItemBase
             theme={
               Object {
                 "black": "rgb(5, 5, 5)",
@@ -216,8 +216,8 @@ exports[`<NavItem /> Snapshot 1`] = `
                 </StyledComponent>
               </styled.div>
             </MenuItem>
-          </NavItem>
-        </WithTheme(NavItem)>
+          </NavItemBase>
+        </WithTheme(NavItemBase)>
       </Router>
     </MemoryRouter>
   </ThemeProvider>

@@ -3,7 +3,7 @@ import { mount } from "enzyme";
 import { MemoryRouter } from "react-router";
 import toJson from "enzyme-to-json";
 import { matchers } from "jest-emotion";
-import NavItem from "~/components/molecules/NavItem";
+import { NavItem } from "~/components/molecules";
 import { AppThemeProvider } from "~/components/Provider";
 import { telema } from "~/styles/theme";
 

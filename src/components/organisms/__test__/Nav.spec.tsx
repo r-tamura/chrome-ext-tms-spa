@@ -2,10 +2,11 @@ import React from "react";
 import { mount } from "enzyme";
 import toJson from "enzyme-to-json";
 import { MemoryRouter } from "react-router";
-import Nav, { INavProps } from "~/components/organisms/Nav";
+import { Nav } from "~/components/organisms";
+import { NavItem } from "~/components/molecules";
 import { AppThemeProvider } from "~/components/Provider";
 
-const createComponent = (props: INavProps = { path: "transportation" }) => (
+const createComponent = (props = { path: "transportation" }) => (
   <AppThemeProvider>
     <MemoryRouter>
       <Nav {...props}>Item</Nav>
@@ -21,7 +22,7 @@ describe("<Nav />", () => {
 
   describe("交通費選択中", () => {
     const $ = mount(createComponent({ path: "transportation" }));
-    const $NavItems = $.find("NavItem");
+    const $NavItems = $.find(NavItem);
 
     it("リンクは3つ", () => {
       expect($NavItems.length).toBe(3);
@@ -43,8 +44,8 @@ describe("<Nav />", () => {
   });
 
   describe("勤怠管理選択中", () => {
-    const w = mount(createComponent({ path: "attendance" }));
-    const $NavItems = w.find("NavItem");
+    const $ = mount(createComponent({ path: "attendance" }));
+    const $NavItems = $.find(NavItem);
 
     it("交通費管理が選択されていない", () => {
       expect($NavItems.at(0).prop("selected")).toBeFalsy();

@@ -1,14 +1,18 @@
-import * as React from "react";
-import NavItem from "~/components/molecules/NavItem";
+import React from "react";
+import { NavItem } from "~/components/molecules";
+import styled from "styled-components";
+import { MID } from "~/styles/zIndex";
+import { STANDARD } from "~/styles/boxShadow";
+import { ThemeProps } from "~/styles/theme";
 
 interface INavProps extends React.Props<{}> {
   path: string;
 }
 
-const Nav: React.SFC<INavProps> = ({ path }) => {
+export const Nav: React.SFC<INavProps> = ({ path }) => {
   const pathname = path.replace(/^\/([^/]+).*$/, "$1");
   return (
-    <nav id="side-nav-bar" className="side-nav">
+    <NavStyled id="side-nav-bar">
       <ul>
         {/* リンク一覧 */}
         <li>
@@ -35,10 +39,12 @@ const Nav: React.SFC<INavProps> = ({ path }) => {
           </NavItem>
         </li>
       </ul>
-    </nav>
+    </NavStyled>
   );
 };
 
-export { INavProps };
-
-export default Nav;
+const NavStyled = styled.nav<ThemeProps>`
+  background-color: ${({ theme }) => theme.primary};
+  z-index: ${MID};
+  box-shadow: ${STANDARD};
+`;

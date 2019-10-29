@@ -3,7 +3,8 @@ import EventListener from "react-event-listener";
 import styled, { css } from "styled-components";
 
 interface IMenuItemProps extends React.HTMLAttributes<{}> {
-  as?: "button" | "div" | "li";
+  // TODO: HTMLタグリストを示す型を利用する
+  as?: React.ComponentType | "li" | "button" | "div" | "a";
   style?: React.CSSProperties;
   disabled?: boolean;
   component?: React.ElementType;

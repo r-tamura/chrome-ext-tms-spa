@@ -1,8 +1,7 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import { MenuItem } from "./Menu";
-import styled, { withTheme } from "styled-components";
-import { ThemeProps } from "~/styles/theme";
+import styled, { ThemeContext } from "styled-components";
 
 interface INavProps {
   to: string; // Routeのナビゲーション先
@@ -19,13 +18,13 @@ interface INavProps {
  * @param {boolean} disabled 無効なリンクであるか(true: 無効/false: 有効)
  * @param {React.ReactNode} children 子コンポーネント
  */
-const NavItem: React.SFC<INavProps & ThemeProps> = ({
+export const NavItem: React.SFC<INavProps> = ({
   to,
   disabled = false,
   selected = false,
-  children,
-  theme
+  children
 }) => {
+  const theme = useContext(ThemeContext);
   const StyledLink = disabled ? DisabeldLink : BaseLink;
 
   return (
@@ -53,7 +52,3 @@ const DisabeldLink = styled.div`
   color: ${({ theme }) => theme.white};
   opacity: 0.7;
 `;
-
-export { INavProps };
-
-export default withTheme(NavItem);

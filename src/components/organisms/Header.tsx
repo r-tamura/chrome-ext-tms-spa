@@ -7,6 +7,7 @@ import { STANDARD } from "~/styles/boxShadow";
 import { XL } from "~/styles/font";
 import { Theme } from "~/styles/theme";
 import { useUser } from "~/stores/hooks";
+import { Button } from "../atoms";
 
 interface IHeaderUserProps {
   onLogout: () => void;
@@ -22,7 +23,7 @@ const HeaderUser: FC<IHeaderUserProps> = ({ onLogout, children }) => {
         {children}
       </ClickableSpan>
       <Menu title={"User Menu"} onClose={handleClose} open={menuOpened}>
-        <MenuItem as={"button"} id={"logout"} onClick={handleLogout}>
+        <MenuItem as={Button} id={"logout"} onClick={handleLogout}>
           Logout
         </MenuItem>
       </Menu>
