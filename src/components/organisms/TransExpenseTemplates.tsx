@@ -19,7 +19,7 @@ import {
 } from "~/types";
 import { Table, Tr, Td } from "~/components/atoms/Table";
 import { useModal } from "~/components/hooks";
-import { SelectBox } from "../SelectBox";
+import { SelectBox } from "../atoms/SelectBox";
 import { CancelOkButtons } from "../molecules/CancelOkButtons";
 
 interface IProps {

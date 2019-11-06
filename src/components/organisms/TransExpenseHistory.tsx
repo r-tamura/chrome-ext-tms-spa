@@ -26,7 +26,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEdit, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { useModal } from "~/components/hooks";
 import useForm from "react-hook-form";
-import { SelectBox } from "../SelectBox";
+import { SelectBox } from "../atoms/SelectBox";
 import { formatDate } from "~/helpers/common";
 import { CancelOkButtons } from "../molecules/CancelOkButtons";
 

@@ -3,3 +3,4 @@ export * from "./Panel";
 export * from "./Modal";
 export * from "./Form";
 export * from "./TextField";
+export * from "./SelectBox";

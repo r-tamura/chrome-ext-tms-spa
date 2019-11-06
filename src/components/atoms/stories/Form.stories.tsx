@@ -1,7 +1,7 @@
 import React from "react";
 import { storiesOf } from "@storybook/react";
 import { Input } from "../TextField";
-import { SelectBox } from "~/components/SelectBox";
+import { SelectBox } from "~/components/atoms/SelectBox";
 import { Panel } from "../Panel";
 import { AppThemeProvider } from "~/components/Provider";
 import useForm from "react-hook-form";

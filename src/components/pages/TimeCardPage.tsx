@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { Helmet } from "react-helmet";
-import { SelectBox } from "~/components/SelectBox";
+import { SelectBox } from "~/components/atoms";
 import { Button, ButtonGroup, Input } from "~/components/atoms";
 import { zerofill } from "~/helpers/common";
 import { AttendanceMonthlyView, Project } from "~/types";
@@ -125,16 +125,16 @@ export const TimeCardPage: React.FC = () => {
               Submit
             </Button>
           ) : (
-            <Button
-              id={"btn-submit"}
-              variant={"contained"}
-              color={"secondary"}
-              title={"上長申請"}
-              onClick={onSubmit}
-            >
-              Submit
+              <Button
+                id={"btn-submit"}
+                variant={"contained"}
+                color={"secondary"}
+                title={"上長申請"}
+                onClick={onSubmit}
+              >
+                Submit
             </Button>
-          )}
+            )}
         </ButtonGroup>
         <div>
           <SelectBox
@@ -164,8 +164,8 @@ export const TimeCardPage: React.FC = () => {
               {record.isWeekday ? (
                 <TdWeekday>{zerofill(2, index + 1)}</TdWeekday>
               ) : (
-                <TdHoliday>{zerofill(2, index + 1)}</TdHoliday>
-              )}
+                  <TdHoliday>{zerofill(2, index + 1)}</TdHoliday>
+                )}
               <Td>
                 <Input
                   type="time"
@@ -192,7 +192,7 @@ export const TimeCardPage: React.FC = () => {
               <Td>
                 <SelectBox
                   name="projectId"
-                  defaultValue={record.project ? record.project.projectId : ""}
+                  value={record.project ? record.project.projectId : ""}
                   options={{
                     items: projects,
                     value: (project: Project) => project.projectId,
@@ -203,7 +203,7 @@ export const TimeCardPage: React.FC = () => {
                       projectId: e.currentTarget.selectedOptions.item(0).value
                     })
                   }
-                  // ref={register({ required: true })}
+                // ref={register({ required: true })}
                 />
               </Td>
               <Td>

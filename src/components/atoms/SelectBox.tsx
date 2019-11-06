@@ -22,7 +22,7 @@ export interface SelectBoxProps<T> extends React.HTMLProps<HTMLSelectElement> {
  */
 export const SelectBox = React.forwardRef(
   <T, _>(
-    { label, options, ...otherProps }: SelectBoxProps<T>,
+    { label, options, defaultValue, ...otherProps }: SelectBoxProps<T>,
     ref: React.Ref<HTMLSelectElement>
   ) => {
     return (
