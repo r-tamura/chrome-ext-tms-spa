@@ -46,9 +46,9 @@ exports[`<SignInPage /> should render Login page 1`] = `
               "$$typeof": Symbol(react.forward_ref),
               "attrs": Array [],
               "componentStyle": ComponentStyle {
-                "componentId": "sc-gqjmRU",
+                "componentId": "sc-VigVT",
                 "isStatic": true,
-                "lastClassName": "gjYXwE",
+                "lastClassName": "feDDAr",
                 "rules": Array [
                   "
   align-self: center;
@@ -59,7 +59,7 @@ exports[`<SignInPage /> should render Login page 1`] = `
               "displayName": "styled.main",
               "foldedComponentIds": Array [],
               "render": [Function],
-              "styledComponentId": "sc-gqjmRU",
+              "styledComponentId": "sc-VigVT",
               "target": "main",
               "toString": [Function],
               "warnTooManyClasses": [Function],
@@ -69,7 +69,7 @@ exports[`<SignInPage /> should render Login page 1`] = `
           forwardedRef={null}
         >
           <main
-            className="app-content-full sc-gqjmRU gjYXwE"
+            className="app-content-full sc-VigVT feDDAr"
           >
             <HelmetWrapper
               defer={true}
@@ -96,9 +96,9 @@ exports[`<SignInPage /> should render Login page 1`] = `
                     "$$typeof": Symbol(react.forward_ref),
                     "attrs": Array [],
                     "componentStyle": ComponentStyle {
-                      "componentId": "sc-VigVT",
+                      "componentId": "sc-jTzLTM",
                       "isStatic": true,
-                      "lastClassName": "iJmWbb",
+                      "lastClassName": "cuhfEz",
                       "rules": Array [
                         "
   width: 95%;
@@ -120,7 +120,7 @@ exports[`<SignInPage /> should render Login page 1`] = `
                     "displayName": "styled.div",
                     "foldedComponentIds": Array [],
                     "render": [Function],
-                    "styledComponentId": "sc-VigVT",
+                    "styledComponentId": "sc-jTzLTM",
                     "target": "div",
                     "toString": [Function],
                     "warnTooManyClasses": [Function],
@@ -130,7 +130,7 @@ exports[`<SignInPage /> should render Login page 1`] = `
                 forwardedRef={null}
               >
                 <div
-                  className="sc-VigVT iJmWbb"
+                  className="sc-jTzLTM cuhfEz"
                 >
                   <h1>
                     Sign in to TMS

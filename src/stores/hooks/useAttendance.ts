@@ -35,17 +35,23 @@ export function useAttendance() {
 
   function _addMonths(amount: number) {
     let { year, month } = state.attendanceMonthly;
-    return addMonths(new Date(year, month), amount);
+    // JavaScriptのDate型の月は 0-11 の範囲
+    // アプリ内のstateは1-12の範囲で扱っているため変換が必要
+    // state -> Date: -1
+    // Date -> state: +1
+    return addMonths(new Date(year, month - 1), amount);
   }
 
   function nextMonth() {
     const date = _addMonths(1);
-    dispatchChangeMonth(date.getFullYear(), date.getMonth());
+    // 上のコメントを参照
+    dispatchChangeMonth(date.getFullYear(), date.getMonth() + 1);
   }
 
   function prevMonth() {
     const date = _addMonths(-1);
-    dispatchChangeMonth(date.getFullYear(), date.getMonth());
+    // 上のコメントを参照
+    dispatchChangeMonth(date.getFullYear(), date.getMonth() + 1);
   }
 
   const dispatchChangeMonth = compose(

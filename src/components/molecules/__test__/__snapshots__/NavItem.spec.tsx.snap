@@ -71,59 +71,31 @@ exports[`<NavItem /> Snapshot 1`] = `
           }
         }
       >
-        <WithTheme(NavItemBase)
+        <Component
           to="/"
         >
-          <NavItemBase
-            theme={
-              Object {
-                "black": "rgb(5, 5, 5)",
-                "buttonDefault": "rgba(0, 0, 0, 0.08)",
-                "danger": "#D32F2F",
-                "fontFamily": "\\"M PLUS Rounded 1c\\", sans-serif",
-                "formBorderColor": "rgba(0, 0, 0, 0.16)",
-                "formBorderColorDisabled": "rgba(0, 0, 0, 0.08)",
-                "formBorderColorError": "#D32F2F",
-                "formBorderColorFocused": "hsl(206, 100%, 31%)",
-                "hoveredBg": "rgba(0, 0, 0, 0.03)",
-                "inputPlaceHolder": "rgba(0, 0, 0, 0.09)",
-                "primary": "hsl(206, 100%, 31%)",
-                "primaryDark": "hsl(208, 80%, 27%)",
-                "primaryHeavyDark": "hsl(208, 80%, 27%)",
-                "primaryHeavyLight": "hsl(199, 91%, 64%);",
-                "primaryLight": "hsl(201, 98%, 41%);",
-                "primaryReverse": "hsla(0, 0%, 99%, 1);",
-                "primaryReverseDark": "hsla(0, 0%, 99%, 0.5);",
-                "secondary": "#689F38",
-                "textGray": "hsla(0, 5%, 5%, .25)",
-                "textMain": "hsl(0, 5%, 5%)",
-                "white": "rgb(253, 253, 253)",
-              }
-            }
-            to="/"
+          <MenuItem
+            disabled={false}
+            style={null}
           >
-            <MenuItem
+            <styled.div
+              as="div"
               disabled={false}
               style={null}
             >
-              <styled.div
+              <StyledComponent
                 as="div"
                 disabled={false}
-                style={null}
-              >
-                <StyledComponent
-                  as="div"
-                  disabled={false}
-                  forwardedComponent={
-                    Object {
-                      "$$typeof": Symbol(react.forward_ref),
-                      "attrs": Array [],
-                      "componentStyle": ComponentStyle {
-                        "componentId": "sc-htpNat",
-                        "isStatic": false,
-                        "lastClassName": "XnzGZ",
-                        "rules": Array [
-                          "
+                forwardedComponent={
+                  Object {
+                    "$$typeof": Symbol(react.forward_ref),
+                    "attrs": Array [],
+                    "componentStyle": ComponentStyle {
+                      "componentId": "sc-htpNat",
+                      "isStatic": false,
+                      "lastClassName": "XnzGZ",
+                      "rules": Array [
+                        "
   display: block;
   padding-left: 16px;
   padding-right: 16px;
@@ -141,83 +113,82 @@ exports[`<NavItem /> Snapshot 1`] = `
   }
 
   ",
-                          [Function],
-                          ";
+                        [Function],
+                        ";
 ",
-                        ],
-                      },
-                      "displayName": "styled.div",
-                      "foldedComponentIds": Array [],
-                      "render": [Function],
-                      "styledComponentId": "sc-htpNat",
-                      "target": "div",
-                      "toString": [Function],
-                      "warnTooManyClasses": [Function],
-                      "withComponent": [Function],
-                    }
+                      ],
+                    },
+                    "displayName": "styled.div",
+                    "foldedComponentIds": Array [],
+                    "render": [Function],
+                    "styledComponentId": "sc-htpNat",
+                    "target": "div",
+                    "toString": [Function],
+                    "warnTooManyClasses": [Function],
+                    "withComponent": [Function],
                   }
-                  forwardedRef={null}
+                }
+                forwardedRef={null}
+                style={null}
+              >
+                <div
+                  className="sc-htpNat XnzGZ"
+                  disabled={false}
                   style={null}
                 >
-                  <div
-                    className="sc-htpNat XnzGZ"
-                    disabled={false}
-                    style={null}
+                  <Styled(Link)
+                    to="/"
                   >
-                    <Styled(Link)
-                      to="/"
-                    >
-                      <StyledComponent
-                        forwardedComponent={
-                          Object {
-                            "$$typeof": Symbol(react.forward_ref),
-                            "attrs": Array [],
-                            "componentStyle": ComponentStyle {
-                              "componentId": "sc-bxivhb",
-                              "isStatic": false,
-                              "lastClassName": "gjOGIy",
-                              "rules": Array [
-                                "
+                    <StyledComponent
+                      forwardedComponent={
+                        Object {
+                          "$$typeof": Symbol(react.forward_ref),
+                          "attrs": Array [],
+                          "componentStyle": ComponentStyle {
+                            "componentId": "sc-bxivhb",
+                            "isStatic": false,
+                            "lastClassName": "gjOGIy",
+                            "rules": Array [
+                              "
   color: ",
-                                [Function],
-                                ";
+                              [Function],
+                              ";
   display: block;
 ",
-                              ],
-                            },
-                            "displayName": "Styled(Link)",
-                            "foldedComponentIds": Array [],
-                            "render": [Function],
-                            "styledComponentId": "sc-bxivhb",
-                            "target": [Function],
-                            "toString": [Function],
-                            "warnTooManyClasses": [Function],
-                            "withComponent": [Function],
-                          }
+                            ],
+                          },
+                          "displayName": "Styled(Link)",
+                          "foldedComponentIds": Array [],
+                          "render": [Function],
+                          "styledComponentId": "sc-bxivhb",
+                          "target": [Function],
+                          "toString": [Function],
+                          "warnTooManyClasses": [Function],
+                          "withComponent": [Function],
                         }
-                        forwardedRef={null}
+                      }
+                      forwardedRef={null}
+                      to="/"
+                    >
+                      <Link
+                        className="sc-bxivhb gjOGIy"
                         to="/"
                       >
-                        <Link
+                        <a
                           className="sc-bxivhb gjOGIy"
-                          to="/"
+                          href="/"
+                          onClick={[Function]}
                         >
-                          <a
-                            className="sc-bxivhb gjOGIy"
-                            href="/"
-                            onClick={[Function]}
-                          >
-                            Item
-                          </a>
-                        </Link>
-                      </StyledComponent>
-                    </Styled(Link)>
-                  </div>
-                </StyledComponent>
-              </styled.div>
-            </MenuItem>
-          </NavItemBase>
-        </WithTheme(NavItemBase)>
+                          Item
+                        </a>
+                      </Link>
+                    </StyledComponent>
+                  </Styled(Link)>
+                </div>
+              </StyledComponent>
+            </styled.div>
+          </MenuItem>
+        </Component>
       </Router>
     </MemoryRouter>
   </ThemeProvider>

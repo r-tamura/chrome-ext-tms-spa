@@ -39,9 +39,9 @@ exports[`<AppHeader /> shallow render snapshot 1`] = `
             "$$typeof": Symbol(react.forward_ref),
             "attrs": Array [],
             "componentStyle": ComponentStyle {
-              "componentId": "sc-chPdSV",
+              "componentId": "sc-kgoBCf",
               "isStatic": false,
-              "lastClassName": "eUYhZF",
+              "lastClassName": "cEKvpN",
               "rules": Array [
                 "
   display: flex;
@@ -69,7 +69,7 @@ exports[`<AppHeader /> shallow render snapshot 1`] = `
             "displayName": "styled.header",
             "foldedComponentIds": Array [],
             "render": [Function],
-            "styledComponentId": "sc-chPdSV",
+            "styledComponentId": "sc-kgoBCf",
             "target": "header",
             "toString": [Function],
             "warnTooManyClasses": [Function],
@@ -79,7 +79,7 @@ exports[`<AppHeader /> shallow render snapshot 1`] = `
         forwardedRef={null}
       >
         <header
-          className="app-header sc-chPdSV eUYhZF"
+          className="app-header sc-kgoBCf cEKvpN"
         >
           <styled.a
             href="http://www.telema.jp/"
@@ -90,9 +90,9 @@ exports[`<AppHeader /> shallow render snapshot 1`] = `
                   "$$typeof": Symbol(react.forward_ref),
                   "attrs": Array [],
                   "componentStyle": ComponentStyle {
-                    "componentId": "sc-kAzzGY",
+                    "componentId": "sc-chPdSV",
                     "isStatic": true,
-                    "lastClassName": "ebsFwM",
+                    "lastClassName": "iJSWDz",
                     "rules": Array [
                       "
   display: block;
@@ -108,7 +108,7 @@ exports[`<AppHeader /> shallow render snapshot 1`] = `
                   "displayName": "styled.a",
                   "foldedComponentIds": Array [],
                   "render": [Function],
-                  "styledComponentId": "sc-kAzzGY",
+                  "styledComponentId": "sc-chPdSV",
                   "target": "a",
                   "toString": [Function],
                   "warnTooManyClasses": [Function],
@@ -119,7 +119,7 @@ exports[`<AppHeader /> shallow render snapshot 1`] = `
               href="http://www.telema.jp/"
             >
               <a
-                className="sc-kAzzGY ebsFwM"
+                className="sc-chPdSV iJSWDz"
                 href="http://www.telema.jp/"
               >
                 <img
@@ -139,9 +139,9 @@ exports[`<AppHeader /> shallow render snapshot 1`] = `
                     "$$typeof": Symbol(react.forward_ref),
                     "attrs": Array [],
                     "componentStyle": ComponentStyle {
-                      "componentId": "sc-kgoBCf",
+                      "componentId": "sc-kGXeez",
                       "isStatic": false,
-                      "lastClassName": "qEREm",
+                      "lastClassName": "ekWWdm",
                       "rules": Array [
                         "
   display: flex;
@@ -169,7 +169,7 @@ exports[`<AppHeader /> shallow render snapshot 1`] = `
                     "displayName": "styled.div",
                     "foldedComponentIds": Array [],
                     "render": [Function],
-                    "styledComponentId": "sc-kgoBCf",
+                    "styledComponentId": "sc-kGXeez",
                     "target": "div",
                     "toString": [Function],
                     "warnTooManyClasses": [Function],
@@ -179,7 +179,7 @@ exports[`<AppHeader /> shallow render snapshot 1`] = `
                 forwardedRef={null}
               >
                 <div
-                  className="sc-kgoBCf qEREm"
+                  className="sc-kGXeez ekWWdm"
                 >
                   <styled.span
                     id="header-user-button"
@@ -191,9 +191,9 @@ exports[`<AppHeader /> shallow render snapshot 1`] = `
                           "$$typeof": Symbol(react.forward_ref),
                           "attrs": Array [],
                           "componentStyle": ComponentStyle {
-                            "componentId": "sc-cSHVUG",
+                            "componentId": "sc-kAzzGY",
                             "isStatic": true,
-                            "lastClassName": "hECJbc",
+                            "lastClassName": "fRLZpl",
                             "rules": Array [
                               "
   &:hover {
@@ -206,7 +206,7 @@ exports[`<AppHeader /> shallow render snapshot 1`] = `
                           "displayName": "styled.span",
                           "foldedComponentIds": Array [],
                           "render": [Function],
-                          "styledComponentId": "sc-cSHVUG",
+                          "styledComponentId": "sc-kAzzGY",
                           "target": "span",
                           "toString": [Function],
                           "warnTooManyClasses": [Function],
@@ -218,7 +218,7 @@ exports[`<AppHeader /> shallow render snapshot 1`] = `
                       onClick={[Function]}
                     >
                       <span
-                        className="sc-cSHVUG hECJbc"
+                        className="sc-kAzzGY fRLZpl"
                         id="header-user-button"
                         onClick={[Function]}
                       >
