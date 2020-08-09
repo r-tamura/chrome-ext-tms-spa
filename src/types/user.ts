@@ -3,7 +3,7 @@
  */
 export interface User {
   /** ログイン認証済みであるか */
-  isAuthenticated: boolean
+  isAuthenticated: boolean;
   /** ユーザ名 */
-  name?: string
+  name?: string;
 }

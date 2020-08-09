@@ -1,1 +1,1 @@
-export { default as AddIcon } from "./AddIcon"
+export { AddIcon } from "./AddIcon";

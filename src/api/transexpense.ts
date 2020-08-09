@@ -1,13 +1,13 @@
-import { compose, filter, map, propEq, not } from "ramda"
-import { get, post } from "~/helpers/http"
+import { compose, filter, map, propEq, not } from "ramda";
+import { get, post } from "~/helpers/http";
 import {
   convTransExpenseList,
   convTransExpenseUpdate,
   convTransExpenseCreate,
-  convTransExpenseDelete,
-} from "~/helpers/htmlConverter"
-import { LS_TRANS_EXPENSE_TEMPLATE, urls } from "~/helpers/_const"
-import { composeAsync, remap, uuidv4 } from "~/helpers/common"
+  convTransExpenseDelete
+} from "~/helpers/htmlConverter";
+import { LS_TRANS_EXPENSE_TEMPLATE, urls } from "~/helpers/_const";
+import { remap, uuidv4 } from "~/helpers/common";
 import {
   TransExpense,
   TransExpenseTemplate,
@@ -15,43 +15,49 @@ import {
   Master,
   ResultStatus,
   Status,
-} from "~/types"
-import Storage from "~/helpers/storage"
+  ExpenseId
+} from "~/types";
+import Storage from "~/helpers/storage";
 
 /**
  * テンプレートに指定されたIDのアイテムを追加します
  */
 async function createTemplate(template: TransExpense): Promise<ResultStatus> {
-  const templates = await fetchTemplatesAll()
-  const strJson = JSON.stringify([...templates, { templateId: uuidv4(), ...template }])
+  const templates = await fetchTemplatesAll();
+  const strJson = JSON.stringify([
+    ...templates,
+    { templateId: uuidv4(), ...template }
+  ]);
 
   // ストーレジ更新
-  localStorage.setItem(LS_TRANS_EXPENSE_TEMPLATE, strJson)
+  localStorage.setItem(LS_TRANS_EXPENSE_TEMPLATE, strJson);
 
   return {
     status: Status.OK,
-    message: "テンプレートの登録が完了しました",
-  }
+    message: "テンプレートの登録が完了しました"
+  };
 }
 
 /**
  * テンプレートから指定されたIDのアイテムを削除します
  */
 async function deleteTemplate(templateId: number): Promise<ResultStatus> {
-  const templates = await fetchTemplatesAll()
+  const templates = await fetchTemplatesAll();
   const newTemplates = compose(
-    filter(compose(
-      not,
-      propEq("templateId", templateId)
-    ))
-  )(templates)
+    filter(
+      compose(
+        not,
+        propEq("templateId", templateId)
+      )
+    )
+  )(templates);
 
   // ストーレジ更新
-  await Storage.saveInStorage(LS_TRANS_EXPENSE_TEMPLATE, newTemplates)
+  await Storage.saveInStorage(LS_TRANS_EXPENSE_TEMPLATE, newTemplates);
   return {
     status: Status.OK,
-    message: "テンプレートの削除が完了しました",
-  }
+    message: "テンプレートの削除が完了しました"
+  };
 }
 
 /**
@@ -59,27 +65,29 @@ async function deleteTemplate(templateId: number): Promise<ResultStatus> {
  *
  * @param {TransExpenseTemplate} newTemplates
  */
-async function updateTemplate(newTemplate: TransExpenseTemplate): Promise<ResultStatus> {
-  const templates = await fetchTemplatesAll()
+async function updateTemplate(
+  newTemplate: TransExpenseTemplate
+): Promise<ResultStatus> {
+  const templates = await fetchTemplatesAll();
   const newTemplates = map(dbTemplate => {
-      if (propEq("templateId", newTemplate.templateId, dbTemplate)) {
-        return newTemplate
-      }
-      return dbTemplate
-    })(templates)
+    if (propEq("templateId", newTemplate.templateId, dbTemplate)) {
+      return newTemplate;
+    }
+    return dbTemplate;
+  })(templates);
 
   // ストーレジ更新
-  await Storage.saveInStorage(LS_TRANS_EXPENSE_TEMPLATE, newTemplates)
+  await Storage.saveInStorage(LS_TRANS_EXPENSE_TEMPLATE, newTemplates);
   return {
     status: Status.OK,
-    message: "テンプレートの更新が完了しました",
-  }
+    message: "テンプレートの更新が完了しました"
+  };
 }
 
 function fetchTemplatesAll(): Promise<TransExpenseTemplate[]> {
-  return Storage
-    .getFromStorage<TransExpenseTemplate[]>(LS_TRANS_EXPENSE_TEMPLATE)
-    .then(res => res === null ? [] : res)
+  return Storage.getFromStorage<TransExpenseTemplate[]>(
+    LS_TRANS_EXPENSE_TEMPLATE
+  ).then(res => (res === null ? [] : res));
 }
 
 const clientToServerKeyMap = {
@@ -91,10 +99,11 @@ const clientToServerKeyMap = {
   customer: "custm",
   from: "frpls",
   to: "topls",
-  cost: "cost",
-}
+  cost: "cost"
+};
 
-const clientToServer = (client: TransExpense) => remap(clientToServerKeyMap, client)
+const clientToServer = (client: TransExpense) =>
+  remap(clientToServerKeyMap, client);
 
 /**
  * サーバに交通費データを作成します
@@ -103,11 +112,14 @@ const clientToServer = (client: TransExpense) => remap(clientToServerKeyMap, cli
  * @return 交通費作成の結果
  */
 async function create(expenseOnClient: TransExpense): Promise<ResultStatus> {
-  const expenseOnServer = clientToServer(expenseOnClient)
-  const action = { func: "insert" }
-  const htmlRes = await post(urls.TRANS_EXPENSE_REGISTER, { ...expenseOnServer, ...action})
-  const res = convTransExpenseCreate(htmlRes)
-  return res
+  const expenseOnServer = clientToServer(expenseOnClient);
+  const action = { func: "insert" };
+  const htmlRes = await post(urls.TRANS_EXPENSE_REGISTER, {
+    ...expenseOnServer,
+    ...action
+  });
+  const res = convTransExpenseCreate(htmlRes);
+  return res;
 }
 
 /**
@@ -117,11 +129,14 @@ async function create(expenseOnClient: TransExpense): Promise<ResultStatus> {
  * @return 交通費更新の結果
  */
 async function update(expenseOnClient: TransExpense): Promise<ResultStatus> {
-  const expenseOnServer = clientToServer(expenseOnClient)
-  const action = { func: "update" }
-  const htmlRes = await post(urls.TRANS_EXPENSE_REGISTER, { ...expenseOnServer, ...action})
-  const res = convTransExpenseUpdate(htmlRes)
-  return res
+  const expenseOnServer = clientToServer(expenseOnClient);
+  const action = { func: "update" };
+  const htmlRes = await post(urls.TRANS_EXPENSE_REGISTER, {
+    ...expenseOnServer,
+    ...action
+  });
+  const res = convTransExpenseUpdate(htmlRes);
+  return res;
 }
 
 /**
@@ -131,12 +146,15 @@ async function update(expenseOnClient: TransExpense): Promise<ResultStatus> {
  * @param expenseId 交通費ID
  * @return 交通費削除の結果
  */
-async function delete_(expenseId: number): Promise<ResultStatus> {
-  const expenseIdKey = clientToServerKeyMap.expenseId
-  const action = { func: "delete" }
-  const htmlRes = await post(urls.TRANS_EXPENSE_REGISTER, { [expenseIdKey]: expenseId, ...action })
-  const res = convTransExpenseDelete(htmlRes)
-  return res
+async function delete_(expenseId: ExpenseId): Promise<ResultStatus> {
+  const expenseIdKey = clientToServerKeyMap.expenseId;
+  const action = { func: "delete" };
+  const htmlRes = await post(urls.TRANS_EXPENSE_REGISTER, {
+    [expenseIdKey]: expenseId,
+    ...action
+  });
+  const res = convTransExpenseDelete(htmlRes);
+  return res;
 }
 
 /**
@@ -146,13 +164,12 @@ async function delete_(expenseId: number): Promise<ResultStatus> {
  * @return View用交通費リスト
  */
 async function fetchAll(master: Master): Promise<TransExpenseView[]> {
-  const htmlRes = await get("/tmskin/T1020_transport.php")
-    .catch(err => {
-      console.error(err)
-      throw err
-    })
-  const res = convTransExpenseList(master, htmlRes)
-  return res
+  const htmlRes = await get("/tmskin/T1020_transport.php").catch(err => {
+    console.error(err);
+    throw err;
+  });
+  const res = convTransExpenseList(master, htmlRes);
+  return res;
 }
 
 export {
@@ -163,5 +180,5 @@ export {
   create,
   update,
   delete_,
-  fetchAll,
-}
+  fetchAll
+};

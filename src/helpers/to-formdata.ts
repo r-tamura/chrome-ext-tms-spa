@@ -9,11 +9,11 @@
  * formdata.has("foo") // true
  */
 const toFormData = (input: object): FormData => {
-  const fd = new FormData()
+  const fd = new FormData();
   for (const [k, v] of Object.entries(input)) {
-    fd.append(k, v)
+    fd.append(k, v);
   }
-  return fd
-}
+  return fd;
+};
 
-export default toFormData
+export default toFormData;

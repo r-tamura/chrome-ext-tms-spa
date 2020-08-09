@@ -1,0 +1,33 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<TimeCardPage /> shallow render snapshot 1`] = `
+<ThemeProvider
+  theme={
+    Object {
+      "black": "rgb(5, 5, 5)",
+      "buttonDefault": "rgba(0, 0, 0, 0.08)",
+      "danger": "#D32F2F",
+      "fontFamily": "\\"M PLUS Rounded 1c\\", sans-serif",
+      "formBorderColor": "rgba(0, 0, 0, 0.16)",
+      "formBorderColorDisabled": "rgba(0, 0, 0, 0.08)",
+      "formBorderColorError": "#D32F2F",
+      "formBorderColorFocused": "hsl(206, 100%, 31%)",
+      "hoveredBg": "rgba(0, 0, 0, 0.03)",
+      "inputPlaceHolder": "rgba(0, 0, 0, 0.09)",
+      "primary": "hsl(206, 100%, 31%)",
+      "primaryDark": "hsl(208, 80%, 27%)",
+      "primaryHeavyDark": "hsl(208, 80%, 27%)",
+      "primaryHeavyLight": "hsl(199, 91%, 64%);",
+      "primaryLight": "hsl(201, 98%, 41%);",
+      "primaryReverse": "hsla(0, 0%, 99%, 1);",
+      "primaryReverseDark": "hsla(0, 0%, 99%, 0.5);",
+      "secondary": "#689F38",
+      "textGray": "hsla(0, 5%, 5%, .25)",
+      "textMain": "hsl(0, 5%, 5%)",
+      "white": "rgb(253, 253, 253)",
+    }
+  }
+>
+  <Component />
+</ThemeProvider>
+`;

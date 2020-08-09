@@ -1,0 +1,243 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<AppHeader /> shallow render snapshot 1`] = `
+<ThemeProvider
+  theme={
+    Object {
+      "black": "rgb(5, 5, 5)",
+      "buttonDefault": "rgba(0, 0, 0, 0.08)",
+      "danger": "#D32F2F",
+      "fontFamily": "\\"M PLUS Rounded 1c\\", sans-serif",
+      "formBorderColor": "rgba(0, 0, 0, 0.16)",
+      "formBorderColorDisabled": "rgba(0, 0, 0, 0.08)",
+      "formBorderColorError": "#D32F2F",
+      "formBorderColorFocused": "hsl(206, 100%, 31%)",
+      "hoveredBg": "rgba(0, 0, 0, 0.03)",
+      "inputPlaceHolder": "rgba(0, 0, 0, 0.09)",
+      "primary": "hsl(206, 100%, 31%)",
+      "primaryDark": "hsl(208, 80%, 27%)",
+      "primaryHeavyDark": "hsl(208, 80%, 27%)",
+      "primaryHeavyLight": "hsl(199, 91%, 64%);",
+      "primaryLight": "hsl(201, 98%, 41%);",
+      "primaryReverse": "hsla(0, 0%, 99%, 1);",
+      "primaryReverseDark": "hsla(0, 0%, 99%, 0.5);",
+      "secondary": "#689F38",
+      "textGray": "hsla(0, 5%, 5%, .25)",
+      "textMain": "hsl(0, 5%, 5%)",
+      "white": "rgb(253, 253, 253)",
+    }
+  }
+>
+  <Component>
+    <styled.header
+      className="app-header"
+    >
+      <StyledComponent
+        className="app-header"
+        forwardedComponent={
+          Object {
+            "$$typeof": Symbol(react.forward_ref),
+            "attrs": Array [],
+            "componentStyle": ComponentStyle {
+              "componentId": "sc-kgoBCf",
+              "isStatic": false,
+              "lastClassName": "cEKvpN",
+              "rules": Array [
+                "
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  padding: 0 5px;
+  background-color: ",
+                [Function],
+                ";
+  font-size: ",
+                "21px",
+                ";
+  font-weight: bolder;
+  line-height: 50px;
+
+  z-index: ",
+                "999",
+                ";
+  box-shadow: ",
+                "0px 0px 5px #222222",
+                ";
+",
+              ],
+            },
+            "displayName": "styled.header",
+            "foldedComponentIds": Array [],
+            "render": [Function],
+            "styledComponentId": "sc-kgoBCf",
+            "target": "header",
+            "toString": [Function],
+            "warnTooManyClasses": [Function],
+            "withComponent": [Function],
+          }
+        }
+        forwardedRef={null}
+      >
+        <header
+          className="app-header sc-kgoBCf cEKvpN"
+        >
+          <styled.a
+            href="http://www.telema.jp/"
+          >
+            <StyledComponent
+              forwardedComponent={
+                Object {
+                  "$$typeof": Symbol(react.forward_ref),
+                  "attrs": Array [],
+                  "componentStyle": ComponentStyle {
+                    "componentId": "sc-chPdSV",
+                    "isStatic": true,
+                    "lastClassName": "iJSWDz",
+                    "rules": Array [
+                      "
+  display: block;
+  width: 40px;
+  &:focus,
+  &:hover {
+    opacity: 0.8;
+    text-decoration: none;
+  }
+",
+                    ],
+                  },
+                  "displayName": "styled.a",
+                  "foldedComponentIds": Array [],
+                  "render": [Function],
+                  "styledComponentId": "sc-chPdSV",
+                  "target": "a",
+                  "toString": [Function],
+                  "warnTooManyClasses": [Function],
+                  "withComponent": [Function],
+                }
+              }
+              forwardedRef={null}
+              href="http://www.telema.jp/"
+            >
+              <a
+                className="sc-chPdSV iJSWDz"
+                href="http://www.telema.jp/"
+              >
+                <img
+                  alt="logo"
+                  src="https://www.telema.co.jp/images/logo_sp.svg"
+                />
+              </a>
+            </StyledComponent>
+          </styled.a>
+          <HeaderUser
+            onLogout={[MockFunction]}
+          >
+            <styled.div>
+              <StyledComponent
+                forwardedComponent={
+                  Object {
+                    "$$typeof": Symbol(react.forward_ref),
+                    "attrs": Array [],
+                    "componentStyle": ComponentStyle {
+                      "componentId": "sc-kGXeez",
+                      "isStatic": false,
+                      "lastClassName": "ekWWdm",
+                      "rules": Array [
+                        "
+  display: flex;
+  align-items: center;
+  margin-left: auto;
+  color: ",
+                        [Function],
+                        ";
+
+  .person-icon {
+    background-image: url(chrome-extension://odbcdehjjdjjnpenjbblpmkkibggblpe/chrome/assets/images/person.svg);
+    height: 50%;
+    width: 25px;
+    display: block;
+  }
+
+  &:hover {
+    color: ",
+                        [Function],
+                        ";
+  }
+",
+                      ],
+                    },
+                    "displayName": "styled.div",
+                    "foldedComponentIds": Array [],
+                    "render": [Function],
+                    "styledComponentId": "sc-kGXeez",
+                    "target": "div",
+                    "toString": [Function],
+                    "warnTooManyClasses": [Function],
+                    "withComponent": [Function],
+                  }
+                }
+                forwardedRef={null}
+              >
+                <div
+                  className="sc-kGXeez ekWWdm"
+                >
+                  <styled.span
+                    id="header-user-button"
+                    onClick={[Function]}
+                  >
+                    <StyledComponent
+                      forwardedComponent={
+                        Object {
+                          "$$typeof": Symbol(react.forward_ref),
+                          "attrs": Array [],
+                          "componentStyle": ComponentStyle {
+                            "componentId": "sc-kAzzGY",
+                            "isStatic": true,
+                            "lastClassName": "fRLZpl",
+                            "rules": Array [
+                              "
+  &:hover {
+    cursor: pointer;
+    text-decoration: none;
+  }
+",
+                            ],
+                          },
+                          "displayName": "styled.span",
+                          "foldedComponentIds": Array [],
+                          "render": [Function],
+                          "styledComponentId": "sc-kAzzGY",
+                          "target": "span",
+                          "toString": [Function],
+                          "warnTooManyClasses": [Function],
+                          "withComponent": [Function],
+                        }
+                      }
+                      forwardedRef={null}
+                      id="header-user-button"
+                      onClick={[Function]}
+                    >
+                      <span
+                        className="sc-kAzzGY fRLZpl"
+                        id="header-user-button"
+                        onClick={[Function]}
+                      >
+                        testuser
+                      </span>
+                    </StyledComponent>
+                  </styled.span>
+                  <Menu
+                    onClose={[Function]}
+                    open={false}
+                    title="User Menu"
+                  />
+                </div>
+              </StyledComponent>
+            </styled.div>
+          </HeaderUser>
+        </header>
+      </StyledComponent>
+    </styled.header>
+  </Component>
+</ThemeProvider>
+`;

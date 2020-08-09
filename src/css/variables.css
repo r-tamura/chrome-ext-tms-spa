@@ -1,10 +1,4 @@
 :root {
-  /* Media queries */
-  @custom-media --xs (min-width: 544px);
-  @custom-media --sm (min-width: 768px);
-  @custom-media --md (min-width: 992px);
-  @custom-media --lg (min-width: 1200px);
-
   --primary-color-heavy-light:  hsl(199, 91%, 64%);
   --primary-color-light:        hsl(201, 98%, 41%);
   --primary-color:              hsl(206, 100%, 31%);
@@ -39,85 +33,70 @@
 
   /* Form */
 
-  --input-height:                  30px;
+  /* --input-height:                  30px; */
 
-  --form-group-margin-bottom:      20px;
+  /* --form-group-margin-bottom:      20px; */
 
   /* Table */
-  --color-table-hovered:           var(--hovered-bg-color);
+  /* --color-table-hovered:           var(--hovered-bg-color);
   --table-cell-padding:            8px;
-  --table-cell-padding-sm:         .3rem;
-  
+  --table-cell-padding-sm:         .3rem; */
+
   /* Button */
-  --color-button-disabled:           var(--text-gray);
+  /* --color-button-disabled:           var(--text-gray);
   --btn-height:                      36px;
   --btn-height-sm:                   var(--btn-height * 0.85);
   --btn-height-lg:                   var(--btn-height * 1.5);
-  
+
   --btn-border-radius:               var(--border-radius-default);
-  
+
   --btn-padding-horizontal:          26px;
   --btn-padding-horizontal-sm:       16px;
   --btn-padding-horizontal-lg:       var(--btn-padding-horizontal);
-  
+
   --btn-font-size:                   14px;
   --btn-font-size-sm:                13px;
   --btn-font-size-lg:                var(--btn-font-size);
-  
+
   --btn-fab-diameter:                55px;
   --btn-fab-diameter-sm:             44px;
   --btn-fab-diameter-lg:             75px;
-  
+
   --btn-margin-vertical:             6px;
   --btn-spacing-horizontal:          8px;
 
   --btn-shadow-little:               0 0 2px rgba(0,0,0,.12),0 2px 2px rgba(0,0,0,.2);
-  --btn-shadow:                      0px 3px 5px -1px rgba(0, 0, 0, 0.2), 0px 6px 10px 0px rgba(0, 0, 0, 0.14), 0px 1px 18px 0px rgba(0, 0, 0, 0.12);
-  
+  --btn-shadow:                      0px 3px 5px -1px rgba(0, 0, 0, 0.2), 0px 6px 10px 0px rgba(0, 0, 0, 0.14), 0px 1px 18px 0px rgba(0, 0, 0, 0.12); */
+
   /* Forms */
-  --input-placeholder-color:     rgba(0, 0, 0, 0.09);
+  /* --input-placeholder-color:     rgba(0, 0, 0, 0.09);
   --input-bg-color:              transparent;
   --input-bg-color-disabled:     transparent;
   --input-font-color:            var(--base-font-color);
   --input-font-size:             16px;
   --input-height:                32px;
-  
+
   --input-border-color:          var(--input-placeholder-color);
   --input-border-color-focus:    var(--primary-color);
-  
+
   --textarea-height:             64px;
-  
+
   --label-font-size:             12px;
   --label-font-color:            rgba(0, 0, 0, 0.54);
   --label-margin-bottom:         3px;
-  
+
   --form-legend-font-size:       var(--base-font-size * 1.5);
   --form-legend-margin-bottom:   var(--form-legend-font-size / 2);
   --form-legend-font-color:      var(--base-font-color);
-  --form-group-margin-bottom:    20px;
+  --form-group-margin-bottom:    20px; */
 
   /* Menu */
-  --menu-disabled-color:         rgba(0, 0, 0, 0.12);
-  --menu-hovered-bg-color:       var(--hovered-bg-color);
+  /* --menu-disabled-color:         rgba(0, 0, 0, 0.12);
+  --menu-hovered-bg-color:       var(--hovered-bg-color); */
 
   /* Nav Item */
-  --nav-bg-color:                var(--primary-color);
+  /* --nav-bg-color:                var(--primary-color);
   --nav-item-color:              var(--primary-color-reverse);
   --nav-item-color-disabled:     var(--primary-color-reverse-dark);
-  --nav-item-bg-color-selected:  var(--primary-color-heavy-dark);
-
-  --form-label: {
-    position: absolute;
-    top: 0;
-    display: block;
-    width: 100%;
-    color: var(--label-font-color);
-    font-size: 12px;
-    font-weight: 400;
-    line-height: 15px;
-    overflow-x: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    text-align: left;
-  }
+  --nav-item-bg-color-selected:  var(--primary-color-heavy-dark); */
 }
